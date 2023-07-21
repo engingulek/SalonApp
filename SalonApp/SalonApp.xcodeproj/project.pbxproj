@@ -9,12 +9,15 @@
 /* Begin PBXBuildFile section */
 		7DA993272A6AC0C20053B022 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA993262A6AC0C20053B022 /* AppDelegate.swift */; };
 		7DA993292A6AC0C20053B022 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA993282A6AC0C20053B022 /* SceneDelegate.swift */; };
-		7DA9932B2A6AC0C20053B022 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA9932A2A6AC0C20053B022 /* ViewController.swift */; };
+		7DA9932B2A6AC0C20053B022 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA9932A2A6AC0C20053B022 /* HomeViewController.swift */; };
 		7DA993302A6AC0C30053B022 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DA9932F2A6AC0C30053B022 /* Assets.xcassets */; };
 		7DA993332A6AC0C30053B022 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DA993312A6AC0C30053B022 /* LaunchScreen.storyboard */; };
 		7DA9933E2A6AC0C30053B022 /* SalonAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA9933D2A6AC0C30053B022 /* SalonAppTests.swift */; };
 		7DA993482A6AC0C30053B022 /* SalonAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA993472A6AC0C30053B022 /* SalonAppUITests.swift */; };
 		7DA9934A2A6AC0C30053B022 /* SalonAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA993492A6AC0C30053B022 /* SalonAppUITestsLaunchTests.swift */; };
+		7DA993592A6ACD980053B022 /* MainTabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA993582A6ACD980053B022 /* MainTabbarViewController.swift */; };
+		7DA9935C2A6ACE860053B022 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA9935B2A6ACE860053B022 /* HomeHeaderView.swift */; };
+		7DA9935F2A6ACF030053B022 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7DA9935E2A6ACF030053B022 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +41,7 @@
 		7DA993232A6AC0C20053B022 /* SalonApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SalonApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DA993262A6AC0C20053B022 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7DA993282A6AC0C20053B022 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		7DA9932A2A6AC0C20053B022 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7DA9932A2A6AC0C20053B022 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		7DA9932F2A6AC0C30053B022 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7DA993322A6AC0C30053B022 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7DA993342A6AC0C30053B022 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -47,6 +50,8 @@
 		7DA993432A6AC0C30053B022 /* SalonAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SalonAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DA993472A6AC0C30053B022 /* SalonAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalonAppUITests.swift; sourceTree = "<group>"; };
 		7DA993492A6AC0C30053B022 /* SalonAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalonAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		7DA993582A6ACD980053B022 /* MainTabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarViewController.swift; sourceTree = "<group>"; };
+		7DA9935B2A6ACE860053B022 /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DA9935F2A6ACF030053B022 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,9 +103,11 @@
 		7DA993252A6AC0C20053B022 /* SalonApp */ = {
 			isa = PBXGroup;
 			children = (
+				7DA993572A6ACD780053B022 /* Controllers */,
+				7DA993562A6ACD620053B022 /* Views */,
 				7DA993262A6AC0C20053B022 /* AppDelegate.swift */,
 				7DA993282A6AC0C20053B022 /* SceneDelegate.swift */,
-				7DA9932A2A6AC0C20053B022 /* ViewController.swift */,
+				7DA9932A2A6AC0C20053B022 /* HomeViewController.swift */,
 				7DA9932F2A6AC0C30053B022 /* Assets.xcassets */,
 				7DA993312A6AC0C30053B022 /* LaunchScreen.storyboard */,
 				7DA993342A6AC0C30053B022 /* Info.plist */,
@@ -124,6 +132,30 @@
 			path = SalonAppUITests;
 			sourceTree = "<group>";
 		};
+		7DA993562A6ACD620053B022 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7DA9935B2A6ACE860053B022 /* HomeHeaderView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7DA993572A6ACD780053B022 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7DA9935A2A6ACD9B0053B022 /* Cors */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		7DA9935A2A6ACD9B0053B022 /* Cors */ = {
+			isa = PBXGroup;
+			children = (
+				7DA993582A6ACD980053B022 /* MainTabbarViewController.swift */,
+			);
+			path = Cors;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -140,6 +172,9 @@
 			dependencies = (
 			);
 			name = SalonApp;
+			packageProductDependencies = (
+				7DA9935E2A6ACF030053B022 /* SnapKit */,
+			);
 			productName = SalonApp;
 			productReference = 7DA993232A6AC0C20053B022 /* SalonApp.app */;
 			productType = "com.apple.product-type.application";
@@ -212,6 +247,9 @@
 				Base,
 			);
 			mainGroup = 7DA9931A2A6AC0C20053B022;
+			packageReferences = (
+				7DA9935D2A6ACF030053B022 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 7DA993242A6AC0C20053B022 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -254,8 +292,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7DA9932B2A6AC0C20053B022 /* ViewController.swift in Sources */,
+				7DA9932B2A6AC0C20053B022 /* HomeViewController.swift in Sources */,
+				7DA993592A6ACD980053B022 /* MainTabbarViewController.swift in Sources */,
 				7DA993272A6AC0C20053B022 /* AppDelegate.swift in Sources */,
+				7DA9935C2A6ACE860053B022 /* HomeHeaderView.swift in Sources */,
 				7DA993292A6AC0C20053B022 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -588,6 +628,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7DA9935D2A6ACF030053B022 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7DA9935E2A6ACF030053B022 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DA9935D2A6ACF030053B022 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7DA9931B2A6AC0C20053B022 /* Project object */;
 }
