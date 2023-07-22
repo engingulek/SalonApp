@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7D5069312A6C4D3800EB053B /* GenderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5069302A6C4D3800EB053B /* GenderCollectionViewCell.swift */; };
+		7D5069372A6C759500EB053B /* ServiceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5069362A6C759500EB053B /* ServiceCollectionViewCell.swift */; };
 		7DA993272A6AC0C20053B022 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA993262A6AC0C20053B022 /* AppDelegate.swift */; };
 		7DA993292A6AC0C20053B022 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA993282A6AC0C20053B022 /* SceneDelegate.swift */; };
 		7DA9932B2A6AC0C20053B022 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA9932A2A6AC0C20053B022 /* HomeViewController.swift */; };
@@ -38,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7D5069302A6C4D3800EB053B /* GenderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderCollectionViewCell.swift; sourceTree = "<group>"; };
+		7D5069362A6C759500EB053B /* ServiceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCollectionViewCell.swift; sourceTree = "<group>"; };
 		7DA993232A6AC0C20053B022 /* SalonApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SalonApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DA993262A6AC0C20053B022 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7DA993282A6AC0C20053B022 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -135,6 +139,8 @@
 			isa = PBXGroup;
 			children = (
 				7DA9935B2A6ACE860053B022 /* HomeHeaderView.swift */,
+				7D5069302A6C4D3800EB053B /* GenderCollectionViewCell.swift */,
+				7D5069362A6C759500EB053B /* ServiceCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -295,7 +301,9 @@
 				7DA9932B2A6AC0C20053B022 /* HomeViewController.swift in Sources */,
 				7DA993592A6ACD980053B022 /* MainTabbarViewController.swift in Sources */,
 				7DA993272A6AC0C20053B022 /* AppDelegate.swift in Sources */,
+				7D5069312A6C4D3800EB053B /* GenderCollectionViewCell.swift in Sources */,
 				7DA9935C2A6ACE860053B022 /* HomeHeaderView.swift in Sources */,
+				7D5069372A6C759500EB053B /* ServiceCollectionViewCell.swift in Sources */,
 				7DA993292A6AC0C20053B022 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
