@@ -107,7 +107,6 @@
 				7DA993562A6ACD620053B022 /* Views */,
 				7DA993262A6AC0C20053B022 /* AppDelegate.swift */,
 				7DA993282A6AC0C20053B022 /* SceneDelegate.swift */,
-				7DA9932A2A6AC0C20053B022 /* HomeViewController.swift */,
 				7DA9932F2A6AC0C30053B022 /* Assets.xcassets */,
 				7DA993312A6AC0C30053B022 /* LaunchScreen.storyboard */,
 				7DA993342A6AC0C30053B022 /* Info.plist */,
@@ -151,6 +150,7 @@
 		7DA9935A2A6ACD9B0053B022 /* Cors */ = {
 			isa = PBXGroup;
 			children = (
+				7DA9932A2A6AC0C20053B022 /* HomeViewController.swift */,
 				7DA993582A6ACD980053B022 /* MainTabbarViewController.swift */,
 			);
 			path = Cors;
