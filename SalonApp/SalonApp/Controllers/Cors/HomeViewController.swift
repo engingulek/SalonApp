@@ -52,18 +52,40 @@ class HomeViewController: UIViewController {
     }()
     
     
+    private let topArtistLabel : UILabel = {
+        let label = UILabel()
+        label.text = "Top Artist"
+        label.textColor = .black
+        label.font = .systemFont(ofSize: 18,weight: .bold)
+        return label
+    }()
+    
+    private let topArtistTableView : UITableView = {
+        let tableView = UITableView()
+        tableView.register(TopArtistTableViewCell.self, forCellReuseIdentifier: TopArtistTableViewCell.identifier)
+        tableView.backgroundColor = UIColor(named: "backColor")
+        tableView.separatorColor =  UIColor(named: "backColor")
+  
+        return tableView
+    }()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "backColor")
         view.addSubview(headerView)
         view.addSubview(searchTextFeield)
-      
         view.addSubview(serviceTitleLabel)
         view.addSubview(serviceCollectionView)
+        view.addSubview(topArtistLabel)
+        view.addSubview(topArtistTableView)
         configureConstraints()
         
         serviceCollectionView.delegate = self
         serviceCollectionView.dataSource = self
+        
+        topArtistTableView.delegate = self
+        topArtistTableView.dataSource = self
         
     }
     
@@ -89,6 +111,19 @@ class HomeViewController: UIViewController {
             make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing)
             make.height.equalTo(80)
         }
+        
+        
+        topArtistLabel.snp.makeConstraints { make in
+            make.top.equalTo(serviceCollectionView.snp.bottom).offset(10)
+            make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(15)
+        }
+        
+        topArtistTableView.snp.makeConstraints { make in
+            make.top.equalTo(topArtistLabel.snp.bottom).offset(10)
+            make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading)
+            make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+        }
     }
 }
 
@@ -96,35 +131,48 @@ extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 3
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-      
-        
-       
-        
          if collectionView == self.serviceCollectionView {
             guard let cell =  serviceCollectionView.dequeueReusableCell(withReuseIdentifier: ServiceCollectionViewCell.identifier,
                                                                        for: indexPath) as? ServiceCollectionViewCell else {
                 return UICollectionViewCell()
             }
-           
             cell.backgroundColor = .white
             cell.layer.cornerRadius = 20
+            
             return cell
         }
         else {
             return UICollectionViewCell()
         }
-        
-       
+    }
+}
+
+
+extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if tableView == self.topArtistTableView {
+            guard let cell = topArtistTableView.dequeueReusableCell(withIdentifier: TopArtistTableViewCell.identifier,
+                                                                    for: indexPath) as? TopArtistTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.backgroundColor = UIColor(named: "backColor")
+            cell.layer.borderColor = UIColor.white.cgColor
+            cell.layer.borderColor = UIColor(named: "backColor")?.cgColor
+            return cell
+        }else{
+            return UITableViewCell()
+        }
     }
     
     
     
-   
-    
-    
-   
-    
     
 }
+
+
+
