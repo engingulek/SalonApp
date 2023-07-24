@@ -36,11 +36,7 @@ class HomeHeaderView: UIView {
         label.textColor = .black
         return label
     }()
-    
-    
-    
-    
-
+   
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(profileAvatarImageView)

@@ -8,9 +8,6 @@
 import UIKit
 import SnapKit
 
-
-
-
 class HomeViewController: UIViewController {
 
     private lazy var headerView = HomeHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: self.view.layer.frame.height / 4 ))
@@ -125,6 +122,10 @@ class HomeViewController: UIViewController {
             make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tabBarController?.tabBar.isHidden = false
+    }
 }
 
 extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSource{
@@ -169,9 +170,11 @@ extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
         }
     }
     
-    
-    
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = ArtistDetailViewController()
+        navigationController?.pushViewController(vc, animated: true)
+        
+    }
 }
 
 
