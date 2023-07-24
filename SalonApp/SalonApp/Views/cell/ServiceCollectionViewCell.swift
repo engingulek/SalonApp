@@ -9,8 +9,6 @@ import UIKit
 import SnapKit
 class ServiceCollectionViewCell: UICollectionViewCell {
     static let identifier = "ServiceCollectionViewCell"
-    
-    
     private let serviceImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named:  "salon")
@@ -31,20 +29,16 @@ class ServiceCollectionViewCell: UICollectionViewCell {
         
     }()
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(serviceImageView)
         addSubview(serviceNameLabel)
         configureConstraints()
     }
-    
-    
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     func configureConstraints(){
         serviceImageView.snp.makeConstraints { make in
