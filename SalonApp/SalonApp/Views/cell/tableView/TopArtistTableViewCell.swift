@@ -7,8 +7,8 @@
 
 import UIKit
 import SnapKit
-class TopArtistTableViewCell: UITableViewCell {
-    static let identifier = "TopArtistCollectionViewCell"
+class ArtistTableViewCell: UITableViewCell {
+    static let identifier = "ArtistCollectionViewCell"
     
     
     private let artistCellImage : UIImageView = {
@@ -93,8 +93,6 @@ class TopArtistTableViewCell: UITableViewCell {
         label.font  = .systemFont(ofSize: 10,weight: .semibold)
         return label
     }()
-    
-    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

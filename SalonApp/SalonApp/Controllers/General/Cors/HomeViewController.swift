@@ -57,9 +57,9 @@ class HomeViewController: UIViewController {
         return label
     }()
     
-    private let topArtistTableView : UITableView = {
+    private let artistTableView : UITableView = {
         let tableView = UITableView()
-        tableView.register(TopArtistTableViewCell.self, forCellReuseIdentifier: TopArtistTableViewCell.identifier)
+        tableView.register(ArtistTableViewCell.self, forCellReuseIdentifier: ArtistTableViewCell.identifier)
         tableView.backgroundColor = UIColor(named: "backColor")
         tableView.separatorColor =  UIColor(named: "backColor")
   
@@ -75,15 +75,30 @@ class HomeViewController: UIViewController {
         view.addSubview(serviceTitleLabel)
         view.addSubview(serviceCollectionView)
         view.addSubview(topArtistLabel)
-        view.addSubview(topArtistTableView)
+        view.addSubview(artistTableView)
         configureConstraints()
         
         serviceCollectionView.delegate = self
         serviceCollectionView.dataSource = self
         
-        topArtistTableView.delegate = self
-        topArtistTableView.dataSource = self
+        artistTableView.delegate = self
+        artistTableView.dataSource = self
+        searchTextFeield.addTarget(self, action: #selector(textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
         
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        searchTextFeield.text = ""
+    }
+    
+    @objc  private func textFieldDidChange(_ textField: UITextField) {
+        guard let text = textField.text else {return}
+        if text.count == 3 {
+            let svc = SearchViewController()
+            svc.searchText = text
+            navigationController?.pushViewController(svc, animated: true)
+        }
     }
     
     private func configureConstraints() {
@@ -115,7 +130,7 @@ class HomeViewController: UIViewController {
             make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(15)
         }
         
-        topArtistTableView.snp.makeConstraints { make in
+        artistTableView.snp.makeConstraints { make in
             make.top.equalTo(topArtistLabel.snp.bottom).offset(10)
             make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing)
@@ -156,9 +171,9 @@ extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView == self.topArtistTableView {
-            guard let cell = topArtistTableView.dequeueReusableCell(withIdentifier: TopArtistTableViewCell.identifier,
-                                                                    for: indexPath) as? TopArtistTableViewCell else {
+        if tableView == self.artistTableView {
+            guard let cell = artistTableView.dequeueReusableCell(withIdentifier: ArtistTableViewCell.identifier,
+                                                                    for: indexPath) as? ArtistTableViewCell else {
                 return UITableViewCell()
             }
             cell.backgroundColor = UIColor(named: "backColor")
@@ -176,6 +191,7 @@ extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
         
     }
 }
+
 
 
 
