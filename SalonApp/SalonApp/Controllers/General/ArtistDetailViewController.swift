@@ -56,13 +56,24 @@ class ArtistDetailViewController: UIViewController {
     }()
     private let bookAppointmentButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Submit", for: .normal)
+        button.setTitle("Book Appointment", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
         button.backgroundColor = .black
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 25
-        button.isEnabled = false
+        return button
+    }()
+    
+    
+    private let sendMessageButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Send Message", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
+        button.backgroundColor = .white
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = 25
         return button
     }()
     
@@ -107,6 +118,7 @@ class ArtistDetailViewController: UIViewController {
         view.addSubview(sectionStack)
         view.addSubview(indicator)
         view.addSubview(bookAppointmentButton)
+        view.addSubview(sendMessageButton)
         view.addSubview(textViewAbout)
         view.addSubview(serviceTableView)
         view.addSubview(commentTableView)
@@ -116,6 +128,7 @@ class ArtistDetailViewController: UIViewController {
         commentTableView.dataSource = self
         self.navigationController?.navigationBar.tintColor = UIColor.black
         tabBarController?.tabBar.isHidden = true
+        sendMessageButton.addTarget(self, action: #selector(didTapSedMesseaga(_:)), for: .touchUpInside)
         configureStackButton()
         configureContraints()
     }
@@ -136,6 +149,13 @@ class ArtistDetailViewController: UIViewController {
             make.height.equalTo(35)
         }
         bookAppointmentButton.snp.makeConstraints { make in
+            make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(20)
+            make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).offset(-20)
+            make.bottom.equalTo(self.sendMessageButton.snp.top).offset(-5)
+            make.height.equalTo(50)
+        }
+        
+        sendMessageButton.snp.makeConstraints { make in
             make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(20)
             make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).offset(-20)
             make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-10)
@@ -171,6 +191,12 @@ class ArtistDetailViewController: UIViewController {
                 indicator.heightAnchor.constraint(equalToConstant: 4)
             ]
         NSLayoutConstraint.activate(indicatorConstraints)
+    }
+    
+    
+    @objc private func didTapSedMesseaga(_ sender : UIButton){
+        let chatVC = ChatViewController()
+        navigationController?.pushViewController(chatVC, animated: true)
     }
     
     // MARK: - Will change tab text color  when select tab
