@@ -12,11 +12,17 @@ class MainTabbarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let vc1 = UINavigationController(rootViewController: HomeViewController())
+        let vc2 = UINavigationController(rootViewController: ChatListViewController())
         
         vc1.tabBarItem.image = UIImage(systemName: "house")
         vc1.tabBarItem.selectedImage = UIImage(systemName: "house.fill")
         
-        setViewControllers([vc1] ,animated: true)
+        vc2.tabBarItem.image = UIImage(systemName: "message")
+        vc2.tabBarItem.selectedImage = UIImage(systemName: "message.fill")
+        
+        
+        
+        setViewControllers([vc1,vc2] ,animated: true)
         
     }
     
