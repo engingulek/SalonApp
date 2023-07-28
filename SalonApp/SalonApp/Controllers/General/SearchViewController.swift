@@ -78,6 +78,8 @@ class SearchViewController: UIViewController {
         tabBarController?.tabBar.isHidden = true
         self.navigationController?.navigationBar.tintColor = UIColor.black
         
+        
+        
     }
     private func configureContraints(){
         allResultTableView.snp.makeConstraints { make in
@@ -86,8 +88,10 @@ class SearchViewController: UIViewController {
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
-       
     }
+    
+    
+    
 }
 
 extension SearchViewController : UITableViewDelegate,UITableViewDataSource{
@@ -115,6 +119,8 @@ extension SearchViewController : UITableViewDelegate,UITableViewDataSource{
             headerView.headerLabel.text = "Artist Story"
         case .resultArtist:
             headerView.headerLabel.text = "Artist Result"
+            headerView.sortBy.isHidden = false
+            headerView.sortBy.isEnabled = true
         }
         return headerView
     }
