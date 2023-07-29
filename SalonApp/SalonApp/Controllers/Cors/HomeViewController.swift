@@ -11,7 +11,7 @@ import SnapKit
 class HomeViewController: UIViewController {
 
     private lazy var headerView = HomeHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: self.view.layer.frame.height / 4 ))
-    
+    private var status = true
     private let searchTextFeield : UITextField = {
         let textField = UITextField()
         textField.attributedPlaceholder = NSAttributedString(
