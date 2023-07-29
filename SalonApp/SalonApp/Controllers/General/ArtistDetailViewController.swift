@@ -54,24 +54,13 @@ class ArtistDetailViewController: UIViewController {
         stackView.alignment = .center
         return stackView
     }()
-    private let bookAppointmentButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Book Appointment", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
-        button.backgroundColor = .black
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = 25
-        return button
-    }()
-    
-    
+  
     private let sendMessageButton : UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Send Message", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
-        button.backgroundColor = .white
+        button.backgroundColor = .black
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 25
         return button
@@ -117,7 +106,7 @@ class ArtistDetailViewController: UIViewController {
         view.backgroundColor = UIColor(named: "backColor")
         view.addSubview(sectionStack)
         view.addSubview(indicator)
-        view.addSubview(bookAppointmentButton)
+        
         view.addSubview(sendMessageButton)
         view.addSubview(textViewAbout)
         view.addSubview(serviceTableView)
@@ -148,12 +137,7 @@ class ArtistDetailViewController: UIViewController {
             make.top.equalTo(headerView.snp.bottom).offset(5)
             make.height.equalTo(35)
         }
-        bookAppointmentButton.snp.makeConstraints { make in
-            make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(20)
-            make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).offset(-20)
-            make.bottom.equalTo(self.sendMessageButton.snp.top).offset(-5)
-            make.height.equalTo(50)
-        }
+      
         
         sendMessageButton.snp.makeConstraints { make in
             make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(20)
@@ -166,21 +150,21 @@ class ArtistDetailViewController: UIViewController {
             make.top.equalTo(sectionStack.snp.bottom).offset(10)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(25)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-25)
-            make.bottom.equalTo(bookAppointmentButton.snp.top).offset(-10)
+            make.bottom.equalTo(sendMessageButton.snp.top).offset(-10)
         }
         
         serviceTableView.snp.makeConstraints { make in
             make.top.equalTo(sectionStack.snp.bottom).offset(10)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(25)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-25)
-            make.bottom.equalTo(bookAppointmentButton.snp.top).offset(-10)
+            make.bottom.equalTo(sendMessageButton.snp.top).offset(-10)
         }
         
         commentTableView.snp.makeConstraints { make in
             make.top.equalTo(sectionStack.snp.bottom).offset(10)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(25)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-25)
-            make.bottom.equalTo(bookAppointmentButton.snp.top).offset(-10)
+            make.bottom.equalTo(sendMessageButton.snp.top).offset(-10)
         }
         
     // Used UIKit to select About when selecting Detail Page
