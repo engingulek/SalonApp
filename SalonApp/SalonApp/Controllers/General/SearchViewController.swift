@@ -7,6 +7,9 @@
 
 import UIKit
 import SnapKit
+
+
+
 class SearchViewController: UIViewController {
     private lazy var headerView = SearchHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: self.view.layer.frame.height / 5 ))
     var searchText : String = ""
@@ -62,7 +65,6 @@ class SearchViewController: UIViewController {
     }()
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "backColor")
@@ -77,10 +79,8 @@ class SearchViewController: UIViewController {
         }
         tabBarController?.tabBar.isHidden = true
         self.navigationController?.navigationBar.tintColor = UIColor.black
-        
-        
-        
     }
+    
     private func configureContraints(){
         allResultTableView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom)
@@ -148,6 +148,7 @@ extension SearchViewController : UITableViewDelegate,UITableViewDataSource{
         case .resultArtistStory:
             guard let cell = allResultTableView.dequeueReusableCell(withIdentifier: ArtistStoryTableViewCell.identifier ,for: indexPath) as? ArtistStoryTableViewCell else {return UITableViewCell()}
             cell.backgroundColor =  UIColor(named: "backColor")
+            cell.cellProtocol = self
             return cell
         case .resultArtist:
             guard let cell = allResultTableView.dequeueReusableCell(withIdentifier: ArtistTableViewCell.identifier,for:indexPath) as? ArtistTableViewCell else {return UITableViewCell()}
@@ -157,7 +158,30 @@ extension SearchViewController : UITableViewDelegate,UITableViewDataSource{
             return cell
         }
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch sections[indexPath.section]{
+        case .resultArtist:
+            let vc = ArtistDetailViewController()
+            navigationController?.pushViewController(vc, animated: true)
+        default:
+            break
+        }
+    }
 }
+
+extension SearchViewController : ArtistStoryTableViewCellProtocol {
+    func toStortViewController(item: Int) {
+        let vc = StroyViewController()
+        vc.index = item
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+
+
+
+
+
 
 
 

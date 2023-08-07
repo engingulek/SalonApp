@@ -23,13 +23,15 @@ class ArtistStoryTableViewCell: UITableViewCell {
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
+    
    
-   
+    var cellProtocol : ArtistStoryTableViewCellProtocol?
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(artistStoryCollectionView)
         artistStoryCollectionView.delegate = self
         artistStoryCollectionView.dataSource = self
+        
         configureConstraints()
         
     }
@@ -48,6 +50,9 @@ class ArtistStoryTableViewCell: UITableViewCell {
     }
 }
 
+protocol ArtistStoryTableViewCellProtocol {
+    func toStortViewController(item:Int)
+}
 
 extension ArtistStoryTableViewCell :  UICollectionViewDelegate,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -60,5 +65,15 @@ extension ArtistStoryTableViewCell :  UICollectionViewDelegate,UICollectionViewD
         return cell
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard  collectionView ==  artistStoryCollectionView else {return}
+        cellProtocol?.toStortViewController(item: indexPath.item)
+        print(indexPath.item)
+        
+    }
 }
+
+
+
+
+
