@@ -10,6 +10,7 @@
 		7D0596E92A703DFE0026FB87 /* AllServiceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0596E82A703DFE0026FB87 /* AllServiceTableViewCell.swift */; };
 		7D0596ED2A7049810026FB87 /* ArtistStoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0596EC2A7049810026FB87 /* ArtistStoryTableViewCell.swift */; };
 		7D0596EF2A705D970026FB87 /* SearchCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0596EE2A705D970026FB87 /* SearchCellHeader.swift */; };
+		7D0A8BB12A80EC3A00C2DC5B /* StroyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0A8BB02A80EC3A00C2DC5B /* StroyViewController.swift */; };
 		7D39AE152A73E730009791C8 /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D39AE142A73E730009791C8 /* ChatListViewController.swift */; };
 		7D39AE172A73EAB2009791C8 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D39AE162A73EAB2009791C8 /* ChatViewController.swift */; };
 		7D39AE192A73EC25009791C8 /* ChatTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D39AE182A73EC25009791C8 /* ChatTextView.swift */; };
@@ -63,6 +64,7 @@
 		7D0596E82A703DFE0026FB87 /* AllServiceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllServiceTableViewCell.swift; sourceTree = "<group>"; };
 		7D0596EC2A7049810026FB87 /* ArtistStoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistStoryTableViewCell.swift; sourceTree = "<group>"; };
 		7D0596EE2A705D970026FB87 /* SearchCellHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCellHeader.swift; sourceTree = "<group>"; };
+		7D0A8BB02A80EC3A00C2DC5B /* StroyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StroyViewController.swift; sourceTree = "<group>"; };
 		7D39AE142A73E730009791C8 /* ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
 		7D39AE162A73EAB2009791C8 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		7D39AE182A73EC25009791C8 /* ChatTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextView.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				7D39AE162A73EAB2009791C8 /* ChatViewController.swift */,
 				7D50693D2A6D7C3B00EB053B /* ArtistDetailViewController.swift */,
 				7DD3F0D32A6FDFF50018D0C4 /* SearchViewController.swift */,
+				7D0A8BB02A80EC3A00C2DC5B /* StroyViewController.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 				7DA9935C2A6ACE860053B022 /* HomeHeaderView.swift in Sources */,
 				7D5069372A6C759500EB053B /* ServiceCollectionViewCell.swift in Sources */,
 				7D5069452A6DB84B00EB053B /* ArtistServiceTableViewCell.swift in Sources */,
+				7D0A8BB12A80EC3A00C2DC5B /* StroyViewController.swift in Sources */,
 				7DD3F0D82A6FEB4C0018D0C4 /* AllServiceCollectionViewCell.swift in Sources */,
 				7DA993292A6AC0C20053B022 /* SceneDelegate.swift in Sources */,
 				7D39AE172A73EAB2009791C8 /* ChatViewController.swift in Sources */,
