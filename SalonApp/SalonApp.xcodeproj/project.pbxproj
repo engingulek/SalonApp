@@ -40,6 +40,8 @@
 		7DD3F0D62A6FE0B20018D0C4 /* SearchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3F0D52A6FE0B20018D0C4 /* SearchHeaderView.swift */; };
 		7DD3F0D82A6FEB4C0018D0C4 /* AllServiceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3F0D72A6FEB4C0018D0C4 /* AllServiceCollectionViewCell.swift */; };
 		7DE9A1892A824E7400A806E4 /* BookMarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE9A1882A824E7400A806E4 /* BookMarkViewController.swift */; };
+		7DE9A18B2A8281E900A806E4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE9A18A2A8281E900A806E4 /* ProfileViewController.swift */; };
+		7DE9A18E2A828AFB00A806E4 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE9A18D2A828AFB00A806E4 /* View+Extension.swift */; };
 		7DF328CE2A729ACC0028ADA0 /* ArtistStoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF328CD2A729ACC0028ADA0 /* ArtistStoryCollectionViewCell.swift */; };
 		7DFCB5FF2A6E82DA00109CB5 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFCB5FE2A6E82DA00109CB5 /* CommentTableViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -98,6 +100,8 @@
 		7DD3F0D52A6FE0B20018D0C4 /* SearchHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHeaderView.swift; sourceTree = "<group>"; };
 		7DD3F0D72A6FEB4C0018D0C4 /* AllServiceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllServiceCollectionViewCell.swift; sourceTree = "<group>"; };
 		7DE9A1882A824E7400A806E4 /* BookMarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkViewController.swift; sourceTree = "<group>"; };
+		7DE9A18A2A8281E900A806E4 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		7DE9A18D2A828AFB00A806E4 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		7DF328CD2A729ACC0028ADA0 /* ArtistStoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistStoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		7DFCB5FE2A6E82DA00109CB5 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -239,6 +243,7 @@
 		7DA993562A6ACD620053B022 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7DE9A18C2A828AEA00A806E4 /* extension */,
 				7D5069392A6D303800EB053B /* header */,
 				7D5069382A6D302E00EB053B /* cell */,
 			);
@@ -258,10 +263,11 @@
 		7DA9935A2A6ACD9B0053B022 /* Cors */ = {
 			isa = PBXGroup;
 			children = (
+				7DA993582A6ACD980053B022 /* MainTabbarViewController.swift */,
 				7DA9932A2A6AC0C20053B022 /* HomeViewController.swift */,
 				7D39AE142A73E730009791C8 /* ChatListViewController.swift */,
-				7DA993582A6ACD980053B022 /* MainTabbarViewController.swift */,
 				7DE9A1882A824E7400A806E4 /* BookMarkViewController.swift */,
+				7DE9A18A2A8281E900A806E4 /* ProfileViewController.swift */,
 			);
 			path = Cors;
 			sourceTree = "<group>";
@@ -274,6 +280,14 @@
 				7DADAE4C2A7544D30040BCDC /* RegisterViewController.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		7DE9A18C2A828AEA00A806E4 /* extension */ = {
+			isa = PBXGroup;
+			children = (
+				7DE9A18D2A828AFB00A806E4 /* View+Extension.swift */,
+			);
+			path = extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -424,6 +438,7 @@
 				7D0596ED2A7049810026FB87 /* ArtistStoryTableViewCell.swift in Sources */,
 				7D5069402A6D7CD600EB053B /* ArtistDetailView.swift in Sources */,
 				7DD3F0D62A6FE0B20018D0C4 /* SearchHeaderView.swift in Sources */,
+				7DE9A18B2A8281E900A806E4 /* ProfileViewController.swift in Sources */,
 				7DA993592A6ACD980053B022 /* MainTabbarViewController.swift in Sources */,
 				7DADAE492A753F580040BCDC /* OnboardingViewController.swift in Sources */,
 				7D39AE1B2A74098B009791C8 /* ChatIncomingTableViewCell.swift in Sources */,
@@ -431,6 +446,7 @@
 				7DA993272A6AC0C20053B022 /* AppDelegate.swift in Sources */,
 				7DA9935C2A6ACE860053B022 /* HomeHeaderView.swift in Sources */,
 				7D5069372A6C759500EB053B /* ServiceCollectionViewCell.swift in Sources */,
+				7DE9A18E2A828AFB00A806E4 /* View+Extension.swift in Sources */,
 				7D5069452A6DB84B00EB053B /* ArtistServiceTableViewCell.swift in Sources */,
 				7D0A8BB12A80EC3A00C2DC5B /* StroyViewController.swift in Sources */,
 				7DD3F0D82A6FEB4C0018D0C4 /* AllServiceCollectionViewCell.swift in Sources */,
