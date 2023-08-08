@@ -7,10 +7,16 @@
 
 import UIKit
 import SnapKit
+
+protocol ArtistTableViewCellDelegate {
+    func selectBookmarkIcon(indexPathRow : Int)
+}
+
+
 class ArtistTableViewCell: UITableViewCell {
     static let identifier = "ArtistCollectionViewCell"
-    
-    
+    var cellDelegate : ArtistTableViewCellDelegate?
+    var indexPathRow : Int?
     private let artistCellImage : UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "hairdresser")
@@ -31,10 +37,12 @@ class ArtistTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    private let addFavIcon : UIImageView = {
+    let bookmarkIcon : UIImageView = {
         let imageView = UIImageView()
         imageView.image =  UIImage(systemName: "bookmark")
         imageView.tintColor = UIColor.orange
+
+        imageView.isUserInteractionEnabled = true
         return imageView
     }()
     
@@ -105,9 +113,13 @@ class ArtistTableViewCell: UITableViewCell {
         contentView.addSubview(locaitonLabel)
         contentView.addSubview(priceLabel)
         contentView.addSubview(priceType)
-        contentView.addSubview(addFavIcon)
+        contentView.addSubview(bookmarkIcon)
         self.contentView.backgroundColor = .white
         self.contentView.layer.cornerRadius = 10
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapBookmarkIcon(_:)))
+        
+        self.bookmarkIcon.addGestureRecognizer(tap)
+     
 
         configureConstraints()
     }
@@ -121,7 +133,12 @@ class ArtistTableViewCell: UITableViewCell {
           let bottomSpace: CGFloat = 10.0 // Let's assume the space you want is 10
           self.contentView.frame = self.contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 10, bottom: bottomSpace, right: 10))
      }
-
+    
+   @objc func tapBookmarkIcon(_ sender: UITapGestureRecognizer){
+       guard let delegate = cellDelegate else {return}
+       delegate.selectBookmarkIcon(indexPathRow: indexPathRow!)
+    }
+    
     
     
     func configureConstraints() {
@@ -133,7 +150,7 @@ class ArtistTableViewCell: UITableViewCell {
             make.height.equalTo(self.contentView.layer.frame.width / 2)
         }
         
-        addFavIcon.snp.makeConstraints { make in
+        bookmarkIcon.snp.makeConstraints { make in
             make.top.equalTo(self.contentView.safeAreaLayoutGuide.snp.top).offset(10)
             make.trailing.equalTo(self.contentView.safeAreaLayoutGuide.snp.trailing).offset(-15)
             make.width.equalTo(18)

@@ -92,6 +92,10 @@ class HomeViewController: UIViewController {
         searchTextFeield.text = ""
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        tabBarController?.tabBar.isHidden = false
+    }
+    
     @objc  private func textFieldDidChange(_ textField: UITextField) {
         guard let text = textField.text else {return}
         if text.count == 3 {
@@ -138,9 +142,7 @@ class HomeViewController: UIViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        tabBarController?.tabBar.isHidden = false
-    }
+   
 }
 
 extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSource{
@@ -164,7 +166,6 @@ extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSour
     }
 }
 
-
 extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
@@ -179,6 +180,8 @@ extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
             cell.backgroundColor = UIColor(named: "backColor")
             cell.layer.borderColor = UIColor.white.cgColor
             cell.layer.borderColor = UIColor(named: "backColor")?.cgColor
+            cell.cellDelegate = self
+            cell.indexPathRow = indexPath.row
             return cell
         }else{
             return UITableViewCell()
@@ -189,6 +192,12 @@ extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
         let vc = ArtistDetailViewController()
         navigationController?.pushViewController(vc, animated: true)
         
+    }
+}
+
+extension HomeViewController : ArtistTableViewCellDelegate {
+    func selectBookmarkIcon(indexPathRow: Int) {
+        print("HomeViewController \(indexPathRow)")
     }
 }
 
