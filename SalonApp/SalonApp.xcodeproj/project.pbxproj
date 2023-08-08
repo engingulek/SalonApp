@@ -18,7 +18,7 @@
 		7D39AE1D2A740AD6009791C8 /* SendMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D39AE1C2A740AD6009791C8 /* SendMessageTableViewCell.swift */; };
 		7D39AE1F2A74140A009791C8 /* ChatListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D39AE1E2A74140A009791C8 /* ChatListTableViewCell.swift */; };
 		7D5069372A6C759500EB053B /* ServiceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5069362A6C759500EB053B /* ServiceCollectionViewCell.swift */; };
-		7D50693B2A6D305E00EB053B /* TopArtistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D50693A2A6D305E00EB053B /* TopArtistTableViewCell.swift */; };
+		7D50693B2A6D305E00EB053B /* ArtistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D50693A2A6D305E00EB053B /* ArtistTableViewCell.swift */; };
 		7D50693E2A6D7C3B00EB053B /* ArtistDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D50693D2A6D7C3B00EB053B /* ArtistDetailViewController.swift */; };
 		7D5069402A6D7CD600EB053B /* ArtistDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D50693F2A6D7CD600EB053B /* ArtistDetailView.swift */; };
 		7D5069452A6DB84B00EB053B /* ArtistServiceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5069442A6DB84B00EB053B /* ArtistServiceTableViewCell.swift */; };
@@ -39,6 +39,7 @@
 		7DD3F0D42A6FDFF50018D0C4 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3F0D32A6FDFF50018D0C4 /* SearchViewController.swift */; };
 		7DD3F0D62A6FE0B20018D0C4 /* SearchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3F0D52A6FE0B20018D0C4 /* SearchHeaderView.swift */; };
 		7DD3F0D82A6FEB4C0018D0C4 /* AllServiceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3F0D72A6FEB4C0018D0C4 /* AllServiceCollectionViewCell.swift */; };
+		7DE9A1892A824E7400A806E4 /* BookMarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE9A1882A824E7400A806E4 /* BookMarkViewController.swift */; };
 		7DF328CE2A729ACC0028ADA0 /* ArtistStoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF328CD2A729ACC0028ADA0 /* ArtistStoryCollectionViewCell.swift */; };
 		7DFCB5FF2A6E82DA00109CB5 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFCB5FE2A6E82DA00109CB5 /* CommentTableViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -72,7 +73,7 @@
 		7D39AE1C2A740AD6009791C8 /* SendMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMessageTableViewCell.swift; sourceTree = "<group>"; };
 		7D39AE1E2A74140A009791C8 /* ChatListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewCell.swift; sourceTree = "<group>"; };
 		7D5069362A6C759500EB053B /* ServiceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCollectionViewCell.swift; sourceTree = "<group>"; };
-		7D50693A2A6D305E00EB053B /* TopArtistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopArtistTableViewCell.swift; sourceTree = "<group>"; };
+		7D50693A2A6D305E00EB053B /* ArtistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistTableViewCell.swift; sourceTree = "<group>"; };
 		7D50693D2A6D7C3B00EB053B /* ArtistDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetailViewController.swift; sourceTree = "<group>"; };
 		7D50693F2A6D7CD600EB053B /* ArtistDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetailView.swift; sourceTree = "<group>"; };
 		7D5069442A6DB84B00EB053B /* ArtistServiceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistServiceTableViewCell.swift; sourceTree = "<group>"; };
@@ -96,6 +97,7 @@
 		7DD3F0D32A6FDFF50018D0C4 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		7DD3F0D52A6FE0B20018D0C4 /* SearchHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHeaderView.swift; sourceTree = "<group>"; };
 		7DD3F0D72A6FEB4C0018D0C4 /* AllServiceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllServiceCollectionViewCell.swift; sourceTree = "<group>"; };
+		7DE9A1882A824E7400A806E4 /* BookMarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkViewController.swift; sourceTree = "<group>"; };
 		7DF328CD2A729ACC0028ADA0 /* ArtistStoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistStoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		7DFCB5FE2A6E82DA00109CB5 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -139,7 +141,7 @@
 		7D0596EB2A7043270026FB87 /* tableView */ = {
 			isa = PBXGroup;
 			children = (
-				7D50693A2A6D305E00EB053B /* TopArtistTableViewCell.swift */,
+				7D50693A2A6D305E00EB053B /* ArtistTableViewCell.swift */,
 				7D5069442A6DB84B00EB053B /* ArtistServiceTableViewCell.swift */,
 				7DFCB5FE2A6E82DA00109CB5 /* CommentTableViewCell.swift */,
 				7D0596E82A703DFE0026FB87 /* AllServiceTableViewCell.swift */,
@@ -259,6 +261,7 @@
 				7DA9932A2A6AC0C20053B022 /* HomeViewController.swift */,
 				7D39AE142A73E730009791C8 /* ChatListViewController.swift */,
 				7DA993582A6ACD980053B022 /* MainTabbarViewController.swift */,
+				7DE9A1882A824E7400A806E4 /* BookMarkViewController.swift */,
 			);
 			path = Cors;
 			sourceTree = "<group>";
@@ -416,7 +419,7 @@
 				7D50693E2A6D7C3B00EB053B /* ArtistDetailViewController.swift in Sources */,
 				7DF328CE2A729ACC0028ADA0 /* ArtistStoryCollectionViewCell.swift in Sources */,
 				7DA9932B2A6AC0C20053B022 /* HomeViewController.swift in Sources */,
-				7D50693B2A6D305E00EB053B /* TopArtistTableViewCell.swift in Sources */,
+				7D50693B2A6D305E00EB053B /* ArtistTableViewCell.swift in Sources */,
 				7D39AE1D2A740AD6009791C8 /* SendMessageTableViewCell.swift in Sources */,
 				7D0596ED2A7049810026FB87 /* ArtistStoryTableViewCell.swift in Sources */,
 				7D5069402A6D7CD600EB053B /* ArtistDetailView.swift in Sources */,
@@ -435,6 +438,7 @@
 				7D39AE172A73EAB2009791C8 /* ChatViewController.swift in Sources */,
 				7D39AE1F2A74140A009791C8 /* ChatListTableViewCell.swift in Sources */,
 				7D39AE192A73EC25009791C8 /* ChatTextView.swift in Sources */,
+				7DE9A1892A824E7400A806E4 /* BookMarkViewController.swift in Sources */,
 				7DADAE4B2A7544C40040BCDC /* LoginViewController.swift in Sources */,
 				7D0596E92A703DFE0026FB87 /* AllServiceTableViewCell.swift in Sources */,
 			);

@@ -21,6 +21,7 @@ class ChatListViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         view.addSubview(chatListTableView)
+        self.navigationItem.title = "Chat List"
         chatListTableView.delegate = self
         chatListTableView.dataSource = self
         configureConstraints()
