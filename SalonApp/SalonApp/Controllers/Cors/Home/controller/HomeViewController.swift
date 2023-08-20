@@ -8,10 +8,19 @@
 import UIKit
 import SnapKit
 
-class HomeViewController: UIViewController {
+protocol HomeViewInterface : AnyObject,SeguePerformable {
+    func prepareCollectionView()
+    func prepareTableView()
+    func prepareTabbarHidden()
+    func prepareTextFieldController()
+    func toSearchViewController()
+    func reloadData()
+}
 
+final class HomeViewController: UIViewController {
     private lazy var headerView = HomeHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: self.view.layer.frame.height / 4 ))
     private var status = true
+    private lazy var viewModel = HomeViewModel()
     private let searchTextFeield : UITextField = {
         let textField = UITextField()
         textField.attributedPlaceholder = NSAttributedString(
@@ -33,7 +42,6 @@ class HomeViewController: UIViewController {
         return label
     }()
     
-    
     private let serviceCollectionView  : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -48,7 +56,6 @@ class HomeViewController: UIViewController {
         return collectionView
     }()
     
-    
     private let topArtistLabel : UILabel = {
         let label = UILabel()
         label.text = "Top Artist"
@@ -62,13 +69,35 @@ class HomeViewController: UIViewController {
         tableView.register(ArtistTableViewCell.self, forCellReuseIdentifier: ArtistTableViewCell.identifier)
         tableView.backgroundColor = UIColor(named: "backColor")
         tableView.separatorColor =  UIColor(named: "backColor")
-  
         return tableView
     }()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.view = self
+        viewModel.viewDidLoad()
+        configureConstraints()
+        searchTextFeield.addTarget(self, action: #selector(textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewModel.viewWillDisappear()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.viewWillAppear()
+        
+    }
+    
+    @objc  private func textFieldDidChange(_ textField: UITextField) {
+        viewModel.textFieldDidChange(textField)
+    }
+    
+    private func configureConstraints() {
         view.backgroundColor = UIColor(named: "backColor")
         view.addSubview(headerView)
         view.addSubview(searchTextFeield)
@@ -76,36 +105,6 @@ class HomeViewController: UIViewController {
         view.addSubview(serviceCollectionView)
         view.addSubview(topArtistLabel)
         view.addSubview(artistTableView)
-        configureConstraints()
-        
-        serviceCollectionView.delegate = self
-        serviceCollectionView.dataSource = self
-        
-        artistTableView.delegate = self
-        artistTableView.dataSource = self
-        searchTextFeield.addTarget(self, action: #selector(textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
-        
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        searchTextFeield.text = ""
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        tabBarController?.tabBar.isHidden = false
-    }
-    
-    @objc  private func textFieldDidChange(_ textField: UITextField) {
-        guard let text = textField.text else {return}
-        if text.count == 3 {
-            let svc = SearchViewController()
-            svc.searchText = text
-            navigationController?.pushViewController(svc, animated: true)
-        }
-    }
-    
-    private func configureConstraints() {
         searchTextFeield.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom).offset(20)
             make.height.equalTo(40)
@@ -141,23 +140,68 @@ class HomeViewController: UIViewController {
             make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
         }
     }
-    
+}
+
+extension HomeViewController : ArtistTableViewCellDelegate {
+    func selectBookmarkIcon(indexPathRow: Int) {
+        print("HomeViewController \(indexPathRow)")
+    }
+}
+
+extension HomeViewController : HomeViewInterface {
    
+   
+    func toSearchViewController() {
+        let svc = SearchViewController()
+        svc.searchText = searchTextFeield.text!
+        self.pushViewControllerable(svc)
+    }
+    
+    func prepareTableView() {
+        artistTableView.delegate = self
+        artistTableView.dataSource = self
+        artistTableView.reloadData()
+    }
+    
+    func prepareTextFieldController() {
+        searchTextFeield.text = ""
+    }
+    
+    func prepareTabbarHidden() {
+        tabBarController?.tabBar.isHidden = false
+    }
+    
+    func prepareCollectionView() {
+        serviceCollectionView.delegate = self
+        serviceCollectionView.dataSource = self
+        serviceCollectionView.reloadData()
+    }
+    
+    func reloadData() {
+        artistTableView.reloadData()
+        serviceCollectionView.reloadData()
+    }
+    
 }
 
 extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 3
     }
+    
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
          if collectionView == self.serviceCollectionView {
             guard let cell =  serviceCollectionView.dequeueReusableCell(withReuseIdentifier: ServiceCollectionViewCell.identifier,
                                                                        for: indexPath) as? ServiceCollectionViewCell else {
                 return UICollectionViewCell()
             }
-            cell.backgroundColor = .white
-            cell.layer.cornerRadius = 20
-            
+             
+             let item = viewModel.cellForItemAt(at: indexPath)
+             cell.backgroundColor = UIColor(named: item.backColor)
+             cell.layer.borderColor = UIColor(named: item.boderColor)?.cgColor
+             cell.configureData(topService: item.topService)
+             cell.layer.cornerRadius = 20
             return cell
         }
         else {
@@ -165,6 +209,7 @@ extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSour
         }
     }
 }
+
 
 extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -177,9 +222,7 @@ extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
                                                                     for: indexPath) as? ArtistTableViewCell else {
                 return UITableViewCell()
             }
-            cell.backgroundColor = UIColor(named: "backColor")
-            cell.layer.borderColor = UIColor.white.cgColor
-            cell.layer.borderColor = UIColor(named: "backColor")?.cgColor
+           
             cell.cellDelegate = self
             cell.indexPathRow = indexPath.row
             return cell
@@ -189,17 +232,11 @@ extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = ArtistDetailViewController()
-        navigationController?.pushViewController(vc, animated: true)
-        
+        viewModel.didSelectRow(at: indexPath)
     }
 }
 
-extension HomeViewController : ArtistTableViewCellDelegate {
-    func selectBookmarkIcon(indexPathRow: Int) {
-        print("HomeViewController \(indexPathRow)")
-    }
-}
+
 
 
 
