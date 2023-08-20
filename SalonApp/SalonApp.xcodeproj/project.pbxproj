@@ -22,6 +22,8 @@
 		7D50693E2A6D7C3B00EB053B /* ArtistDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D50693D2A6D7C3B00EB053B /* ArtistDetailViewController.swift */; };
 		7D5069402A6D7CD600EB053B /* ArtistDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D50693F2A6D7CD600EB053B /* ArtistDetailView.swift */; };
 		7D5069452A6DB84B00EB053B /* ArtistServiceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5069442A6DB84B00EB053B /* ArtistServiceTableViewCell.swift */; };
+		7D7AB9A12A9215DB00F02613 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7AB9A02A9215DB00F02613 /* HomeViewModel.swift */; };
+		7D7AB9AC2A92251300F02613 /* SeguePerformable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7AB9AB2A92251300F02613 /* SeguePerformable.swift */; };
 		7DA993272A6AC0C20053B022 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA993262A6AC0C20053B022 /* AppDelegate.swift */; };
 		7DA993292A6AC0C20053B022 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA993282A6AC0C20053B022 /* SceneDelegate.swift */; };
 		7DA9932B2A6AC0C20053B022 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA9932A2A6AC0C20053B022 /* HomeViewController.swift */; };
@@ -79,6 +81,8 @@
 		7D50693D2A6D7C3B00EB053B /* ArtistDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetailViewController.swift; sourceTree = "<group>"; };
 		7D50693F2A6D7CD600EB053B /* ArtistDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetailView.swift; sourceTree = "<group>"; };
 		7D5069442A6DB84B00EB053B /* ArtistServiceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistServiceTableViewCell.swift; sourceTree = "<group>"; };
+		7D7AB9A02A9215DB00F02613 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		7D7AB9AB2A92251300F02613 /* SeguePerformable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeguePerformable.swift; sourceTree = "<group>"; };
 		7DA993232A6AC0C20053B022 /* SalonApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SalonApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DA993262A6AC0C20053B022 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7DA993282A6AC0C20053B022 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -189,6 +193,32 @@
 			path = General;
 			sourceTree = "<group>";
 		};
+		7D7AB99F2A9215C900F02613 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				7D7AB9A72A921ED100F02613 /* viewModel */,
+				7D7AB9A62A921EBD00F02613 /* controller */,
+				7D7AB9AB2A92251300F02613 /* SeguePerformable.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		7D7AB9A62A921EBD00F02613 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				7DA9932A2A6AC0C20053B022 /* HomeViewController.swift */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		7D7AB9A72A921ED100F02613 /* viewModel */ = {
+			isa = PBXGroup;
+			children = (
+				7D7AB9A02A9215DB00F02613 /* HomeViewModel.swift */,
+			);
+			path = viewModel;
+			sourceTree = "<group>";
+		};
 		7DA9931A2A6AC0C20053B022 = {
 			isa = PBXGroup;
 			children = (
@@ -263,8 +293,8 @@
 		7DA9935A2A6ACD9B0053B022 /* Cors */ = {
 			isa = PBXGroup;
 			children = (
+				7D7AB99F2A9215C900F02613 /* Home */,
 				7DA993582A6ACD980053B022 /* MainTabbarViewController.swift */,
-				7DA9932A2A6AC0C20053B022 /* HomeViewController.swift */,
 				7D39AE142A73E730009791C8 /* ChatListViewController.swift */,
 				7DE9A1882A824E7400A806E4 /* BookMarkViewController.swift */,
 				7DE9A18A2A8281E900A806E4 /* ProfileViewController.swift */,
@@ -427,8 +457,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DADAE4D2A7544D30040BCDC /* RegisterViewController.swift in Sources */,
+				7D7AB9AC2A92251300F02613 /* SeguePerformable.swift in Sources */,
 				7DFCB5FF2A6E82DA00109CB5 /* CommentTableViewCell.swift in Sources */,
 				7D0596EF2A705D970026FB87 /* SearchCellHeader.swift in Sources */,
+				7D7AB9A12A9215DB00F02613 /* HomeViewModel.swift in Sources */,
 				7D39AE152A73E730009791C8 /* ChatListViewController.swift in Sources */,
 				7D50693E2A6D7C3B00EB053B /* ArtistDetailViewController.swift in Sources */,
 				7DF328CE2A729ACC0028ADA0 /* ArtistStoryCollectionViewCell.swift in Sources */,
