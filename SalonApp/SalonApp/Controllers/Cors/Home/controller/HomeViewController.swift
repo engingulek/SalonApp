@@ -14,6 +14,7 @@ protocol HomeViewInterface : AnyObject,SeguePerformable {
     func prepareTabbarHidden()
     func prepareTextFieldController()
     func toSearchViewController()
+    func reloadData()
 }
 
 final class HomeViewController: UIViewController {
@@ -76,9 +77,7 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         viewModel.view = self
         viewModel.viewDidLoad()
-       
         configureConstraints()
-        
         searchTextFeield.addTarget(self, action: #selector(textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
         
     }
@@ -151,6 +150,7 @@ extension HomeViewController : ArtistTableViewCellDelegate {
 
 extension HomeViewController : HomeViewInterface {
    
+   
     func toSearchViewController() {
         let svc = SearchViewController()
         svc.searchText = searchTextFeield.text!
@@ -176,6 +176,12 @@ extension HomeViewController : HomeViewInterface {
         serviceCollectionView.dataSource = self
         serviceCollectionView.reloadData()
     }
+    
+    func reloadData() {
+        artistTableView.reloadData()
+        serviceCollectionView.reloadData()
+    }
+    
 }
 
 extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSource{
@@ -190,9 +196,12 @@ extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSour
                                                                        for: indexPath) as? ServiceCollectionViewCell else {
                 return UICollectionViewCell()
             }
-            cell.backgroundColor = .white
-            cell.layer.cornerRadius = 20
-            
+             
+             let item = viewModel.cellForItemAt(at: indexPath)
+             cell.backgroundColor = UIColor(named: item.backColor)
+             cell.layer.borderColor = UIColor(named: item.boderColor)?.cgColor
+             cell.configureData(topService: item.topService)
+             cell.layer.cornerRadius = 20
             return cell
         }
         else {
@@ -213,9 +222,7 @@ extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
                                                                     for: indexPath) as? ArtistTableViewCell else {
                 return UITableViewCell()
             }
-            cell.backgroundColor = UIColor(named: "backColor")
-            cell.layer.borderColor = UIColor.white.cgColor
-            cell.layer.borderColor = UIColor(named: "backColor")?.cgColor
+           
             cell.cellDelegate = self
             cell.indexPathRow = indexPath.row
             return cell

@@ -8,28 +8,44 @@
 import Foundation
 import Alamofire
 protocol NetworkManagerProtocol {
-    var confing : NetworkConfig {get set}
-    func fetch<T:Decodable>(url:NetworkPath,method:NetworkType,type:T.Type) async -> Result<T?,Error>
+    func fetch<T : Codable>(target:NetworkPath,responseClass:T.Type,completion:@escaping(Result<[T]?,Error>)->()) async
+   
 }
 
 class NetworkManager : NetworkManagerProtocol {
-    var confing: NetworkConfig
-    init(confing:NetworkConfig){
-        self.confing = confing
-    }
+
+    static let shared = NetworkManager()
     
-    static let shared : NetworkManagerProtocol =  NetworkManager(confing: NetworkConfig(baseUrl: NetworkPath.baseURL))
-    
-    func fetch<T:Decodable>(url: NetworkPath, method: NetworkType, type: T.Type) async -> Result<T?, Error> {
-        let request = AF.request("\(confing.baseUrl)/\(url.rawValue)",method: method.toAlamofire())
-            .validate()
-            .serializingDecodable(T.self)
-        let result = await request.response
-        guard let value = result.value else {
-            return .failure(result.error ?? CustomError.networkError)
+    func fetch<T : Decodable>(target:NetworkPath,responseClass:T.Type,completion:@escaping(Result<[T]?,Error>)->()) async{
+            let method = Alamofire.HTTPMethod(rawValue: target.method.rawValue)
+            let headers = Alamofire.HTTPHeaders(target.headers ?? [:])
+            let parameters = buildParams(requestType: target.requestType)
+            AF.request(target.baseURL + target.path,method: method,parameters: parameters.0,encoding: parameters.1,headers: headers).response{
+                (response) in
+
+                if let data = response.data{
+                    do{
+                        let result = try JSONDecoder().decode(DataResult<T>.self, from: data)
+                        completion(.success(result.data))
+                    }catch{
+                        DispatchQueue.main.async {
+                            completion(.failure(error))
+                            print("Data Error \(error.localizedDescription)")
+                        }
+                    }
+                }
+            }
         }
-        return .success(value)
-    }
-    
+
+    private func buildParams(requestType: RequestType) -> ([String: Any], ParameterEncoding) {
+         
+         switch requestType {
+             
+         case .requestPlain:
+             return ([:], URLEncoding.default)
+         case .requestParameters(parameters: let parameters, encoding: let encoding):
+             return (parameters, encoding)
+         }
+     }
     
 }

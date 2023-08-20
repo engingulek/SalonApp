@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 class ServiceCollectionViewCell: UICollectionViewCell {
     static let identifier = "ServiceCollectionViewCell"
     private let serviceImageView: UIImageView = {
@@ -20,22 +21,20 @@ class ServiceCollectionViewCell: UICollectionViewCell {
        return imageView
     }()
     
-     let serviceNameLabel : UILabel = {
+    private let serviceNameLabel : UILabel = {
         let label = UILabel()
         label.text = "Name"
         label.numberOfLines = 2
         label.font = .systemFont(ofSize: 15,weight: .semibold)
         return label
-        
     }()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(serviceImageView)
         addSubview(serviceNameLabel)
         configureConstraints()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -53,6 +52,11 @@ class ServiceCollectionViewCell: UICollectionViewCell {
             make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-10)
         }
+    }
+    
+    func configureData(topService:TopService){
+        serviceNameLabel.text = topService.name
+        serviceImageView.kf.setImage(with: URL(string: "\(topService.imageUrl)"))
     }
    
 }
