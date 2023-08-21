@@ -11,6 +11,9 @@
 		7D0596ED2A7049810026FB87 /* ArtistStoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0596EC2A7049810026FB87 /* ArtistStoryTableViewCell.swift */; };
 		7D0596EF2A705D970026FB87 /* SearchCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0596EE2A705D970026FB87 /* SearchCellHeader.swift */; };
 		7D0A8BB12A80EC3A00C2DC5B /* StroyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0A8BB02A80EC3A00C2DC5B /* StroyViewController.swift */; };
+		7D1A10532A93773100A48C48 /* HomeViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A10522A93773100A48C48 /* HomeViewModelTest.swift */; };
+		7D1A10552A937B5500A48C48 /* MockHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A10542A937B5500A48C48 /* MockHomeViewController.swift */; };
+		7D1A10572A93849200A48C48 /* MockHomePageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A10562A93849200A48C48 /* MockHomePageService.swift */; };
 		7D39AE152A73E730009791C8 /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D39AE142A73E730009791C8 /* ChatListViewController.swift */; };
 		7D39AE172A73EAB2009791C8 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D39AE162A73EAB2009791C8 /* ChatViewController.swift */; };
 		7D39AE192A73EC25009791C8 /* ChatTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D39AE182A73EC25009791C8 /* ChatTextView.swift */; };
@@ -78,6 +81,9 @@
 		7D0596EC2A7049810026FB87 /* ArtistStoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistStoryTableViewCell.swift; sourceTree = "<group>"; };
 		7D0596EE2A705D970026FB87 /* SearchCellHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCellHeader.swift; sourceTree = "<group>"; };
 		7D0A8BB02A80EC3A00C2DC5B /* StroyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StroyViewController.swift; sourceTree = "<group>"; };
+		7D1A10522A93773100A48C48 /* HomeViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelTest.swift; sourceTree = "<group>"; };
+		7D1A10542A937B5500A48C48 /* MockHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHomeViewController.swift; sourceTree = "<group>"; };
+		7D1A10562A93849200A48C48 /* MockHomePageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHomePageService.swift; sourceTree = "<group>"; };
 		7D39AE142A73E730009791C8 /* ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
 		7D39AE162A73EAB2009791C8 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		7D39AE182A73EC25009791C8 /* ChatTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextView.swift; sourceTree = "<group>"; };
@@ -295,6 +301,9 @@
 			isa = PBXGroup;
 			children = (
 				7DA9933D2A6AC0C30053B022 /* SalonAppTests.swift */,
+				7D1A10522A93773100A48C48 /* HomeViewModelTest.swift */,
+				7D1A10542A937B5500A48C48 /* MockHomeViewController.swift */,
+				7D1A10562A93849200A48C48 /* MockHomePageService.swift */,
 			);
 			path = SalonAppTests;
 			sourceTree = "<group>";
@@ -544,7 +553,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D1A10552A937B5500A48C48 /* MockHomeViewController.swift in Sources */,
+				7D1A10572A93849200A48C48 /* MockHomePageService.swift in Sources */,
 				7DA9933E2A6AC0C30053B022 /* SalonAppTests.swift in Sources */,
+				7D1A10532A93773100A48C48 /* HomeViewModelTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

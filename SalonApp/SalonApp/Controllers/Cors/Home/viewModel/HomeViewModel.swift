@@ -9,20 +9,25 @@ import Foundation
 import UIKit
 import Combine
 protocol HomeViewModelInterface {
-    var view:HomeViewInterface? {get set}
     func viewDidLoad()
     func viewWillAppear()
     func viewWillDisappear()
-    func textFieldDidChange(_ textField: UITextField)
+    func textFieldDidChange(_ text:String)
     func didSelectRow(at indexPath:IndexPath)
     func cellForItemAt(at indexPath:IndexPath) -> (topService:TopService,backColor:String,boderColor:String)
     
 }
 
 final class HomeViewModel  {
-    weak var view: HomeViewInterface?
+    private weak var view: HomeViewInterface?
+    private let servisManager : HomePageServiceInterface
+    init(view: HomeViewInterface,servisManager: HomePageServiceInterface = HomePageService.shared) {
+        self.view = view
+        self.servisManager = servisManager
+    }
+    
     private func fetchTopServices() async  {
-        await HomePageService.shared.fetchTopServices { [weak self] in
+        await servisManager.fetchTopServices { [weak self] in
             self?.view?.reloadData()
         }
     }
@@ -39,18 +44,19 @@ extension HomeViewModel : HomeViewModelInterface{
     }
     
     func viewWillAppear() {
-        view?.prepareTabbarHidden()
+        view?.prepareTabbarHidden(isHidden: false)
     }
     
     func viewWillDisappear() {
-        view?.prepareTextFieldController()
+        view?.prepareTextFieldController(text: "")
       
     }
     
-    func textFieldDidChange(_ textField: UITextField) {
-        guard let text = textField.text else {return}
+    func textFieldDidChange(_ text: String) {
+        guard text == text else {return}
         if text.count == 3 {
-            view?.toSearchViewController()
+            let vc = SearchViewController()
+            view?.pushViewControllerable(vc, identifier: "SearchViewControllerIdentifier")
         }
     }
     
@@ -61,8 +67,8 @@ extension HomeViewModel : HomeViewModelInterface{
         var topService : TopService
         backgroundColor =  "backColor"
         borderColor = "backColor"
-        if HomePageService.shared.topServices.count != 0 {
-            topService = HomePageService.shared.topServices[indexPath.row]
+        if servisManager.topServices.count != 0 {
+            topService = servisManager.topServices[indexPath.row]
         }else{
             topService = .init(id: 0, imageUrl: "", name: "")
         }
@@ -73,7 +79,7 @@ extension HomeViewModel : HomeViewModelInterface{
     
     func didSelectRow(at indexPath: IndexPath) {
         let vc = ArtistDetailViewController()
-        view?.pushViewControllerable(vc)
+        view?.pushViewControllerable(vc, identifier: "ArtistDetailViewControllerIdentifier")
     }
 }
 
