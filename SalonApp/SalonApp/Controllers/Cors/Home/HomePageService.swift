@@ -7,7 +7,14 @@
 
 import Foundation
 
-class HomePageService {
+protocol HomePageServiceInterface {
+    var topServices : [TopService] {get}
+    
+    func fetchTopServices(completion:@escaping () -> ()) async
+}
+
+
+final class HomePageService :  HomePageServiceInterface{
     static let shared = HomePageService()
     var topServices = [TopService]()
     

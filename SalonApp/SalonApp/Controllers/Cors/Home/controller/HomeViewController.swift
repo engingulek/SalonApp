@@ -11,16 +11,15 @@ import SnapKit
 protocol HomeViewInterface : AnyObject,SeguePerformable {
     func prepareCollectionView()
     func prepareTableView()
-    func prepareTabbarHidden()
-    func prepareTextFieldController()
-    func toSearchViewController()
+    func prepareTabbarHidden(isHidden:Bool)
+    func prepareTextFieldController(text:String)
     func reloadData()
 }
 
 final class HomeViewController: UIViewController {
     private lazy var headerView = HomeHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: self.view.layer.frame.height / 4 ))
     private var status = true
-    private lazy var viewModel = HomeViewModel()
+    private lazy var viewModel = HomeViewModel(view: self)
     private let searchTextFeield : UITextField = {
         let textField = UITextField()
         textField.attributedPlaceholder = NSAttributedString(
@@ -75,7 +74,6 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.view = self
         viewModel.viewDidLoad()
         configureConstraints()
         searchTextFeield.addTarget(self, action: #selector(textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
@@ -93,8 +91,9 @@ final class HomeViewController: UIViewController {
         
     }
     
-    @objc  private func textFieldDidChange(_ textField: UITextField) {
-        viewModel.textFieldDidChange(textField)
+    @objc private func textFieldDidChange(_ textField: UITextField) {
+        guard let text = textField.text else {return}
+        viewModel.textFieldDidChange(text)
     }
     
     private func configureConstraints() {
@@ -149,13 +148,8 @@ extension HomeViewController : ArtistTableViewCellDelegate {
 }
 
 extension HomeViewController : HomeViewInterface {
-   
-   
-    func toSearchViewController() {
-        let svc = SearchViewController()
-        svc.searchText = searchTextFeield.text!
-        self.pushViewControllerable(svc)
-    }
+    
+    
     
     func prepareTableView() {
         artistTableView.delegate = self
@@ -163,12 +157,12 @@ extension HomeViewController : HomeViewInterface {
         artistTableView.reloadData()
     }
     
-    func prepareTextFieldController() {
-        searchTextFeield.text = ""
+    func prepareTextFieldController(text:String) {
+        searchTextFeield.text = text
     }
     
-    func prepareTabbarHidden() {
-        tabBarController?.tabBar.isHidden = false
+    func prepareTabbarHidden(isHidden:Bool) {
+        tabBarController?.tabBar.isHidden = isHidden
     }
     
     func prepareCollectionView() {

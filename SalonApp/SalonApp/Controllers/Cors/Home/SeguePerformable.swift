@@ -8,11 +8,12 @@
 import UIKit
 
 protocol SeguePerformable {
-    func pushViewControllerable(_ vc:UIViewController)
+
+    func pushViewControllerable(_ vc:UIViewController,identifier:String)
 }
 
 extension SeguePerformable where Self:UIViewController {
-    func pushViewControllerable(_ vc:UIViewController){
+    func pushViewControllerable(_ vc:UIViewController,identifier:String){
         navigationController?.pushViewController(vc, animated: true)
     }
 }
