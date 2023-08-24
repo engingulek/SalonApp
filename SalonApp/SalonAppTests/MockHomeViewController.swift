@@ -9,9 +9,7 @@
 import UIKit
 
 final class MockHomeViewController : HomeViewInterface {
-    
-    
-
+   
     var invokedPushViewController = false
     var invokedPushViewControllerCount = 0
     var invokedPushViewControllers : (identifier: String,Void)?
@@ -61,14 +59,27 @@ final class MockHomeViewController : HomeViewInterface {
         invokedSearchTextFieldList.append((text:text,()))
         
     }
+  
     
-    var invokedReloadData = false
-    var invokedReloadDataCount = 0
     
-    func reloadData() {
-         invokedReloadData = true
-         invokedReloadDataCount += 1
+    var invokedReloadCollectionViewData = false
+    var invokedReloadDataCollectionViewCount = 0
+    
+    func reloadDataCollectionView() {
+        
+         invokedReloadCollectionViewData = true
+         invokedReloadDataCollectionViewCount += 1
     }
+    
+    var invokedReloadTableViewData = false
+    var invokedReloadDataTableViewCount = 0
+    
+    func reloadDataTableView() {
+        
+         invokedReloadTableViewData = true
+         invokedReloadDataTableViewCount += 1
+    }
+    
     
     
     

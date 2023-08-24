@@ -13,7 +13,9 @@ protocol HomeViewInterface : AnyObject,SeguePerformable {
     func prepareTableView()
     func prepareTabbarHidden(isHidden:Bool)
     func prepareTextFieldController(text:String)
-    func reloadData()
+    func reloadDataCollectionView()
+    func reloadDataTableView()
+    
 }
 
 final class HomeViewController: UIViewController {
@@ -148,13 +150,12 @@ extension HomeViewController : ArtistTableViewCellDelegate {
 }
 
 extension HomeViewController : HomeViewInterface {
-    
-    
-    
+ 
     func prepareTableView() {
         artistTableView.delegate = self
         artistTableView.dataSource = self
         artistTableView.reloadData()
+       
     }
     
     func prepareTextFieldController(text:String) {
@@ -169,11 +170,27 @@ extension HomeViewController : HomeViewInterface {
         serviceCollectionView.delegate = self
         serviceCollectionView.dataSource = self
         serviceCollectionView.reloadData()
+      
     }
     
-    func reloadData() {
-        artistTableView.reloadData()
-        serviceCollectionView.reloadData()
+    func reloadDataCollectionView() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.serviceCollectionView.reloadData()
+        }
+        
+    }
+    
+    func reloadDataTableView() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.artistTableView.reloadData()
+        }
+        
     }
     
 }
@@ -193,14 +210,24 @@ extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSour
              
              let item = viewModel.cellForItemAt(at: indexPath)
              cell.backgroundColor = UIColor(named: item.backColor)
-             cell.layer.borderColor = UIColor(named: item.boderColor)?.cgColor
              cell.configureData(topService: item.topService)
+             let backroundView = UIView()
+             backroundView.backgroundColor = UIColor(named: item.cellSelectBackColor)
+             cell.selectedBackgroundView =  backroundView
              cell.layer.cornerRadius = 20
+             cell.layer.borderColor = UIColor(named: item.boderColor)?.cgColor
             return cell
         }
         else {
             return UICollectionViewCell()
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        viewModel.didSelectItem(at: indexPath)
+        
+
     }
 }
 
@@ -227,7 +254,9 @@ extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         viewModel.didSelectRow(at: indexPath)
+        
     }
 }
 
