@@ -14,7 +14,10 @@ protocol HomeViewModelInterface {
     func viewWillDisappear()
     func textFieldDidChange(_ text:String)
     func didSelectRow(at indexPath:IndexPath)
+    func numberOfItemsInSection() -> Int
     func cellForItemAt(at indexPath:IndexPath) -> (topService:TopService,backColor:String,boderColor:String)
+    func cellForRowAt(at indexPath:IndexPath) -> (topArtist:TopArtist,Void)
+    func numberOfRowsInSection() -> Int
     
 }
 
@@ -31,15 +34,25 @@ final class HomeViewModel  {
             self?.view?.reloadData()
         }
     }
+    
+    private func fetchTopArtists() async {
+        await servisManager.fetchTopArtists { [weak self] in
+            self?.view?.reloadData()
+        }
+    }
 }
 
 extension HomeViewModel : HomeViewModelInterface{
+ 
+    
+    
     func viewDidLoad() {
         view?.prepareCollectionView()
         view?.prepareTableView()
         Task {
             @MainActor in
             await self.fetchTopServices()
+            await self.fetchTopArtists()
         }
     }
     
@@ -68,7 +81,7 @@ extension HomeViewModel : HomeViewModelInterface{
         backgroundColor =  "backColor"
         borderColor = "backColor"
         if servisManager.topServices.count != 0 {
-            topService = servisManager.topServices[indexPath.row]
+            topService = servisManager.topServices[indexPath.item]
         }else{
             topService = .init(id: 0, imageUrl: "", name: "")
         }
@@ -77,8 +90,33 @@ extension HomeViewModel : HomeViewModelInterface{
         return (topService:topService,backColor:backgroundColor,boderColor:borderColor)
     }
     
+    func numberOfItemsInSection() -> Int {
+        return servisManager.topServices.count
+    }
+    
+   
+    
+    
+    func cellForRowAt(at indexPath: IndexPath) -> (topArtist: TopArtist, Void) {
+        
+        
+        var topArtist : TopArtist
+        if servisManager.topArtists.count != 0 {
+            topArtist =  servisManager.topArtists[indexPath.row]
+        }else{
+            topArtist =  .init(id: 0, imageUrl: "", rating: 0.0 ,name: "", bestService: "", locationcity: "",pay: 0.0)
+        }
+     
+        return (topArtist,())
+    }
+    
+    func numberOfRowsInSection() -> Int {
+        return servisManager.topArtists.count
+    }
+    
     func didSelectRow(at indexPath: IndexPath) {
         let vc = ArtistDetailViewController()
+        vc.artistId = servisManager.topArtists[indexPath.row].id
         view?.pushViewControllerable(vc, identifier: "ArtistDetailViewControllerIdentifier")
     }
 }

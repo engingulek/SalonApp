@@ -180,7 +180,7 @@ extension HomeViewController : HomeViewInterface {
 
 extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return viewModel.numberOfItemsInSection()
     }
     
     
@@ -207,7 +207,7 @@ extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSour
 
 extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return viewModel.numberOfRowsInSection()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -216,7 +216,8 @@ extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
                                                                     for: indexPath) as? ArtistTableViewCell else {
                 return UITableViewCell()
             }
-           
+           let item =  viewModel.cellForRowAt(at: indexPath)
+           cell.configureData(topArtist: item.topArtist)
             cell.cellDelegate = self
             cell.indexPathRow = indexPath.row
             return cell

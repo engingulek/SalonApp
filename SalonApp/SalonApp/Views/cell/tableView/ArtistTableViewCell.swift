@@ -7,7 +7,7 @@
 
 import UIKit
 import SnapKit
-
+import Kingfisher
 protocol ArtistTableViewCellDelegate {
     func selectBookmarkIcon(indexPathRow : Int)
 }
@@ -139,9 +139,18 @@ class ArtistTableViewCell: UITableViewCell {
        delegate.selectBookmarkIcon(indexPathRow: indexPathRow!)
     }
     
+    func configureData(topArtist:TopArtist){
+        artistCellImage.kf.setImage(with: URL(string: topArtist.imageUrl))
+        ratingLabel.text = "\(topArtist.rating)"
+        artistNameLabel.text = topArtist.name
+        baseServiceNameLabel.text = topArtist.bestService
+        locaitonLabel.text = topArtist.locationcity
+        priceLabel.text = "$\(topArtist.pay)"
+        
+    }
     
     
-    func configureConstraints() {
+   private func configureConstraints() {
         artistCellImage.snp.makeConstraints { make in
             make.top.equalTo(self.contentView.safeAreaLayoutGuide.snp.top).offset(10)
             make.leading.equalTo(self.contentView.safeAreaLayoutGuide.snp.leading).offset(15)

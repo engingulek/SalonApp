@@ -15,7 +15,7 @@ class ArtistDetailViewController: UIViewController {
     }
     private var leadingAnchors: [NSLayoutConstraint] = []
     private var trailingAnchors: [NSLayoutConstraint] = []
-  
+    var artistId : Int?
     private let indicator: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
