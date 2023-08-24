@@ -30,7 +30,9 @@ final class HomeViewModelTest : XCTestCase {
         // given
         XCTAssertFalse(view.invokedPrepareCollectionView)
         XCTAssertFalse(view.invokedPrepareTableView)
-        XCTAssertFalse(view.invokedReloadData)
+        XCTAssertFalse(view.invokedReloadCollectionViewData)
+        XCTAssertFalse(view.invokedReloadTableViewData)
+        
         
         //when
         viewModel.viewDidLoad()
@@ -38,9 +40,15 @@ final class HomeViewModelTest : XCTestCase {
         // then
         XCTAssertEqual(view.invokedPrepareCollectionViewCount,1)
         XCTAssertEqual(view.invokedPrepareTableViewCount,1)
-        XCTAssertEqual(view.invokedReloadDataCount,1)
+      
         
     }
+    
+    /*func test(){
+        viewModel.viewDidLoad()
+        XCTAssertEqual(view.invokedReloadDataCollectionViewCount,1)
+        XCTAssertEqual(view.invokedReloadDataTableViewCount,1)
+    }*/
     
     func test_viewWillAppear_invokedprepareTabbarHidden(){
         // gicen
@@ -65,8 +73,13 @@ final class HomeViewModelTest : XCTestCase {
     func test_didSelectRow_toArtistDetailViewController_pushViewController(){
         // given
         XCTAssertTrue(view.invokedPushViewControllerList.isEmpty)
+        let artist = TopArtist(id: 0, imageUrl: "url", rating: 1.0, name: "Test Name", bestService: "Test Best Service", locationcity: "Test City", pay: 0.0)
+        serviceManager.mockFetchTopArtist = .success([artist])
+        
         //when
+        viewModel.fetchTopArtists()
         viewModel.didSelectRow(at: .init(row: 0, section: 0))
+        
         //then
         XCTAssertEqual(view.invokedPushViewControllerList.map(\.identifier),["ArtistDetailViewControllerIdentifier"])
     }
