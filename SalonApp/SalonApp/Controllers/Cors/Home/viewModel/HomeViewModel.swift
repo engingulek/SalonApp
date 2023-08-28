@@ -6,8 +6,7 @@
 //
 
 import Foundation
-import UIKit
-import Combine
+
 protocol HomeViewModelInterface {
     var selectedTopServiceIndex: IndexPath {get set}
     func viewDidLoad()
