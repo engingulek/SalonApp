@@ -74,7 +74,7 @@ class CommentTableViewCell: UITableViewCell {
         contentView.addSubview(ratingImage)
         self.contentView.backgroundColor = .white
         self.contentView.layer.cornerRadius = 10
-        commentLabel.text = commentText
+       // commentLabel.text = commentText
         configureConstraints()
     }
     
@@ -86,6 +86,12 @@ class CommentTableViewCell: UITableViewCell {
           super.layoutSubviews()
           self.contentView.frame = self.contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
      }
+    
+    
+    func configureData(comment:Comment) {
+        commenterPersonLabel.text = comment.nameSurname
+        commentLabel.text = comment.comment
+    }
     
     private func  configureConstraints() {
         commenterPersonImage.snp.makeConstraints { make in

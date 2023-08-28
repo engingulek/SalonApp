@@ -11,16 +11,17 @@ import SnapKit
 protocol HomeViewInterface : AnyObject,SeguePerformable {
     func prepareCollectionView()
     func prepareTableView()
-    func prepareTabbarHidden()
-    func prepareTextFieldController()
-    func toSearchViewController()
-    func reloadData()
+    func prepareTabbarHidden(isHidden:Bool)
+    func prepareTextFieldController(text:String)
+    func reloadDataCollectionView()
+    func reloadDataTableView()
+    
 }
 
 final class HomeViewController: UIViewController {
     private lazy var headerView = HomeHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: self.view.layer.frame.height / 4 ))
     private var status = true
-    private lazy var viewModel = HomeViewModel()
+    private lazy var viewModel = HomeViewModel(view: self)
     private let searchTextFeield : UITextField = {
         let textField = UITextField()
         textField.attributedPlaceholder = NSAttributedString(
@@ -75,7 +76,6 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.view = self
         viewModel.viewDidLoad()
         configureConstraints()
         searchTextFeield.addTarget(self, action: #selector(textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
@@ -93,8 +93,9 @@ final class HomeViewController: UIViewController {
         
     }
     
-    @objc  private func textFieldDidChange(_ textField: UITextField) {
-        viewModel.textFieldDidChange(textField)
+    @objc private func textFieldDidChange(_ textField: UITextField) {
+        guard let text = textField.text else {return}
+        viewModel.textFieldDidChange(text)
     }
     
     private func configureConstraints() {
@@ -149,44 +150,54 @@ extension HomeViewController : ArtistTableViewCellDelegate {
 }
 
 extension HomeViewController : HomeViewInterface {
-   
-   
-    func toSearchViewController() {
-        let svc = SearchViewController()
-        svc.searchText = searchTextFeield.text!
-        self.pushViewControllerable(svc)
-    }
-    
+ 
     func prepareTableView() {
         artistTableView.delegate = self
         artistTableView.dataSource = self
         artistTableView.reloadData()
+       
     }
     
-    func prepareTextFieldController() {
-        searchTextFeield.text = ""
+    func prepareTextFieldController(text:String) {
+        searchTextFeield.text = text
     }
     
-    func prepareTabbarHidden() {
-        tabBarController?.tabBar.isHidden = false
+    func prepareTabbarHidden(isHidden:Bool) {
+        tabBarController?.tabBar.isHidden = isHidden
     }
     
     func prepareCollectionView() {
         serviceCollectionView.delegate = self
         serviceCollectionView.dataSource = self
         serviceCollectionView.reloadData()
+      
     }
     
-    func reloadData() {
-        artistTableView.reloadData()
-        serviceCollectionView.reloadData()
+    func reloadDataCollectionView() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            print("ALİİİ \(viewModel.topArtistList)")
+            self.serviceCollectionView.reloadData()
+        }
+        
+    }
+    
+    func reloadDataTableView() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.artistTableView.reloadData()
+        }
     }
     
 }
 
 extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return viewModel.numberOfItemsInSection()
     }
     
     
@@ -199,21 +210,31 @@ extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSour
              
              let item = viewModel.cellForItemAt(at: indexPath)
              cell.backgroundColor = UIColor(named: item.backColor)
-             cell.layer.borderColor = UIColor(named: item.boderColor)?.cgColor
              cell.configureData(topService: item.topService)
+             let backroundView = UIView()
+             backroundView.backgroundColor = UIColor(named: item.cellSelectBackColor)
+             cell.selectedBackgroundView =  backroundView
              cell.layer.cornerRadius = 20
+             cell.layer.borderColor = UIColor(named: item.boderColor)?.cgColor
             return cell
         }
         else {
             return UICollectionViewCell()
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        viewModel.didSelectItem(at: indexPath)
+        
+
+    }
 }
 
 
 extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return viewModel.numberOfRowsInSection()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -222,7 +243,8 @@ extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
                                                                     for: indexPath) as? ArtistTableViewCell else {
                 return UITableViewCell()
             }
-           
+           let item =  viewModel.cellForRowAt(at: indexPath)
+           cell.configureData(topArtist: item.topArtist)
             cell.cellDelegate = self
             cell.indexPathRow = indexPath.row
             return cell
@@ -232,7 +254,9 @@ extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         viewModel.didSelectRow(at: indexPath)
+        
     }
 }
 

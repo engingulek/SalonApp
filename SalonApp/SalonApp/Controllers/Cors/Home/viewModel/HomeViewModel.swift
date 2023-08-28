@@ -6,75 +6,136 @@
 //
 
 import Foundation
-import UIKit
-import Combine
+
 protocol HomeViewModelInterface {
-    var view:HomeViewInterface? {get set}
+    var selectedTopServiceIndex: IndexPath {get set}
     func viewDidLoad()
     func viewWillAppear()
     func viewWillDisappear()
-    func textFieldDidChange(_ textField: UITextField)
+    func textFieldDidChange(_ text:String)
     func didSelectRow(at indexPath:IndexPath)
-    func cellForItemAt(at indexPath:IndexPath) -> (topService:TopService,backColor:String,boderColor:String)
+    func didSelectItem(at indexPath:IndexPath )
+    func numberOfItemsInSection() -> Int
+    func cellForItemAt(at indexPath:IndexPath) -> (topService:TopService,backColor:String,cellSelectBackColor:String,boderColor:String)
+    func cellForRowAt(at indexPath:IndexPath) -> (topArtist:TopArtist,Void)
+    func numberOfRowsInSection() -> Int
     
 }
 
 final class HomeViewModel  {
-    weak var view: HomeViewInterface?
-    private func fetchTopServices() async  {
-        await HomePageService.shared.fetchTopServices { [weak self] in
-            self?.view?.reloadData()
-        }
+    private weak var view: HomeViewInterface?
+    private let servisManager : HomePageServiceInterface
+    var selectedTopServiceIndex:IndexPath = [0,0]
+    private var topServiceList: [TopService] = []
+     var topArtistList : [TopArtist] = []
+    
+    init(view: HomeViewInterface,servisManager: HomePageServiceInterface = HomePageService.shared) {
+        self.view = view
+        self.servisManager = servisManager
+    }
+    
+    private func fetchTopServices()   {
+         servisManager.fetchTopServices(completion: { response in
+            switch response {
+            case .success(let list):
+                self.topServiceList = list ?? []
+                self.view?.reloadDataCollectionView()
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        })
+    }
+    
+     func fetchTopArtists() {
+         servisManager.fetchTopArtists(completion: { response in
+            switch response {
+            case .success(let list):
+                self.topArtistList = list ?? []
+                self.view?.reloadDataTableView()
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        })
     }
 }
 
 extension HomeViewModel : HomeViewModelInterface{
+    
     func viewDidLoad() {
-        view?.prepareCollectionView()
-        view?.prepareTableView()
         Task {
             @MainActor in
-            await self.fetchTopServices()
+            self.fetchTopServices()
+            self.fetchTopArtists()
         }
+        
+       
+        view?.prepareCollectionView()
+        view?.prepareTableView()
+         
     }
     
     func viewWillAppear() {
-        view?.prepareTabbarHidden()
+        view?.prepareTabbarHidden(isHidden: false)
     }
     
     func viewWillDisappear() {
-        view?.prepareTextFieldController()
+        view?.prepareTextFieldController(text: "")
       
     }
     
-    func textFieldDidChange(_ textField: UITextField) {
-        guard let text = textField.text else {return}
+    func textFieldDidChange(_ text: String) {
+        guard text == text else {return}
         if text.count == 3 {
-            view?.toSearchViewController()
+            let vc = SearchViewController()
+            view?.pushViewControllerable(vc, identifier: "SearchViewControllerIdentifier")
         }
     }
     
     
-    func cellForItemAt(at indexPath: IndexPath) -> (topService:TopService,backColor:String,boderColor:String) {
+    func cellForItemAt(at indexPath: IndexPath) -> (topService:TopService,
+                                                    backColor:String,
+                                                    cellSelectBackColor:String,
+                                                    boderColor:String) {
+        print("Testi \(indexPath.item)")
+        print("Testi2 \(selectedTopServiceIndex.item)")
         var backgroundColor : String
         var borderColor : String
         var topService : TopService
+        var selectBackColor: String
+        
         backgroundColor =  "backColor"
         borderColor = "backColor"
-        if HomePageService.shared.topServices.count != 0 {
-            topService = HomePageService.shared.topServices[indexPath.row]
-        }else{
-            topService = .init(id: 0, imageUrl: "", name: "")
-        }
-      
-        
-        return (topService:topService,backColor:backgroundColor,boderColor:borderColor)
+        selectBackColor = "cellSelected"
+        topService = topServiceList[indexPath.row]
+       
+        return (topService:topService,backColor:backgroundColor,cellSelectBackColor:selectBackColor,boderColor:borderColor)
+    }
+    
+    func numberOfItemsInSection() -> Int {
+        return topServiceList.count
+    }
+    
+    func didSelectItem(at indexPath: IndexPath) {
+        self.selectedTopServiceIndex = indexPath
+    }
+    
+    func cellForRowAt(at indexPath: IndexPath) -> (topArtist: TopArtist, Void) {
+        var topArtist : TopArtist
+        topArtist = topArtistList[indexPath.row]
+        return (topArtist,())
+    }
+    
+    func numberOfRowsInSection() -> Int {
+        return topArtistList.count
     }
     
     func didSelectRow(at indexPath: IndexPath) {
         let vc = ArtistDetailViewController()
-        view?.pushViewControllerable(vc)
+        vc.artistId = topArtistList[indexPath.row].id
+        view?.pushViewControllerable(vc, identifier: "ArtistDetailViewControllerIdentifier")
     }
+    
+    
 }
 
 

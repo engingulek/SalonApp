@@ -13,8 +13,10 @@ enum CustomError: Error {
     case networkError
 }
 
-enum NetworkPath : String {
+enum NetworkPath  {
     case topServices
+    case topArtists
+    case artistDetail(Int)
 }
 
 extension NetworkPath : TargetType {
@@ -26,6 +28,11 @@ extension NetworkPath : TargetType {
         switch self {
         case .topServices:
             return "topServices/getAll"
+            
+        case .topArtists:
+            return "artists/getTopArtists"
+        case .artistDetail(let artistId):
+            return "artists/getArtistInfo?artistId=\(artistId)"
         }
     }
     
@@ -33,12 +40,20 @@ extension NetworkPath : TargetType {
         switch self {
         case .topServices:
             return .get
+        case .topArtists:
+            return .get
+        case .artistDetail:
+            return .get
         }
     }
     
     var requestType: RequestType {
         switch self {
         case .topServices:
+            return .requestPlain
+        case .topArtists:
+            return .requestPlain
+        case .artistDetail:
             return .requestPlain
         }
     }
@@ -53,22 +68,3 @@ extension NetworkPath : TargetType {
     
 }
 
-
-
-
-
-struct ProductConstants {
-    static let BASE_URL = "http://localhost:8080/api/"
-}
-
-
-
-enum NetworkType {
-    case get
-    func toAlamofire() -> HTTPMethod {
-        switch self{
-        case .get:
-            return .get
-        }
-    }
-}

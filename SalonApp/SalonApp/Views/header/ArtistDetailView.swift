@@ -102,6 +102,14 @@ class ArtistDetailView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configureData(artistDetail:ArtistDetail) {
+        artistNameLabel.text = artistDetail.name
+        ratingLabel.text =  "\(artistDetail.rating)"
+        baseServiceNameLabel.text = artistDetail.bestService
+        locaitonLabel.text = artistDetail.locationcity
+        priceLabel.text = "$\(artistDetail.pay)"
+    }
+    
     private func configureConstraints() {
         
         artistCellImage.snp.makeConstraints { make in
