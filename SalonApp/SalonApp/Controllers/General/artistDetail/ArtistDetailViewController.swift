@@ -15,6 +15,7 @@ protocol ArtistDetailViewInterface : AnyObject,SeguePerformable {
     func prepareNavigationBarCollor(colorText:String)
     func prepareSection(aboutisHidden:Bool,commetisHidden:Bool)
     func reloadDataTableView()
+    func getArtistDetail()
     
 }
 
@@ -83,12 +84,19 @@ class ArtistDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.viewDidLoad()
+        guard let id = artistId else {return }
+      
+       
         view.backgroundColor = UIColor(named: "backColor")
         sendMessageButton.addTarget(self, action: #selector(didTapSedMesseaga(_:)), for: .touchUpInside)
         configureStackButton()
         configureContraints()
+        viewModel.viewDidLoad(artistId: id)
+        
+       // headerView.configureData(artistDetail: viewModel.artistDetail!)
     }
+    
+   
 
     private func configureContraints(){
         
@@ -154,10 +162,12 @@ class ArtistDetailViewController: UIViewController {
 
 extension ArtistDetailViewController : ArtistDetailViewInterface {
    
+    
+   
     func prepareTableView() {
         commentTableView.delegate = self
         commentTableView.dataSource = self
-        commentTableView.reloadData()
+        //commentTableView.reloadData()
     }
     
     func prepareTabbarHidden(isHidden: Bool) {
@@ -180,6 +190,16 @@ extension ArtistDetailViewController : ArtistDetailViewInterface {
     func prepareSection(aboutisHidden: Bool, commetisHidden: Bool) {
         textViewAbout.isHidden = aboutisHidden
         commentTableView.isHidden = commetisHidden
+    }
+    
+    func getArtistDetail() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            headerView.configureData(artistDetail: viewModel.artistDetail!)
+            self.textViewAbout.text = viewModel.artistDetail?.about
+        }
     }
 }
 

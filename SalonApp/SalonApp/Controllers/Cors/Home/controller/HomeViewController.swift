@@ -178,6 +178,7 @@ extension HomeViewController : HomeViewInterface {
             guard let self = self else {
                 return
             }
+            print("ALİİİ \(viewModel.topArtistList)")
             self.serviceCollectionView.reloadData()
         }
         
@@ -190,7 +191,6 @@ extension HomeViewController : HomeViewInterface {
             }
             self.artistTableView.reloadData()
         }
-        
     }
     
 }
