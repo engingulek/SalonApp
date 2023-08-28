@@ -43,13 +43,7 @@ final class HomeViewModelTest : XCTestCase {
       
         
     }
-    
-    /*func test(){
-        viewModel.viewDidLoad()
-        XCTAssertEqual(view.invokedReloadDataCollectionViewCount,1)
-        XCTAssertEqual(view.invokedReloadDataTableViewCount,1)
-    }*/
-    
+
     func test_viewWillAppear_invokedprepareTabbarHidden(){
         // gicen
         XCTAssertTrue(view.invokedTabbarHiddenList.isEmpty)
@@ -75,7 +69,7 @@ final class HomeViewModelTest : XCTestCase {
         XCTAssertTrue(view.invokedPushViewControllerList.isEmpty)
         let artist = TopArtist(id: 0, imageUrl: "url", rating: 1.0, name: "Test Name", bestService: "Test Best Service", locationcity: "Test City", pay: 0.0)
         serviceManager.mockFetchTopArtist = .success([artist])
-        
+
         //when
         viewModel.fetchTopArtists()
         viewModel.didSelectRow(at: .init(row: 0, section: 0))
