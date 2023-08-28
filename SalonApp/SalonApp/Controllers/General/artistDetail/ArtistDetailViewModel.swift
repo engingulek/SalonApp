@@ -9,34 +9,64 @@ import Foundation
 
 protocol ArtistDetailViewModelInterface{
     var sectionType : SectionTabs { get }
-    func viewDidLoad()
+    func viewDidLoad(artistId:Int)
     func sendMessageButtonTap()
     func didTapTab(selectLabel:String)
+   
     func numberOfRowsInSection() -> Int
     func cellForRowAt(at indexPath:IndexPath) -> (comment:Comment,backColor:String,borderColor:String)
+  
 }
 
 final class ArtistDetailViewModel{
     private weak var view : ArtistDetailViewInterface?
+    private let serviceManager : ArtistDetailServiceInterfece
     private var selectionString : String = "About"
+ 
     private var selectedTab : Int = 0
-    init(view: ArtistDetailViewInterface) {
+    var artistDetail : ArtistDetail? = nil
+    init(view: ArtistDetailViewInterface,serviceManager: ArtistDetailServiceInterfece = ArtistDetailService.shared) {
         self.view = view
+        self.serviceManager = serviceManager
+    }
+    
+    private func fetchArtistDetail(artistId:Int) {
+       serviceManager.fetchArtistDetail(artistId: artistId) { response in
+            switch response {
+            case .success(let success):
+                self.artistDetail = success![0]
+                self.view?.getArtistDetail()
+                print("View Model \(self.artistDetail?.name)")
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        }
     }
 }
 
 
 extension ArtistDetailViewModel : ArtistDetailViewModelInterface {
-
+ 
     var sectionType: SectionTabs {
         selectionString == "About" ? .about : .comment
     }
     
-    func viewDidLoad() {
+    func viewDidLoad(artistId:Int)  {
+        
+        Task {
+            @MainActor in
+            self.fetchArtistDetail(artistId:artistId)
+        }
+        print("Id \(artistId)")
         view?.prepareTableView()
         view?.prepareTabbarHidden(isHidden: true)
         view?.prepareNavigationBarCollor(colorText: "black")
     }
+    
+    
+  
+    
+ 
     
     func sendMessageButtonTap() {
         let vc = ChatViewController()
@@ -55,6 +85,7 @@ extension ArtistDetailViewModel : ArtistDetailViewModelInterface {
         }
     }
     
+
     func numberOfRowsInSection() -> Int {
         return 3
     }
@@ -70,5 +101,7 @@ extension ArtistDetailViewModel : ArtistDetailViewModelInterface {
         
         return (comment:comment,backColor:backColor,borderColor:borderColor)
     }
+    
+  
     
 }

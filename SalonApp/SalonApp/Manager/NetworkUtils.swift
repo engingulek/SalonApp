@@ -13,9 +13,10 @@ enum CustomError: Error {
     case networkError
 }
 
-enum NetworkPath : String {
+enum NetworkPath  {
     case topServices
     case topArtists
+    case artistDetail(Int)
 }
 
 extension NetworkPath : TargetType {
@@ -30,6 +31,8 @@ extension NetworkPath : TargetType {
             
         case .topArtists:
             return "artists/getTopArtists"
+        case .artistDetail(let artistId):
+            return "artists/getArtistInfo?artistId=\(artistId)"
         }
     }
     
@@ -39,6 +42,8 @@ extension NetworkPath : TargetType {
             return .get
         case .topArtists:
             return .get
+        case .artistDetail:
+            return .get
         }
     }
     
@@ -47,6 +52,8 @@ extension NetworkPath : TargetType {
         case .topServices:
             return .requestPlain
         case .topArtists:
+            return .requestPlain
+        case .artistDetail:
             return .requestPlain
         }
     }

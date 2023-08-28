@@ -67,6 +67,7 @@ extension HomeViewModel : HomeViewModelInterface{
             self.fetchTopServices()
             self.fetchTopArtists()
         }
+        
        
         view?.prepareCollectionView()
         view?.prepareTableView()
