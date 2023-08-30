@@ -15,6 +15,8 @@ protocol HomeViewInterface : AnyObject,SeguePerformable {
     func prepareTextFieldController(text:String)
     func reloadDataCollectionView()
     func reloadDataTableView()
+    func indicatorViewTopService(animate:Bool)
+    func indicatoViewTopArtist(animate:Bool)
     
 }
 
@@ -22,6 +24,20 @@ final class HomeViewController: UIViewController {
     private lazy var headerView = HomeHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: self.view.layer.frame.height / 4 ))
     private var status = true
     private lazy var viewModel = HomeViewModel(view: self)
+    private let indicatorTopService: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.style = .large
+        indicator.color = .black
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
+    private let indicatorTopArtist: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.style = .large
+        indicator.color = .black
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
     private let searchTextFeield : UITextField = {
         let textField = UITextField()
         textField.attributedPlaceholder = NSAttributedString(
@@ -106,6 +122,8 @@ final class HomeViewController: UIViewController {
         view.addSubview(serviceCollectionView)
         view.addSubview(topArtistLabel)
         view.addSubview(artistTableView)
+        view.addSubview(indicatorTopService)
+        view.addSubview(indicatorTopArtist)
         searchTextFeield.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom).offset(20)
             make.height.equalTo(40)
@@ -128,6 +146,11 @@ final class HomeViewController: UIViewController {
             make.height.equalTo(80)
         }
         
+        indicatorTopService.snp.makeConstraints { make in
+            make.top.equalTo(serviceTitleLabel.snp.bottom).offset(10)
+            make.centerX.equalTo(self.view.safeAreaLayoutGuide.snp.centerX)
+        }
+        
         
         topArtistLabel.snp.makeConstraints { make in
             make.top.equalTo(serviceCollectionView.snp.bottom).offset(10)
@@ -140,6 +163,11 @@ final class HomeViewController: UIViewController {
             make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing)
             make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
         }
+        
+        indicatorTopArtist.snp.makeConstraints { make in
+            make.top.equalTo(topArtistLabel.snp.bottom).offset(20)
+            make.centerX.equalTo(self.view.safeAreaLayoutGuide.snp.centerX)
+        }
     }
 }
 
@@ -150,7 +178,8 @@ extension HomeViewController : ArtistTableViewCellDelegate {
 }
 
 extension HomeViewController : HomeViewInterface {
- 
+  
+
     func prepareTableView() {
         artistTableView.delegate = self
         artistTableView.dataSource = self
@@ -178,7 +207,6 @@ extension HomeViewController : HomeViewInterface {
             guard let self = self else {
                 return
             }
-            print("ALİİİ \(viewModel.topArtistList)")
             self.serviceCollectionView.reloadData()
         }
         
@@ -192,6 +220,23 @@ extension HomeViewController : HomeViewInterface {
             self.artistTableView.reloadData()
         }
     }
+    
+    func indicatorViewTopService(animate: Bool) {
+        DispatchQueue.main.async { [weak self] in
+                   guard let self = self else { return }
+                   animate ? self.indicatorTopService.startAnimating() : self.indicatorTopService.stopAnimating()
+                   self.indicatorTopService.isHidden = !animate
+               }
+    }
+    
+    func indicatoViewTopArtist(animate: Bool) {
+        DispatchQueue.main.async { [weak self] in
+                   guard let self = self else { return }
+                   animate ? self.indicatorTopService.startAnimating() : self.indicatorTopService.stopAnimating()
+            self.indicatorTopArtist.isHidden = !animate
+               }
+    }
+    
     
 }
 
@@ -226,8 +271,6 @@ extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         viewModel.didSelectItem(at: indexPath)
-        
-
     }
 }
 
@@ -247,6 +290,7 @@ extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
            cell.configureData(topArtist: item.topArtist)
             cell.cellDelegate = self
             cell.indexPathRow = indexPath.row
+            cell.selectionStyle = .none
             return cell
         }else{
             return UITableViewCell()
