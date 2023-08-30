@@ -16,6 +16,7 @@ protocol ArtistDetailViewInterface : AnyObject,SeguePerformable {
     func prepareSection(aboutisHidden:Bool,commetisHidden:Bool)
     func reloadDataTableView()
     func getArtistDetail()
+    func indicatorView(animate:Bool)
     
 }
 
@@ -30,7 +31,7 @@ class ArtistDetailViewController: UIViewController {
 
     var artistId : Int?
     private lazy var viewModel = ArtistDetailViewModel(view: self)
-
+    private let indicator: UIActivityIndicatorView = .init()
     private var tabs: [UIButton] = ["About","Comment"]
         .map { buttonTitle in
             let button = UIButton(type: .system)
@@ -105,6 +106,7 @@ class ArtistDetailViewController: UIViewController {
         view.addSubview(textViewAbout)
         view.addSubview(commentTableView)
         view.addSubview(sectionStack)
+        view.addSubview(indicator)
 
         
         sectionStack.snp.makeConstraints { make in
@@ -114,6 +116,8 @@ class ArtistDetailViewController: UIViewController {
             make.top.equalTo(headerView.snp.bottom).offset(5)
             make.height.equalTo(35)
         }
+        
+        
       
         
         sendMessageButton.snp.makeConstraints { make in
@@ -138,6 +142,11 @@ class ArtistDetailViewController: UIViewController {
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-25)
             make.bottom.equalTo(sendMessageButton.snp.top).offset(-10)
         }
+        
+        indicator.snp.makeConstraints { make in
+            make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+            make.centerY.equalTo(view.safeAreaLayoutGuide.snp.centerY)
+        }
     }
     
     
@@ -155,19 +164,21 @@ class ArtistDetailViewController: UIViewController {
     
     // MARK: - Select Tap
     @objc private func didTapTab(_ sender: UIButton) {
-        guard let label = sender.titleLabel?.text else { return }
-        viewModel.didTapTab(selectLabel: label)
+        guard let label = sender.titleLabel?.text,let artistId = artistId else { return }
+        viewModel.didTapTab(selectLabel: label,artistId: artistId)
     }
 }
 
 extension ArtistDetailViewController : ArtistDetailViewInterface {
+
+    
    
     
    
     func prepareTableView() {
         commentTableView.delegate = self
         commentTableView.dataSource = self
-        //commentTableView.reloadData()
+        commentTableView.reloadData()
     }
     
     func prepareTabbarHidden(isHidden: Bool) {
@@ -201,6 +212,15 @@ extension ArtistDetailViewController : ArtistDetailViewInterface {
             self.textViewAbout.text = viewModel.artistDetail?.about
         }
     }
+    
+    func indicatorView(animate: Bool) {
+        DispatchQueue.main.async { [weak self] in
+
+                   guard let self = self else { return }
+                   animate ? self.indicator.startAnimating() : self.indicator.stopAnimating()
+                   self.indicator.isHidden = !animate
+               }
+    }
 }
 
 extension ArtistDetailViewController :  UITableViewDelegate,UITableViewDataSource {
@@ -220,6 +240,7 @@ extension ArtistDetailViewController :  UITableViewDelegate,UITableViewDataSourc
              cell.layer.borderColor = UIColor(named: item.borderColor)?.cgColor
              cell
                  .configureData(comment: item.comment)
+             cell.selectionStyle = .none
             return cell
         }
         else{

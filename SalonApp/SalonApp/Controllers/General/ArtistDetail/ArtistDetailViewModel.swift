@@ -11,7 +11,7 @@ protocol ArtistDetailViewModelInterface{
     var sectionType : SectionTabs { get }
     func viewDidLoad(artistId:Int)
     func sendMessageButtonTap()
-    func didTapTab(selectLabel:String)
+    func didTapTab(selectLabel:String,artistId:Int)
     func numberOfRowsInSection() -> Int
     func cellForRowAt(at indexPath:IndexPath) -> (comment:Comment,backColor:String,borderColor:String)
   
@@ -23,6 +23,7 @@ final class ArtistDetailViewModel{
     private var selectionString : String = "About"
     private var selectedTab : Int = 0
     var artistDetail : ArtistDetail? = nil
+    var artistComment : [Comment] = []
     
     init(view: ArtistDetailViewInterface,serviceManager: ArtistDetailServiceInterfece = ArtistDetailService.shared) {
         self.view = view
@@ -40,6 +41,18 @@ final class ArtistDetailViewModel{
             }
         }
     }
+    func fetchArtistComment(artistId:Int){
+        serviceManager.fetchArtistComment(artisId: artistId) { response in
+            switch response {
+            case .success(let success):
+                self.artistComment = success ?? []
+                self.view?.reloadDataTableView()
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+            self.view?.indicatorView(animate: false)
+        }
+    }
 }
 
 
@@ -49,7 +62,9 @@ extension ArtistDetailViewModel : ArtistDetailViewModelInterface {
     }
     
     func viewDidLoad(artistId:Int)  {
+        view?.indicatorView(animate: true)
         self.fetchArtistDetail(artistId:artistId)
+        
         view?.prepareTableView()
         view?.prepareTabbarHidden(isHidden: true)
         view?.prepareNavigationBarCollor(colorText: "black")
@@ -61,18 +76,19 @@ extension ArtistDetailViewModel : ArtistDetailViewModelInterface {
     }
     
  
-    func didTapTab(selectLabel:String) {
+    func didTapTab(selectLabel:String,artistId:Int) {
         selectionString = selectLabel
         switch sectionType {
         case .about:
             view?.prepareSection(aboutisHidden: false, commetisHidden: true)
         case .comment:
             view?.prepareSection(aboutisHidden: true, commetisHidden: false)
+            self.fetchArtistComment(artistId: artistId)
         }
     }
     
     func numberOfRowsInSection() -> Int {
-        return 3
+        return self.artistComment.count
     }
     
     func cellForRowAt(at indexPath:IndexPath) -> (comment: Comment, backColor: String, borderColor: String) {
@@ -82,7 +98,7 @@ extension ArtistDetailViewModel : ArtistDetailViewModelInterface {
         
         backColor = "backColor"
         borderColor = "backColor"
-        comment  = .init(id: 0, nameSurname: "testName", comment: "testComment")
+        comment  = self.artistComment[indexPath.row]
         
         return (comment:comment,backColor:backColor,borderColor:borderColor)
     }

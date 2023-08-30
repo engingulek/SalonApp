@@ -7,8 +7,11 @@
 
 import Foundation
 
-struct Comment {
+struct Comment:Decodable {
     let id : Int
-    let nameSurname : String
+    let imageurl:String
+    let commenter : String
     let comment:String
+    let rating:Double
+    let commentdate : String
 }

@@ -220,7 +220,7 @@
 		7D50693C2A6D7C1900EB053B /* General */ = {
 			isa = PBXGroup;
 			children = (
-				7DA6590A2A9CA9C90067E9E6 /* artistDetail */,
+				7DA6590A2A9CA9C90067E9E6 /* ArtistDetail */,
 				7D39AE162A73EAB2009791C8 /* ChatViewController.swift */,
 				7DD3F0D32A6FDFF50018D0C4 /* SearchViewController.swift */,
 				7D0A8BB02A80EC3A00C2DC5B /* StroyViewController.swift */,
@@ -311,7 +311,7 @@
 			path = service;
 			sourceTree = "<group>";
 		};
-		7DA6590A2A9CA9C90067E9E6 /* artistDetail */ = {
+		7DA6590A2A9CA9C90067E9E6 /* ArtistDetail */ = {
 			isa = PBXGroup;
 			children = (
 				7D50693D2A6D7C3B00EB053B /* ArtistDetailViewController.swift */,
@@ -320,7 +320,7 @@
 				7DA6590F2A9CDDB70067E9E6 /* ArtistDetilService.swift */,
 				7DA659112A9CDE700067E9E6 /* ArtistDetail.swift */,
 			);
-			path = artistDetail;
+			path = ArtistDetail;
 			sourceTree = "<group>";
 		};
 		7DA9931A2A6AC0C20053B022 = {

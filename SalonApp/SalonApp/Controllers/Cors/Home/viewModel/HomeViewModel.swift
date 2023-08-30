@@ -43,6 +43,7 @@ final class HomeViewModel  {
             case .failure(let failure):
                 print(failure.localizedDescription)
             }
+             self.view?.indicatorViewTopService(animate: false)
         })
     }
     
@@ -55,6 +56,7 @@ final class HomeViewModel  {
             case .failure(let failure):
                 print(failure.localizedDescription)
             }
+             self.view?.indicatoViewTopArtist(animate: false)
         })
     }
 }
@@ -62,6 +64,8 @@ final class HomeViewModel  {
 extension HomeViewModel : HomeViewModelInterface{
     
     func viewDidLoad() {
+        view?.indicatorViewTopService(animate: true)
+        view?.indicatoViewTopArtist(animate: true)
         Task {
             @MainActor in
             self.fetchTopServices()

@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 class CommentTableViewCell: UITableViewCell {
     static let identifier = "CommentTableViewCell"
     private let commentText  = "Tam anlaştığımız bir saate geldi. hİç oyalanmadan işe başlayarak çok hızlı bir şekilde gerçekleştirdi. Güvelikle tercih edebilirsiniz"
@@ -89,8 +90,13 @@ class CommentTableViewCell: UITableViewCell {
     
     
     func configureData(comment:Comment) {
-        commenterPersonLabel.text = comment.nameSurname
+        commenterPersonImage.kf.setImage(with: URL(string: comment.imageurl))
+        commenterPersonLabel.text = comment.commenter
+        ratingLabel.text = "\(comment.rating)"
         commentLabel.text = comment.comment
+        dateLabel.text = changeDateFormat(commentDate: comment.commentdate)
+        
+        
     }
     
     private func  configureConstraints() {
@@ -131,5 +137,15 @@ class CommentTableViewCell: UITableViewCell {
             make.bottom.equalTo(contentView.safeAreaLayoutGuide.snp.bottom).offset(-10)
             make.height.equalTo(110)
         }
+    }
+    
+    private func changeDateFormat(commentDate:String)-> String{
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let dateFormatterPrint = DateFormatter()
+        dateFormatterPrint.dateFormat = "MMM dd,yyyy"
+        let date  = dateFormatterGet.date(from: commentDate) ?? .now
+        let resultDate = dateFormatterPrint.string(from: date)
+        return resultDate
     }
 }
