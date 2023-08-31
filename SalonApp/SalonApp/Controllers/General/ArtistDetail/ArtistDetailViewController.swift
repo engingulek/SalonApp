@@ -8,11 +8,10 @@
 import UIKit
 import SnapKit
 
-protocol ArtistDetailViewInterface : AnyObject,SeguePerformable {
+protocol ArtistDetailViewInterface : AnyObject,ViewAble,NavigaitonBarAble,SeguePerformable {
     
     func prepareTableView()
     func prepareTabbarHidden(isHidden:Bool)
-    func prepareNavigationBarCollor(colorText:String)
     func prepareSection(aboutisHidden:Bool,commetisHidden:Bool)
     func reloadDataTableView()
     func getArtistDetail()
@@ -86,15 +85,11 @@ class ArtistDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let id = artistId else {return }
-      
-       
-        view.backgroundColor = UIColor(named: "backColor")
+        
         sendMessageButton.addTarget(self, action: #selector(didTapSedMesseaga(_:)), for: .touchUpInside)
         configureStackButton()
         configureContraints()
         viewModel.viewDidLoad(artistId: id)
-        
-       // headerView.configureData(artistDetail: viewModel.artistDetail!)
     }
     
    
@@ -116,9 +111,6 @@ class ArtistDetailViewController: UIViewController {
             make.top.equalTo(headerView.snp.bottom).offset(5)
             make.height.equalTo(35)
         }
-        
-        
-      
         
         sendMessageButton.snp.makeConstraints { make in
             make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(20)
@@ -171,10 +163,7 @@ class ArtistDetailViewController: UIViewController {
 
 extension ArtistDetailViewController : ArtistDetailViewInterface {
 
-    
-   
-    
-   
+
     func prepareTableView() {
         commentTableView.delegate = self
         commentTableView.dataSource = self
@@ -183,10 +172,6 @@ extension ArtistDetailViewController : ArtistDetailViewInterface {
     
     func prepareTabbarHidden(isHidden: Bool) {
         tabBarController?.tabBar.isHidden = isHidden
-    }
-    
-    func prepareNavigationBarCollor(colorText: String) {
-        self.navigationController?.navigationBar.tintColor = UIColor(named: colorText)
     }
     
     func reloadDataTableView() {

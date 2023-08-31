@@ -9,6 +9,34 @@
 import UIKit
 
 final class MockHomeViewController : HomeViewInterface {
+    
+    var invokedIndicatorViewTopService = false
+    var invokedIndicatorViewTopServiceCount = 0
+    var invokedIndicatorViewTopServiceList = [(animate:Bool,Void)]()
+    func indicatorViewTopService(animate: Bool) {
+         invokedIndicatorViewTopService = true
+         invokedIndicatorViewTopServiceCount += 1
+        invokedIndicatorViewTopServiceList.append((animate:animate,()))
+    }
+    
+    var invokedIndicatorViewTopArtist = false
+    var invokedIndicatorViewTopArtistCount = 0
+    var invokedIndicatorViewTopArtistList = [(animate:Bool,Void)]()
+    func indicatoViewTopArtist(animate: Bool) {
+        invokedIndicatorViewTopArtist = true
+        invokedIndicatorViewTopArtistCount += 1
+       invokedIndicatorViewTopArtistList.append((animate:animate,()))
+    }
+    
+    var invokedSetBackroundColor = false
+    var involedBackColor:String! = nil
+    func setBackgroundColor(_ color: String) {
+        invokedSetBackroundColor = true
+       involedBackColor = color
+    }
+    
+   
+    
    
     var invokedPushViewController = false
     var invokedPushViewControllerCount = 0
@@ -60,8 +88,6 @@ final class MockHomeViewController : HomeViewInterface {
         
     }
   
-    
-    
     var invokedReloadCollectionViewData = false
     var invokedReloadDataCollectionViewCount = 0
     
@@ -79,6 +105,8 @@ final class MockHomeViewController : HomeViewInterface {
          invokedReloadTableViewData = true
          invokedReloadDataTableViewCount += 1
     }
+    
+    func prepareNavigationBarCollor(colorText: String) { }
     
     
     

@@ -26,14 +26,22 @@ final class ArtistDetailTest: XCTestCase {
         viewModel = nil
     }
     
+    func test_viewDidLoad_InvokedbackRoundColor_ReturnBackColor(){
+        XCTAssertNil(view.involedBackColor)
+        viewModel.viewDidLoad(artistId: 0)
+        XCTAssertEqual(view.involedBackColor, "backColor")
+    }
+    
     func test_viewDidLoad_InvokesRequiredMethods(){
         XCTAssertFalse(serviceManager.invokedFetchArtistDetail)
         XCTAssertFalse(view.invokedPrepareTableView)
+       
         
         viewModel.viewDidLoad(artistId: 0)
         
         XCTAssertEqual(serviceManager.invokedFetchArtistDetailCount, 1)
         XCTAssertEqual(view.involedPrepareTableViewCount, 1)
+       
     }
     
     func test_viewDidLoad_invokedPrepareTabbbarHidden(){
@@ -46,26 +54,38 @@ final class ArtistDetailTest: XCTestCase {
     
     func test_didTapTab_prepareSection_AboutIsHidden(){
         XCTAssertFalse(view.invokedPrepareSection)
-        viewModel.didTapTab(selectLabel: "About")
+        viewModel.didTapTab(selectLabel: "About",artistId: 0)
         XCTAssertEqual(view.invokedPrepareSectionList.map(\.aboutisHidden),[false])
         XCTAssertEqual(view.invokedPrepareSectionList.map(\.commetisHidden),[true])
     }
     
     func test_didTapTab_prepareSection_CommentIsHidden(){
         XCTAssertFalse(view.invokedPrepareSection)
-        viewModel.didTapTab(selectLabel: "Comment")
+        viewModel.didTapTab(selectLabel: "Comment",artistId: 0)
         XCTAssertEqual(view.invokedPrepareSectionList.map(\.aboutisHidden),[true])
         XCTAssertEqual(view.invokedPrepareSectionList.map(\.commetisHidden),[false])
     }
     
+    
+    
+    
+    func test_didTapTabComment_IndicatorViewAnimateStop_ReturnFalse(){
+        XCTAssertFalse(view.invokedIndicatorView)
+        let comment = Comment(id: 0, imageurl: "", commenter: "", comment: "", rating: 0.0, commentdate: "")
+        
+        serviceManager.mockFetchAritstCommentResult = .success([comment])
+        viewModel.didTapTab(selectLabel: "Comment", artistId: 0)
+        XCTAssertEqual(view.invokedIndicatorViewList.map(\.animate), [false])
+    }
+    
     func test_didTapTab_ReturnAbout(){
-        viewModel.didTapTab(selectLabel: "About")
+        viewModel.didTapTab(selectLabel: "About",artistId: 0)
 
         XCTAssertEqual(viewModel.sectionType, .about)
     }
     
     func test_didTapTab_ReturnComment() {
-        viewModel.didTapTab(selectLabel: "Comment")
+        viewModel.didTapTab(selectLabel: "Comment",artistId: 0)
         XCTAssertEqual(viewModel.sectionType,.comment)
     }
     
@@ -80,5 +100,8 @@ final class ArtistDetailTest: XCTestCase {
         
         XCTAssertEqual(view.invokedPushViewControllerList.map(\.identifier),["ChatViewControllerIndetifier"])
     }
+    
+    
+   
 
 }

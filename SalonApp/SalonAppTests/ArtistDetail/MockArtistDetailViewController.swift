@@ -10,6 +10,26 @@ import Foundation
 import UIKit.UIViewController
 final class MockArtistDetailViewController : ArtistDetailViewInterface{
     
+   
+    
+    var invokedSetBackroundColor = false
+    
+    var involedBackColor:String! = nil
+    func setBackgroundColor(_ color: String) {
+         invokedSetBackroundColor = true
+        involedBackColor = color
+        
+    }
+    
+    var invokedNavigationBarColor = false
+    var invokedNavigationBarColorCount = 0
+    var involedNavigationBarColor:String! = nil
+    func prepareNavigationBarCollor(colorText: String) {
+        invokedNavigationBarColor = true
+        invokedNavigationBarColorCount += 1
+        involedNavigationBarColor = colorText
+    }
+    
     var invokedPrepareTableView = false
     var involedPrepareTableViewCount = 0
     func prepareTableView() {
@@ -48,8 +68,28 @@ final class MockArtistDetailViewController : ArtistDetailViewInterface{
         invokedPushViewControllerList.append((identifier :identifier,()))
     }
     
-      func prepareNavigationBarCollor(colorText: String) {}
-      func reloadDataTableView() { }
+    var invokedIndicatorView = false
+    var invokedIndicatorViewCount = 0
+    var invokedIndicatorViewList = [(animate:Bool,Void)]()
+    func indicatorView(animate: Bool) {
+        print("Mock \(animate)")
+        invokedIndicatorView = true
+        invokedIndicatorViewCount += 1
+        invokedIndicatorViewList.append((animate:animate,()))
+    }
+    
+    
+    var invokedReloadTableViewData = false
+    var invokedReloadDataTableViewCount = 0
+    
+    func reloadDataTableView() {
+        
+         invokedReloadTableViewData = true
+         invokedReloadDataTableViewCount += 1
+    }
       func getArtistDetail() {}
+    
+    
+    
     
 }

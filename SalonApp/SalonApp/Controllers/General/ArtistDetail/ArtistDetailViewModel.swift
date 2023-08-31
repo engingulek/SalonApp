@@ -68,6 +68,7 @@ extension ArtistDetailViewModel : ArtistDetailViewModelInterface {
         view?.prepareTableView()
         view?.prepareTabbarHidden(isHidden: true)
         view?.prepareNavigationBarCollor(colorText: "black")
+        view?.setBackgroundColor("backColor")
     }
     
     func sendMessageButtonTap() {

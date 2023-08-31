@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-protocol HomeViewInterface : AnyObject,SeguePerformable {
+protocol HomeViewInterface : AnyObject,ViewAble,SeguePerformable {
     func prepareCollectionView()
     func prepareTableView()
     func prepareTabbarHidden(isHidden:Bool)

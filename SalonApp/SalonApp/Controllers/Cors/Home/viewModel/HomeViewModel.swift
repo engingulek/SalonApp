@@ -34,7 +34,7 @@ final class HomeViewModel  {
         self.servisManager = servisManager
     }
     
-    private func fetchTopServices()   {
+      func fetchTopServices()   {
          servisManager.fetchTopServices(completion: { response in
             switch response {
             case .success(let list):
@@ -72,7 +72,7 @@ extension HomeViewModel : HomeViewModelInterface{
             self.fetchTopArtists()
         }
         
-       
+        view?.setBackgroundColor("backColor")
         view?.prepareCollectionView()
         view?.prepareTableView()
          

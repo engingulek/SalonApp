@@ -33,7 +33,6 @@ final class HomeViewModelTest : XCTestCase {
         XCTAssertFalse(view.invokedReloadCollectionViewData)
         XCTAssertFalse(view.invokedReloadTableViewData)
         
-        
         //when
         viewModel.viewDidLoad()
         
@@ -42,6 +41,12 @@ final class HomeViewModelTest : XCTestCase {
         XCTAssertEqual(view.invokedPrepareTableViewCount,1)
       
         
+    }
+    
+    func test_viewDidLoad_InvokedbackRoundColor_ReturnBackColor(){
+        XCTAssertNil(view.involedBackColor)
+        viewModel.viewDidLoad()
+        XCTAssertEqual(view.involedBackColor, "backColor")
     }
 
     func test_viewWillAppear_invokedprepareTabbarHidden(){
@@ -62,6 +67,25 @@ final class HomeViewModelTest : XCTestCase {
         //then
         XCTAssertEqual(view.invokedSearchTextFieldList.map(\.text), [""])
     }
+    
+    
+    func test_fetcTopService_IndicatorViewAnimateStop_ReturnFalse(){
+        let service = TopService(id: 0, imageUrl: "", name: "")
+        serviceManager.mockFetchTopServices = .success([service])
+        viewModel.fetchTopServices()
+        
+        XCTAssertEqual(view.invokedIndicatorViewTopServiceList.map(\.animate), [false])
+    }
+    
+    func test_fetchTopAritst_IndicatorViewAnimateStop_ReturnFalse(){
+        let artist = TopArtist(id: 0, imageUrl: "url", rating: 1.0, name: "Test Name", bestService: "Test Best Service", locationcity: "Test City", pay: 0.0)
+        serviceManager.mockFetchTopArtist = .success([artist])
+        viewModel.fetchTopArtists()
+        XCTAssertEqual(view.invokedIndicatorViewTopArtistList.map(\.animate), [false])
+        
+    }
+    
+    
     
     
     func test_didSelectRow_toArtistDetailViewController_pushViewController(){
