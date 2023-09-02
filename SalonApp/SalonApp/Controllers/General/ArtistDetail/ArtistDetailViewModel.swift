@@ -8,7 +8,7 @@
 import Foundation
 
 protocol ArtistDetailViewModelInterface{
-    var sectionType : SectionTabs { get }
+    //var sectionType : SectionTabs { get }
     func viewDidLoad(artistId:Int)
     func sendMessageButtonTap()
     func didTapTab(selectLabel:String,artistId:Int)

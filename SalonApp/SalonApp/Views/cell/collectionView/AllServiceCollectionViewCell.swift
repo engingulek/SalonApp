@@ -12,7 +12,6 @@ class AllServiceCollectionViewCell: UICollectionViewCell {
      var serviceName : UILabel = {
         let label = UILabel()
          label.font = .systemFont(ofSize: 15)
-        
         return label
     }()
     
@@ -24,6 +23,10 @@ class AllServiceCollectionViewCell: UICollectionViewCell {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configureData(service:AllService){
+        serviceName.text = service.name
     }
     
     private func configureConstraints() {
