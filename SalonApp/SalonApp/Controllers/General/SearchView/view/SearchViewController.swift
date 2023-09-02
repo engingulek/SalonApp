@@ -18,7 +18,7 @@ final class SearchViewController: UIViewController {
    
     private lazy var headerView = SearchHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: self.view.layer.frame.height / 5 ))
     private lazy var viewModel = SearchViewModel(view: self)
-   // var searchText : String = ""
+    var searchText : String = ""
     var sections : [TableSection] = [.allService,.resultArtist]
     
     private let allResultTableView : UITableView = {
@@ -30,18 +30,18 @@ final class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.viewDidLoad()
+        viewModel.viewDidLoad(searchText: searchText)
         configureContraints()
-       // headerView.searchTextFeield.text = searchText
+        headerView.searchTextFeield.text = searchText
         sections.forEach { section in
             section.register(tableView: allResultTableView)
         }
     }
   
     
-    func getSearchText(searchText:String) {
+   /* func getSearchText(searchText:String) {
         self.headerView.searchTextFeield.text = viewModel.writeSearchText(searchText: searchText)
-    }
+    }*/
     
     private func configureContraints(){
         view.addSubview(headerView)
@@ -79,8 +79,6 @@ extension SearchViewController : UITableViewDelegate,UITableViewDataSource{
 
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Story tıklanmasıdan hata çıkar ise
-        // cell.cellProtocel dan kaynaklanabili.r
         let cell = viewModel.cellForRowAt(indexPath: indexPath, section: sections[indexPath.section],tableView:allResultTableView)
         return cell
     }

@@ -11,7 +11,7 @@ import UIKit.UITableViewCell
 
 
 protocol SearchViewModelInterface {
-    func viewDidLoad()
+    func viewDidLoad(searchText:String)
     func writeSearchText(searchText:String) -> String
     func numberOfSections() -> Int
     func numberOfRowsInSection(section:TableSection) -> Int
@@ -26,14 +26,35 @@ final class SearchViewModel : SearchViewModelInterface {
    
     
     private weak var view : SearchViewInterface?
+    private  let serviceManager : SearchServiceInterface
     private var tableSection : TableSection = .allService
     private var sectionType : TableSection {tableSection }
+    var searchArtistList : [TopArtist] = []
     
-    init(view: SearchViewInterface) {
+    init(view: SearchViewInterface,serviceManager :
+         SearchServiceInterface = SearchService.shared) {
         self.view = view
+        self.serviceManager = serviceManager
     }
     
-    func viewDidLoad() {
+    func fetchSearchArtist(searchText:String){
+        serviceManager.fetchSearchArtist(searchText: searchText.lowercased()) { response in
+            switch response {
+            case .success(let list):
+                self.searchArtistList = list ?? []
+                self.view?.reloadDataTableView()
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+            
+        }
+    }
+    
+    func viewDidLoad(searchText:String) {
+        Task {
+            @MainActor in
+            self.fetchSearchArtist(searchText:searchText)
+        }
         view?.prepareTabbarHidden(isHidden: true)
         view?.prepareTableView()
         view?.setBackgroundColor("backColor")
@@ -56,7 +77,7 @@ final class SearchViewModel : SearchViewModelInterface {
         case .allService:
             return 1
         case .resultArtist:
-            return 5
+            return self.searchArtistList.count
         }
         
     }
@@ -102,6 +123,8 @@ final class SearchViewModel : SearchViewModelInterface {
             return cell
         case .resultArtist:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ArtistTableViewCell.identifier,for:indexPath) as? ArtistTableViewCell else {return UITableViewCell()}
+            let artist = searchArtistList[indexPath.row]
+            cell.configureData(topArtist: artist)
             cell.backgroundColor = UIColor(named: "backColor")
             cell.layer.borderColor = UIColor.white.cgColor
             cell.layer.borderColor = UIColor(named: "backColor")?.cgColor
