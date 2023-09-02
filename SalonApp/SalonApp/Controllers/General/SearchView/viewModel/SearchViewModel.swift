@@ -6,11 +6,13 @@
 //
 
 import Foundation
-import UIKit
+import UIKit.UITableView
+import UIKit.UITableViewCell
 
 
 protocol SearchViewModelInterface {
     func viewDidLoad()
+    func writeSearchText(searchText:String) -> String
     func numberOfSections() -> Int
     func numberOfRowsInSection(section:TableSection) -> Int
     func viewForHeaderInSection(section:TableSection) -> String
@@ -18,10 +20,11 @@ protocol SearchViewModelInterface {
     func heightForHeaderInSection(section:TableSection) -> CGFloat
     func cellForRowAt(indexPath:IndexPath,section:TableSection,tableView:UITableView) -> UITableViewCell
     func didSelectRowAt(section:TableSection)
-    func toStortViewController(item:Int)
 }
 
 final class SearchViewModel : SearchViewModelInterface {
+   
+    
     private weak var view : SearchViewInterface?
     private var tableSection : TableSection = .allService
     private var sectionType : TableSection {tableSection }
@@ -32,14 +35,25 @@ final class SearchViewModel : SearchViewModelInterface {
     
     func viewDidLoad() {
         view?.prepareTabbarHidden(isHidden: true)
+        view?.prepareTableView()
+        view?.setBackgroundColor("backColor")
+        view?.prepareNavigationBarCollor(colorText: "back")
+    }
+    
+    func writeSearchText(searchText:String) -> String{
+        if searchText.isEmpty {
+            view?.popViewControllerAble()
+            return ""
+        }else{
+            return searchText
+        }
+        
     }
     
     func numberOfRowsInSection(section:TableSection) -> Int{
         tableSection = section
         switch tableSection {
         case .allService:
-            return 1
-        case .resultArtistStory:
             return 1
         case .resultArtist:
             return 5
@@ -51,15 +65,11 @@ final class SearchViewModel : SearchViewModelInterface {
         return TableSection.allCases.count
     }
     
-  
-    
     func viewForHeaderInSection(section:TableSection) -> String {
         tableSection = section
         switch tableSection {
         case .allService:
             return "All Service"
-        case .resultArtistStory:
-            return "All Story"
         case .resultArtist:
             return "All Artist"
         }
@@ -80,6 +90,8 @@ final class SearchViewModel : SearchViewModelInterface {
         return 30
     }
     
+    
+    
     func cellForRowAt(indexPath:IndexPath,section:TableSection,tableView:UITableView) -> UITableViewCell {
         tableSection = section
         switch tableSection {
@@ -87,11 +99,6 @@ final class SearchViewModel : SearchViewModelInterface {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: AllServiceTableViewCell.identifier,for: indexPath) as? AllServiceTableViewCell
             else {return UITableViewCell()}
             cell.backgroundColor =  UIColor(named: "backColor")
-            return cell
-        case .resultArtistStory:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: ArtistStoryTableViewCell.identifier ,for: indexPath) as? ArtistStoryTableViewCell else {return UITableViewCell()}
-            cell.backgroundColor =  UIColor(named: "backColor")
-            cell.cellProtocol = view
             return cell
         case .resultArtist:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ArtistTableViewCell.identifier,for:indexPath) as? ArtistTableViewCell else {return UITableViewCell()}
@@ -111,7 +118,7 @@ final class SearchViewModel : SearchViewModelInterface {
              vc.artistId = 1
              view?.pushViewControllerable(vc, identifier: "ArtistDetailViewControllerIdentifier")
          default:
-             break
+             break;
          }
     }
     

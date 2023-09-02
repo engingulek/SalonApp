@@ -8,18 +8,18 @@
 import UIKit
 import SnapKit
 
-protocol SearchViewInterface : AnyObject,ArtistStoryTableViewCellProtocol,SeguePerformable  {
+protocol SearchViewInterface : AnyObject,SeguePerformable,NavigaitonBarAble,ViewAble  {
+    func prepareTableView()
+    func reloadDataTableView()
     func prepareTabbarHidden(isHidden:Bool)
 }
-
-
 
 final class SearchViewController: UIViewController {
    
     private lazy var headerView = SearchHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: self.view.layer.frame.height / 5 ))
     private lazy var viewModel = SearchViewModel(view: self)
-    var searchText : String = ""
-    var sections : [TableSection] = [.allService,.resultArtistStory,.resultArtist]
+   // var searchText : String = ""
+    var sections : [TableSection] = [.allService,.resultArtist]
     
     private let allResultTableView : UITableView = {
         let tableView = UITableView()
@@ -30,21 +30,22 @@ final class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(named: "backColor")
-        view.addSubview(headerView)
-        view.addSubview(allResultTableView)
+        viewModel.viewDidLoad()
         configureContraints()
-        allResultTableView.delegate = self
-        allResultTableView.dataSource = self
-        headerView.searchTextFeield.text = searchText
+       // headerView.searchTextFeield.text = searchText
         sections.forEach { section in
             section.register(tableView: allResultTableView)
         }
-        tabBarController?.tabBar.isHidden = true
-        self.navigationController?.navigationBar.tintColor = UIColor.black
+    }
+  
+    
+    func getSearchText(searchText:String) {
+        self.headerView.searchTextFeield.text = viewModel.writeSearchText(searchText: searchText)
     }
     
     private func configureContraints(){
+        view.addSubview(headerView)
+        view.addSubview(allResultTableView)
         allResultTableView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
@@ -88,15 +89,26 @@ extension SearchViewController : UITableViewDelegate,UITableViewDataSource{
     }
 }
 
-extension SearchViewController  {
-    func toStortViewController(item: Int) {
-        viewModel.toStortViewController(item: item)
-    }
-}
 
 extension SearchViewController : SearchViewInterface {
+  
+    func prepareTableView() {
+        allResultTableView.delegate = self
+        allResultTableView.dataSource = self
+        allResultTableView.reloadData()
+    }
+    
     func prepareTabbarHidden(isHidden: Bool) {
         tabBarController?.tabBar.isHidden = isHidden
+    }
+    
+    func reloadDataTableView() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.allResultTableView.reloadData()
+        }
     }
 }
 
