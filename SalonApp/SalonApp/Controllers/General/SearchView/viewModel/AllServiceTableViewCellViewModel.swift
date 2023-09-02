@@ -18,14 +18,25 @@ protocol AllServiceTableViewCellViewModelInterface {
 
 final class AllServiceTableViewCellViewModel {
     private weak var view :AllServiceTableViewCellInterface?
+    private let serviceManager : SearchServiceInterface?
     var allServiceList : [AllService] = []
     private var selectSerice : IndexPath = [0,0]
-    init(view: AllServiceTableViewCellInterface) {
+    init(view: AllServiceTableViewCellInterface,serviceManager: SearchService = SearchService.shared) {
         self.view = view
+        self.serviceManager = serviceManager
     }
     
     func fetchAllService(){
-        
+        serviceManager?.fetchAllService(completion: { response in
+            switch response {
+            case .success(let list):
+                self.allServiceList = list ?? []
+                self.view?.reloadDataColletionView()
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+            self.view?.indicatoView(animate: false)
+        })
     }
 }
 
@@ -36,7 +47,7 @@ extension AllServiceTableViewCellViewModel: AllServiceTableViewCellViewModelInte
     }
     
     func viewDidLoad() {
-        //view?.indicatoView(animate: true)
+        view?.indicatoView(animate: true)
         Task {
             @MainActor in
             self.fetchAllService()
@@ -45,13 +56,13 @@ extension AllServiceTableViewCellViewModel: AllServiceTableViewCellViewModelInte
     }
     
     func numberOfItemsInSection() -> Int {
-        return 5
+        return allServiceList.count
     }
     
     func cellForItemAt(at indexPath: IndexPath) -> (service:AllService,textColor:String) {
         let service:AllService
         var textColor:String
-        service = AllService(id: 0, name: "Test")
+        service = allServiceList[indexPath.item]
         textColor = "back"
         if selectedService == indexPath {
             textColor = "allServiceSelected"

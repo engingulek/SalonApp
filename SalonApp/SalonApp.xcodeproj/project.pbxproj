@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7D0587312AA3C828001D0A5E /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0587302AA3C828001D0A5E /* SearchService.swift */; };
 		7D0596E92A703DFE0026FB87 /* AllServiceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0596E82A703DFE0026FB87 /* AllServiceTableViewCell.swift */; };
 		7D0596EF2A705D970026FB87 /* SearchCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0596EE2A705D970026FB87 /* SearchCellHeader.swift */; };
 		7D0A8BB12A80EC3A00C2DC5B /* StroyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0A8BB02A80EC3A00C2DC5B /* StroyViewController.swift */; };
@@ -86,6 +87,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7D0587302AA3C828001D0A5E /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
 		7D0596E82A703DFE0026FB87 /* AllServiceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllServiceTableViewCell.swift; sourceTree = "<group>"; };
 		7D0596EE2A705D970026FB87 /* SearchCellHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCellHeader.swift; sourceTree = "<group>"; };
 		7D0A8BB02A80EC3A00C2DC5B /* StroyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StroyViewController.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				7D3DBACA2AA369F500C01A43 /* view */,
 				7D3DBAC72AA365EE00C01A43 /* viewModel */,
 				7D3DBABF2AA0F7EE00C01A43 /* TableSection.swift */,
+				7D0587302AA3C828001D0A5E /* SearchService.swift */,
 			);
 			path = SearchView;
 			sourceTree = "<group>";
@@ -627,6 +630,7 @@
 				7D7AB9B92A92442100F02613 /* TopService.swift in Sources */,
 				7D5069402A6D7CD600EB053B /* ArtistDetailView.swift in Sources */,
 				7DD3F0D62A6FE0B20018D0C4 /* SearchHeaderView.swift in Sources */,
+				7D0587312AA3C828001D0A5E /* SearchService.swift in Sources */,
 				7DE9A18B2A8281E900A806E4 /* ProfileViewController.swift in Sources */,
 				7D3DBABE2AA0E0CC00C01A43 /* SearchViewModel.swift in Sources */,
 				7DD2BCFA2A97591600FBE183 /* TopArtist.swift in Sources */,

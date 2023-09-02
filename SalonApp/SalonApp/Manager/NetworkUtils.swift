@@ -18,6 +18,8 @@ enum NetworkPath  {
     case topArtists
     case artistDetail(Int)
     case artistComments(Int)
+    case allServices
+    case searchArtist(String)
 }
 
 extension NetworkPath : TargetType {
@@ -36,6 +38,10 @@ extension NetworkPath : TargetType {
             return "artists/getArtistInfo?artistId=\(artistId)"
         case .artistComments(let artistId):
             return "artists/getArtistComment?artistId=\(artistId)"
+        case .allServices:
+            return "service/getAll"
+        case .searchArtist(let searchText):
+            return "artists/getArtistSearchResult?searchText=\(searchText)"
         }
     }
     
@@ -49,6 +55,10 @@ extension NetworkPath : TargetType {
             return .get
         case .artistComments:
             return .get
+        case .allServices:
+            return .get
+        case .searchArtist:
+            return .get
         }
     }
     
@@ -61,6 +71,10 @@ extension NetworkPath : TargetType {
         case .artistDetail:
             return .requestPlain
         case .artistComments:
+            return .requestPlain
+        case .allServices:
+            return .requestPlain
+        case .searchArtist:
             return .requestPlain
         }
     }

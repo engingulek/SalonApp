@@ -91,7 +91,8 @@ extension HomeViewModel : HomeViewModelInterface{
         guard text == text else {return}
         if text.count == 3 {
             let vc = SearchViewController()
-            vc.getSearchText(searchText: text)
+            vc.searchText = text
+           // vc.getSearchText(searchText: text)
             view?.pushViewControllerable(vc, identifier: "SearchViewControllerIdentifier")
         }
     }
