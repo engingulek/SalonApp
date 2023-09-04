@@ -7,7 +7,7 @@
 
 import UIKit
 import SnapKit
-class SearchCellHeader: UIView {
+class SearchCellHeader: UICollectionReusableView {
 
      let headerLabel : UILabel = {
        let label = UILabel()

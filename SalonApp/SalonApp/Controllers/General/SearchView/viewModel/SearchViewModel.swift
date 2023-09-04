@@ -9,27 +9,29 @@ import Foundation
 import UIKit.UITableView
 import UIKit.UITableViewCell
 
+fileprivate let ALL_SERVICE : Int = 0
+fileprivate let RESULT_ARTIST : Int = 1
 
 protocol SearchViewModelInterface {
     func viewDidLoad(searchText:String)
-    func writeSearchText(searchText:String) -> String
+ 
     func numberOfSections() -> Int
-    func numberOfRowsInSection(section:TableSection) -> Int
-    func viewForHeaderInSection(section:TableSection) -> String
-    func heightForRowAt(section:TableSection) -> CGFloat
-    func heightForHeaderInSection(section:TableSection) -> CGFloat
-    func cellForRowAt(indexPath:IndexPath,section:TableSection,tableView:UITableView) -> UITableViewCell
-    func didSelectRowAt(section:TableSection)
+    func numberOfItemsInSection(section:Int) -> Int
+    func cellForItemAt(section:Int,indexPath:IndexPath)->(service: AllService?, artist: TopArtist?)
+    func didSelectItem(section:Int,indexPath:IndexPath)
+    func searchAction(searchText:String)
+ 
+    
+  
 }
 
-final class SearchViewModel : SearchViewModelInterface {
+final class SearchViewModel  {
    
-    
     private weak var view : SearchViewInterface?
     private  let serviceManager : SearchServiceInterface
-    private var tableSection : TableSection = .allService
-    private var sectionType : TableSection {tableSection }
     var searchArtistList : [TopArtist] = []
+    var allServiceList : [AllService] = []
+    private var searchTextViewModel : String = ""
     
     init(view: SearchViewInterface,serviceManager :
          SearchServiceInterface = SearchService.shared) {
@@ -37,120 +39,192 @@ final class SearchViewModel : SearchViewModelInterface {
         self.serviceManager = serviceManager
     }
     
-    func fetchSearchArtist(searchText:String){
-        serviceManager.fetchSearchArtist(searchText: searchText.lowercased()) { response in
-            switch response {
+    
+    func fetchAllService(){
+        serviceManager.fetchAllService { resonse in
+            switch resonse {
             case .success(let list):
-                self.searchArtistList = list ?? []
-                self.view?.reloadDataTableView()
+                self.allServiceList = list ?? []
+                self.view?.reloadDataColllectionView()
             case .failure(let failure):
                 print(failure.localizedDescription)
             }
-            
         }
     }
+    
+    func fetchSearchArtist(searchText:String){
+        if !searchTextViewModel.isEmpty {
+            serviceManager.fetchSearchArtist(searchText: searchText.lowercased()) { response in
+                switch response {
+                case .success(let list):
+                    //self.searchArtistList = []
+                    self.searchArtistList = list ?? []
+                    print(searchText.lowercased())
+                    self.view?.reloadDataColllectionView()
+                case .failure(let failure):
+                    print(failure.localizedDescription)
+                }
+                
+            }
+        }
+    }
+    
+    func fetchSearchArtistServiFilter(searchText:String,serviceId:Int){
+        if !searchTextViewModel.isEmpty {
+            serviceManager.fetchSearchArtistFilterService(searchText: searchText.lowercased(),
+                                            serviceId: serviceId) { response in
+                switch response {
+                case .success(let list):
+                    //self.searchArtistList = []
+                    self.searchArtistList = list ?? []
+                    print(searchText.lowercased())
+                    self.view?.reloadDataColllectionView()
+                case .failure(let failure):
+                    print(failure.localizedDescription)
+                }
+                
+            }
+        }
+    }
+    
+    func fetchSearchArtistPayDesc(){
+        if !searchTextViewModel.isEmpty {
+            serviceManager.fetchSearchArtistPayDesc(searchText: searchTextViewModel.lowercased()
+                                            ) { response in
+                switch response {
+                case .success(let list):
+                    //self.searchArtistList = []
+                    self.searchArtistList = list ?? []
+                  
+                    self.view?.reloadDataColllectionView()
+                case .failure(let failure):
+                    print(failure.localizedDescription)
+                }
+                
+            }
+        }
+    }
+    
+    func fetchSearchArtistPayAsc(){
+        if !searchTextViewModel.isEmpty {
+            serviceManager.fetchSearchArtistPayAsc(searchText: searchTextViewModel.lowercased()
+                                            ) { response in
+                switch response {
+                case .success(let list):
+                    //self.searchArtistList = []
+                    self.searchArtistList = list ?? []
+                 
+                    self.view?.reloadDataColllectionView()
+                case .failure(let failure):
+                    print(failure.localizedDescription)
+                }
+                
+            }
+        }
+    }
+    
+    func fetchSearchArtistPayHightRating(){
+        if !searchTextViewModel.isEmpty {
+            serviceManager.fetchSearchArtistHightRating(searchText: searchTextViewModel.lowercased()
+                                            ) { response in
+                switch response {
+                case .success(let list):
+                    //self.searchArtistList = []
+                    self.searchArtistList = list ?? []
+                  
+                    self.view?.reloadDataColllectionView()
+                case .failure(let failure):
+                    print(failure.localizedDescription)
+                }
+                
+            }
+        }
+    }
+    
+    
+}
+
+
+
+extension SearchViewModel : SearchViewModelInterface  {
+    
+
     
     func viewDidLoad(searchText:String) {
         Task {
             @MainActor in
             self.fetchSearchArtist(searchText:searchText)
+            self.fetchAllService()
         }
+        self.searchTextViewModel = searchText
         view?.prepareTabbarHidden(isHidden: true)
-        view?.prepareTableView()
+        view?.prepareColllectionView()
         view?.setBackgroundColor("backColor")
-        view?.prepareNavigationBarCollor(colorText: "back")
+        view?.prepareNavigationBarCollor(colorText: "black")
     }
     
-    func writeSearchText(searchText:String) -> String{
-        if searchText.isEmpty {
-            view?.popViewControllerAble()
-            return ""
-        }else{
-            return searchText
+    func searchAction(searchText: String) {
+        Task {
+            @MainActor in
+            self.fetchSearchArtist(searchText:searchText)
         }
-        
+        self.searchTextViewModel = searchText
+        view?.prepareColllectionView()
     }
-    
-    func numberOfRowsInSection(section:TableSection) -> Int{
-        tableSection = section
-        switch tableSection {
-        case .allService:
-            return 1
-        case .resultArtist:
-            return self.searchArtistList.count
-        }
-        
-    }
-    
     func numberOfSections() -> Int {
-        return TableSection.allCases.count
+        return 2
     }
     
-    func viewForHeaderInSection(section:TableSection) -> String {
-        tableSection = section
-        switch tableSection {
-        case .allService:
-            return "All Service"
-        case .resultArtist:
-            return "All Artist"
+    func numberOfItemsInSection(section:Int) -> Int {
+        if ALL_SERVICE == section {
+            return allServiceList.count
         }
+        if RESULT_ARTIST == section {
+            return searchArtistList.count
+        }
+        
+        return 0
     }
     
-    func heightForRowAt(section:TableSection) -> CGFloat {
-        tableSection = section
-        switch tableSection {
-        case .resultArtist:
-            return 170
-        default:
-            return 70
+    func cellForItemAt(section:Int,indexPath:IndexPath) -> (service: AllService?, artist: TopArtist?) {
+        var service : AllService? = nil
+        var artist: TopArtist? = nil
+        
+        if ALL_SERVICE == section {
+            service = allServiceList[indexPath.item]
+            return (service:service,artist:nil)
         }
+        if RESULT_ARTIST == section {
+            print("sectipnm aa \(searchArtistList.count)")
+            artist = searchArtistList[indexPath.item]
+            return (service:nil,artist:artist)
+        }
+        return (service:nil,artist:nil)
         
     }
     
-    func heightForHeaderInSection(section:TableSection) -> CGFloat {
-        return 30
-    }
-    
-    
-    
-    func cellForRowAt(indexPath:IndexPath,section:TableSection,tableView:UITableView) -> UITableViewCell {
-        tableSection = section
-        switch tableSection {
-        case .allService:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: AllServiceTableViewCell.identifier,for: indexPath) as? AllServiceTableViewCell
-            else {return UITableViewCell()}
-            cell.backgroundColor =  UIColor(named: "backColor")
-            return cell
-        case .resultArtist:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: ArtistTableViewCell.identifier,for:indexPath) as? ArtistTableViewCell else {return UITableViewCell()}
-            let artist = searchArtistList[indexPath.row]
-            cell.configureData(topArtist: artist)
-            cell.backgroundColor = UIColor(named: "backColor")
-            cell.layer.borderColor = UIColor.white.cgColor
-            cell.layer.borderColor = UIColor(named: "backColor")?.cgColor
-            return cell
+    func didSelectItem(section: Int, indexPath: IndexPath) {
+        if ALL_SERVICE == section {
+            if searchTextViewModel != "" {
+                print("service : \(allServiceList[indexPath.item])")
+                let id = allServiceList[indexPath.item].id
+                self.fetchSearchArtistServiFilter(searchText: searchTextViewModel, serviceId: id)
+            }else{
+                // There here will add the alert
+                print("Please enter search text")
+            }
+            
+            
         }
-         
-    }
-    
-     func didSelectRowAt(section:TableSection){
-         tableSection = section
-         switch tableSection {
-         case .resultArtist:
-             let vc = ArtistDetailViewController()
-             vc.artistId = 1
-             view?.pushViewControllerable(vc, identifier: "ArtistDetailViewControllerIdentifier")
-         default:
-             break;
-         }
-    }
-    
-    func toStortViewController(item:Int){
-        let vc = StroyViewController()
-        vc.index = item
-        view?.pushViewControllerable(vc, identifier: "StortViewControllerIndetifier")
         
+        if RESULT_ARTIST == section {
+            let vc = ArtistDetailViewController()
+            vc.artistId = searchArtistList[indexPath.row].id
+            view?.pushViewControllerable(vc, identifier: "ArtistDetailViewControllerIdentifier")
+        }
     }
     
-   
+    
+    
 }
+

@@ -9,9 +9,11 @@ import UIKit
 import SnapKit
 class AllServiceCollectionViewCell: UICollectionViewCell {
     static let identifier = "AllServiceCollectionViewCell"
-     var serviceName : UILabel = {
+    private var serviceName : UILabel = {
         let label = UILabel()
-         label.font = .systemFont(ofSize: 15)
+         label.font = .systemFont(ofSize: 15,weight: .semibold)
+         
+         label.text = "Service"
         return label
     }()
     
@@ -20,15 +22,17 @@ class AllServiceCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(serviceName)
         configureConstraints()
     }
+    
+    
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+  
     func configureData(service:AllService){
         serviceName.text = service.name
     }
-    
     private func configureConstraints() {
         serviceName.snp.makeConstraints { make in
             make.centerX.equalTo(self.contentView.safeAreaLayoutGuide.snp.centerX)
