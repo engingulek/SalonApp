@@ -14,9 +14,6 @@ protocol HomeViewModelInterface {
     func viewWillDisappear()
     func textFieldDidChange(_ text:String)
     func didSelectRow(at indexPath:IndexPath)
-    func didSelectItem(at indexPath:IndexPath )
-    func numberOfItemsInSection() -> Int
-    func cellForItemAt(at indexPath:IndexPath) -> (topService:TopService,backColor:String,cellSelectBackColor:String,boderColor:String)
     func cellForRowAt(at indexPath:IndexPath) -> (topArtist:TopArtist,Void)
     func numberOfRowsInSection() -> Int
     
@@ -33,19 +30,6 @@ final class HomeViewModel  {
     init(view: HomeViewInterface,servisManager: HomePageServiceInterface = HomePageService.shared) {
         self.view = view
         self.servisManager = servisManager
-    }
-    
-      func fetchTopServices()   {
-         servisManager.fetchTopServices(completion: { response in
-            switch response {
-            case .success(let list):
-                self.topServiceList = list ?? []
-                self.view?.reloadDataCollectionView()
-            case .failure(let failure):
-                print(failure.localizedDescription)
-            }
-             self.view?.indicatorViewTopService(animate: false)
-        })
     }
     
      func fetchTopArtists() {
@@ -65,16 +49,13 @@ final class HomeViewModel  {
 extension HomeViewModel : HomeViewModelInterface{
     
     func viewDidLoad() {
-        view?.indicatorViewTopService(animate: true)
         view?.indicatoViewTopArtist(animate: true)
         Task {
             @MainActor in
-            self.fetchTopServices()
             self.fetchTopArtists()
         }
         
         view?.setBackgroundColor("backColor")
-        view?.prepareCollectionView()
         view?.prepareTableView()
          
     }
@@ -96,26 +77,6 @@ extension HomeViewModel : HomeViewModelInterface{
            // vc.getSearchText(searchText: text)
             view?.pushViewControllerable(vc, identifier: "SearchViewControllerIdentifier")
         }
-    }
-    
-    
-    func cellForItemAt(at indexPath: IndexPath) -> (topService:TopService,
-                                                    backColor:String,
-                                                    cellSelectBackColor:String,
-                                                    boderColor:String) {
-        print("Testi \(indexPath.item)")
-        print("Testi2 \(selectedTopServiceIndex.item)")
-        var backgroundColor : String
-        var borderColor : String
-        var topService : TopService
-        var selectBackColor: String
-        
-        backgroundColor =  "backColor"
-        borderColor = "backColor"
-        selectBackColor = "cellSelected"
-        topService = topServiceList[indexPath.row]
-       
-        return (topService:topService,backColor:backgroundColor,cellSelectBackColor:selectBackColor,boderColor:borderColor)
     }
     
     func numberOfItemsInSection() -> Int {

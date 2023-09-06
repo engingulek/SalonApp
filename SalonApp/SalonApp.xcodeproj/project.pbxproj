@@ -9,20 +9,13 @@
 /* Begin PBXBuildFile section */
 		7D0587312AA3C828001D0A5E /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0587302AA3C828001D0A5E /* SearchService.swift */; };
 		7D0596EF2A705D970026FB87 /* SearchCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0596EE2A705D970026FB87 /* SearchCellHeader.swift */; };
-		7D0A8BB12A80EC3A00C2DC5B /* StroyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0A8BB02A80EC3A00C2DC5B /* StroyViewController.swift */; };
 		7D1A10532A93773100A48C48 /* HomeViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A10522A93773100A48C48 /* HomeViewModelTest.swift */; };
 		7D1A10552A937B5500A48C48 /* MockHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A10542A937B5500A48C48 /* MockHomeViewController.swift */; };
 		7D1A10572A93849200A48C48 /* MockHomePageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A10562A93849200A48C48 /* MockHomePageService.swift */; };
-		7D39AE152A73E730009791C8 /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D39AE142A73E730009791C8 /* ChatListViewController.swift */; };
-		7D39AE172A73EAB2009791C8 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D39AE162A73EAB2009791C8 /* ChatViewController.swift */; };
 		7D39AE192A73EC25009791C8 /* ChatTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D39AE182A73EC25009791C8 /* ChatTextView.swift */; };
-		7D39AE1B2A74098B009791C8 /* ChatIncomingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D39AE1A2A74098B009791C8 /* ChatIncomingTableViewCell.swift */; };
-		7D39AE1D2A740AD6009791C8 /* SendMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D39AE1C2A740AD6009791C8 /* SendMessageTableViewCell.swift */; };
-		7D39AE1F2A74140A009791C8 /* ChatListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D39AE1E2A74140A009791C8 /* ChatListTableViewCell.swift */; };
 		7D3DBABE2AA0E0CC00C01A43 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3DBABD2AA0E0CC00C01A43 /* SearchViewModel.swift */; };
 		7D3DBAC02AA0F7EE00C01A43 /* TableSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3DBABF2AA0F7EE00C01A43 /* TableSection.swift */; };
 		7D3DBAC62AA3636200C01A43 /* AllSerice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3DBAC52AA3636200C01A43 /* AllSerice.swift */; };
-		7D47B3602AA4BEDF00EC1CD5 /* SearchViewControllerNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D47B35F2AA4BEDF00EC1CD5 /* SearchViewControllerNew.swift */; };
 		7D47B3662AA4D53D00EC1CD5 /* ResultArtistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D47B3652AA4D53D00EC1CD5 /* ResultArtistCollectionViewCell.swift */; };
 		7D47B3682AA4E06D00EC1CD5 /* LayoutBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D47B3672AA4E06D00EC1CD5 /* LayoutBuilder.swift */; };
 		7D5069372A6C759500EB053B /* ServiceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5069362A6C759500EB053B /* ServiceCollectionViewCell.swift */; };
@@ -60,6 +53,9 @@
 		7DADAE4B2A7544C40040BCDC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DADAE4A2A7544C40040BCDC /* LoginViewController.swift */; };
 		7DADAE4D2A7544D30040BCDC /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DADAE4C2A7544D30040BCDC /* RegisterViewController.swift */; };
 		7DB752FB2AA0B60600DD6548 /* BaseViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB752FA2AA0B60600DD6548 /* BaseViewControllerProtocol.swift */; };
+		7DB780F12AA8D4F700A81572 /* MockSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB780F02AA8D4F700A81572 /* MockSearchService.swift */; };
+		7DB780F32AA8D5D000A81572 /* MockSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB780F22AA8D5D000A81572 /* MockSearchViewController.swift */; };
+		7DB780F52AA8E03700A81572 /* SearchViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB780F42AA8E03700A81572 /* SearchViewModelTest.swift */; };
 		7DD2BCFA2A97591600FBE183 /* TopArtist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD2BCF92A97591600FBE183 /* TopArtist.swift */; };
 		7DD3F0D42A6FDFF50018D0C4 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3F0D32A6FDFF50018D0C4 /* SearchViewController.swift */; };
 		7DD3F0D62A6FE0B20018D0C4 /* SearchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3F0D52A6FE0B20018D0C4 /* SearchHeaderView.swift */; };
@@ -90,20 +86,13 @@
 /* Begin PBXFileReference section */
 		7D0587302AA3C828001D0A5E /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
 		7D0596EE2A705D970026FB87 /* SearchCellHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCellHeader.swift; sourceTree = "<group>"; };
-		7D0A8BB02A80EC3A00C2DC5B /* StroyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StroyViewController.swift; sourceTree = "<group>"; };
 		7D1A10522A93773100A48C48 /* HomeViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelTest.swift; sourceTree = "<group>"; };
 		7D1A10542A937B5500A48C48 /* MockHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHomeViewController.swift; sourceTree = "<group>"; };
 		7D1A10562A93849200A48C48 /* MockHomePageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHomePageService.swift; sourceTree = "<group>"; };
-		7D39AE142A73E730009791C8 /* ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
-		7D39AE162A73EAB2009791C8 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		7D39AE182A73EC25009791C8 /* ChatTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextView.swift; sourceTree = "<group>"; };
-		7D39AE1A2A74098B009791C8 /* ChatIncomingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatIncomingTableViewCell.swift; sourceTree = "<group>"; };
-		7D39AE1C2A740AD6009791C8 /* SendMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMessageTableViewCell.swift; sourceTree = "<group>"; };
-		7D39AE1E2A74140A009791C8 /* ChatListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListTableViewCell.swift; sourceTree = "<group>"; };
 		7D3DBABD2AA0E0CC00C01A43 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		7D3DBABF2AA0F7EE00C01A43 /* TableSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSection.swift; sourceTree = "<group>"; };
 		7D3DBAC52AA3636200C01A43 /* AllSerice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllSerice.swift; sourceTree = "<group>"; };
-		7D47B35F2AA4BEDF00EC1CD5 /* SearchViewControllerNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewControllerNew.swift; sourceTree = "<group>"; };
 		7D47B3652AA4D53D00EC1CD5 /* ResultArtistCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultArtistCollectionViewCell.swift; sourceTree = "<group>"; };
 		7D47B3672AA4E06D00EC1CD5 /* LayoutBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutBuilder.swift; sourceTree = "<group>"; };
 		7D5069362A6C759500EB053B /* ServiceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -142,6 +131,9 @@
 		7DADAE4A2A7544C40040BCDC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		7DADAE4C2A7544D30040BCDC /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		7DB752FA2AA0B60600DD6548 /* BaseViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewControllerProtocol.swift; sourceTree = "<group>"; };
+		7DB780F02AA8D4F700A81572 /* MockSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSearchService.swift; sourceTree = "<group>"; };
+		7DB780F22AA8D5D000A81572 /* MockSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSearchViewController.swift; sourceTree = "<group>"; };
+		7DB780F42AA8E03700A81572 /* SearchViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModelTest.swift; sourceTree = "<group>"; };
 		7DD2BCF92A97591600FBE183 /* TopArtist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopArtist.swift; sourceTree = "<group>"; };
 		7DD3F0D32A6FDFF50018D0C4 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		7DD3F0D52A6FE0B20018D0C4 /* SearchHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHeaderView.swift; sourceTree = "<group>"; };
@@ -194,9 +186,6 @@
 			children = (
 				7D50693A2A6D305E00EB053B /* ArtistTableViewCell.swift */,
 				7DFCB5FE2A6E82DA00109CB5 /* CommentTableViewCell.swift */,
-				7D39AE1A2A74098B009791C8 /* ChatIncomingTableViewCell.swift */,
-				7D39AE1C2A740AD6009791C8 /* SendMessageTableViewCell.swift */,
-				7D39AE1E2A74140A009791C8 /* ChatListTableViewCell.swift */,
 			);
 			path = tableView;
 			sourceTree = "<group>";
@@ -207,7 +196,6 @@
 				7D3DBACA2AA369F500C01A43 /* view */,
 				7D3DBAC72AA365EE00C01A43 /* viewModel */,
 				7D3DBABF2AA0F7EE00C01A43 /* TableSection.swift */,
-				7D0587302AA3C828001D0A5E /* SearchService.swift */,
 			);
 			path = SearchView;
 			sourceTree = "<group>";
@@ -216,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				7D3DBABD2AA0E0CC00C01A43 /* SearchViewModel.swift */,
+				7D0587302AA3C828001D0A5E /* SearchService.swift */,
 			);
 			path = viewModel;
 			sourceTree = "<group>";
@@ -223,7 +212,6 @@
 		7D3DBACA2AA369F500C01A43 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				7D47B35F2AA4BEDF00EC1CD5 /* SearchViewControllerNew.swift */,
 				7DD3F0D32A6FDFF50018D0C4 /* SearchViewController.swift */,
 				7D47B3652AA4D53D00EC1CD5 /* ResultArtistCollectionViewCell.swift */,
 				7D47B3672AA4E06D00EC1CD5 /* LayoutBuilder.swift */,
@@ -257,8 +245,6 @@
 			children = (
 				7D3DBABC2AA0E0B200C01A43 /* SearchView */,
 				7DA6590A2A9CA9C90067E9E6 /* ArtistDetail */,
-				7D39AE162A73EAB2009791C8 /* ChatViewController.swift */,
-				7D0A8BB02A80EC3A00C2DC5B /* StroyViewController.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -398,6 +384,7 @@
 		7DA9933C2A6AC0C30053B022 /* SalonAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				7DB780EF2AA8D4DA00A81572 /* Search */,
 				7D63F4352A9D200A00A7799B /* Home */,
 				7D63F4362A9D201700A7799B /* ArtistDetail */,
 				7DA9933D2A6AC0C30053B022 /* SalonAppTests.swift */,
@@ -439,7 +426,6 @@
 			children = (
 				7D7AB99F2A9215C900F02613 /* Home */,
 				7DA993582A6ACD980053B022 /* MainTabbarViewController.swift */,
-				7D39AE142A73E730009791C8 /* ChatListViewController.swift */,
 				7DE9A1882A824E7400A806E4 /* BookMarkViewController.swift */,
 				7DE9A18A2A8281E900A806E4 /* ProfileViewController.swift */,
 			);
@@ -454,6 +440,16 @@
 				7DADAE4C2A7544D30040BCDC /* RegisterViewController.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		7DB780EF2AA8D4DA00A81572 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				7DB780F02AA8D4F700A81572 /* MockSearchService.swift */,
+				7DB780F22AA8D5D000A81572 /* MockSearchViewController.swift */,
+				7DB780F42AA8E03700A81572 /* SearchViewModelTest.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		7DE9A18C2A828AEA00A806E4 /* extension */ = {
@@ -610,8 +606,6 @@
 				7D0596EF2A705D970026FB87 /* SearchCellHeader.swift in Sources */,
 				7D7AB9A12A9215DB00F02613 /* HomeViewModel.swift in Sources */,
 				7DA6590C2A9CA9E00067E9E6 /* ArtistDetailViewModel.swift in Sources */,
-				7D47B3602AA4BEDF00EC1CD5 /* SearchViewControllerNew.swift in Sources */,
-				7D39AE152A73E730009791C8 /* ChatListViewController.swift in Sources */,
 				7DA6590E2A9CB0C50067E9E6 /* Comment.swift in Sources */,
 				7D50693E2A6D7C3B00EB053B /* ArtistDetailViewController.swift in Sources */,
 				7DA9932B2A6AC0C20053B022 /* HomeViewController.swift in Sources */,
@@ -620,7 +614,6 @@
 				7DA659102A9CDDB70067E9E6 /* ArtistDetilService.swift in Sources */,
 				7D7AB9C12A9267D100F02613 /* HomePageService.swift in Sources */,
 				7D7AB9AF2A923A1600F02613 /* NetworkManager.swift in Sources */,
-				7D39AE1D2A740AD6009791C8 /* SendMessageTableViewCell.swift in Sources */,
 				7D7AB9B12A923A5F00F02613 /* NetworkUtils.swift in Sources */,
 				7D7AB9B92A92442100F02613 /* TopService.swift in Sources */,
 				7D47B3682AA4E06D00EC1CD5 /* LayoutBuilder.swift in Sources */,
@@ -632,7 +625,6 @@
 				7DD2BCFA2A97591600FBE183 /* TopArtist.swift in Sources */,
 				7DA993592A6ACD980053B022 /* MainTabbarViewController.swift in Sources */,
 				7DADAE492A753F580040BCDC /* OnboardingViewController.swift in Sources */,
-				7D39AE1B2A74098B009791C8 /* ChatIncomingTableViewCell.swift in Sources */,
 				7DD3F0D42A6FDFF50018D0C4 /* SearchViewController.swift in Sources */,
 				7DA659122A9CDE700067E9E6 /* ArtistDetail.swift in Sources */,
 				7DA993272A6AC0C20053B022 /* AppDelegate.swift in Sources */,
@@ -641,11 +633,8 @@
 				7D47B3662AA4D53D00EC1CD5 /* ResultArtistCollectionViewCell.swift in Sources */,
 				7D5069372A6C759500EB053B /* ServiceCollectionViewCell.swift in Sources */,
 				7DE9A18E2A828AFB00A806E4 /* View+Extension.swift in Sources */,
-				7D0A8BB12A80EC3A00C2DC5B /* StroyViewController.swift in Sources */,
 				7DD3F0D82A6FEB4C0018D0C4 /* AllServiceCollectionViewCell.swift in Sources */,
 				7DA993292A6AC0C20053B022 /* SceneDelegate.swift in Sources */,
-				7D39AE172A73EAB2009791C8 /* ChatViewController.swift in Sources */,
-				7D39AE1F2A74140A009791C8 /* ChatListTableViewCell.swift in Sources */,
 				7D39AE192A73EC25009791C8 /* ChatTextView.swift in Sources */,
 				7DE9A1892A824E7400A806E4 /* BookMarkViewController.swift in Sources */,
 				7DADAE4B2A7544C40040BCDC /* LoginViewController.swift in Sources */,
@@ -658,9 +647,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DB780F52AA8E03700A81572 /* SearchViewModelTest.swift in Sources */,
 				7D63F43C2A9D257200A7799B /* MockArtistDetailViewController.swift in Sources */,
 				7D1A10552A937B5500A48C48 /* MockHomeViewController.swift in Sources */,
 				7D63F4382A9D203F00A7799B /* ArtistDetailTest.swift in Sources */,
+				7DB780F12AA8D4F700A81572 /* MockSearchService.swift in Sources */,
+				7DB780F32AA8D5D000A81572 /* MockSearchViewController.swift in Sources */,
 				7D1A10572A93849200A48C48 /* MockHomePageService.swift in Sources */,
 				7DA9933E2A6AC0C30053B022 /* SalonAppTests.swift in Sources */,
 				7D63F43A2A9D209D00A7799B /* MockArtistDetailService.swift in Sources */,

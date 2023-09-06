@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 import Kingfisher
 class ServiceCollectionViewCell: UICollectionViewCell {
+ 
+    
     static let identifier = "ServiceCollectionViewCell"
     private let serviceImageView: UIImageView = {
         let imageView = UIImageView()

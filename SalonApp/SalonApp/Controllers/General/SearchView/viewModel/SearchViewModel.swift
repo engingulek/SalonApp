@@ -12,6 +12,23 @@ import UIKit.UITableViewCell
 fileprivate let ALL_SERVICE : Int = 0
 fileprivate let RESULT_ARTIST : Int = 1
 
+enum SortType : String {
+    case priceDESC = "Price Descending"
+    case priceASC = "Price Increasing"
+    case hightRating = "Hight Rating"
+    
+    func toServiceType() -> String {
+        switch self {
+        case .priceDESC:
+            return "DESC"
+        case .priceASC:
+            return "ASC"
+        case .hightRating:
+            return "HightRating"
+        }
+    }
+}
+
 protocol SearchViewModelInterface {
     func viewDidLoad(searchText:String)
  
@@ -20,12 +37,14 @@ protocol SearchViewModelInterface {
     func cellForItemAt(section:Int,indexPath:IndexPath)->(service: AllService?, artist: TopArtist?)
     func didSelectItem(section:Int,indexPath:IndexPath)
     func searchAction(searchText:String)
+    func searchArtistSort(sortType:SortType)
+    
  
     
   
 }
 
-final class SearchViewModel  {
+final class SearchViewModel {
    
     private weak var view : SearchViewInterface?
     private  let serviceManager : SearchServiceInterface
@@ -45,7 +64,7 @@ final class SearchViewModel  {
             switch resonse {
             case .success(let list):
                 self.allServiceList = list ?? []
-                self.view?.reloadDataColllectionView()
+                self.view?.reloadServiceSection()
             case .failure(let failure):
                 print(failure.localizedDescription)
             }
@@ -60,7 +79,7 @@ final class SearchViewModel  {
                     //self.searchArtistList = []
                     self.searchArtistList = list ?? []
                     print(searchText.lowercased())
-                    self.view?.reloadDataColllectionView()
+                    self.view?.reloadArtistSection()
                 case .failure(let failure):
                     print(failure.localizedDescription)
                 }
@@ -78,7 +97,7 @@ final class SearchViewModel  {
                     //self.searchArtistList = []
                     self.searchArtistList = list ?? []
                     print(searchText.lowercased())
-                    self.view?.reloadDataColllectionView()
+                    self.view?.reloadArtistSection()
                 case .failure(let failure):
                     print(failure.localizedDescription)
                 }
@@ -87,59 +106,21 @@ final class SearchViewModel  {
         }
     }
     
-    func fetchSearchArtistPayDesc(){
-        if !searchTextViewModel.isEmpty {
-            serviceManager.fetchSearchArtistPayDesc(searchText: searchTextViewModel.lowercased()
-                                            ) { response in
-                switch response {
-                case .success(let list):
-                    //self.searchArtistList = []
-                    self.searchArtistList = list ?? []
-                  
-                    self.view?.reloadDataColllectionView()
-                case .failure(let failure):
-                    print(failure.localizedDescription)
-                }
-                
+    func fetchsearchArtistSort(sortType:SortType) {
+        print("Fetch ViewModel \(sortType.toServiceType())")
+        serviceManager.fetchSearchArtistSort(sortType: sortType, searchText: searchTextViewModel) { response in
+            switch response {
+            case .success(let list):
+                self.searchArtistList = list ?? []
+                self.view?.reloadArtistSection()
+            case .failure(let failure):
+                print(failure.localizedDescription)
             }
         }
+        
     }
     
-    func fetchSearchArtistPayAsc(){
-        if !searchTextViewModel.isEmpty {
-            serviceManager.fetchSearchArtistPayAsc(searchText: searchTextViewModel.lowercased()
-                                            ) { response in
-                switch response {
-                case .success(let list):
-                    //self.searchArtistList = []
-                    self.searchArtistList = list ?? []
-                 
-                    self.view?.reloadDataColllectionView()
-                case .failure(let failure):
-                    print(failure.localizedDescription)
-                }
-                
-            }
-        }
-    }
-    
-    func fetchSearchArtistPayHightRating(){
-        if !searchTextViewModel.isEmpty {
-            serviceManager.fetchSearchArtistHightRating(searchText: searchTextViewModel.lowercased()
-                                            ) { response in
-                switch response {
-                case .success(let list):
-                    //self.searchArtistList = []
-                    self.searchArtistList = list ?? []
-                  
-                    self.view?.reloadDataColllectionView()
-                case .failure(let failure):
-                    print(failure.localizedDescription)
-                }
-                
-            }
-        }
-    }
+   
     
     
 }
@@ -147,16 +128,13 @@ final class SearchViewModel  {
 
 
 extension SearchViewModel : SearchViewModelInterface  {
-    
-
-    
     func viewDidLoad(searchText:String) {
         Task {
             @MainActor in
             self.fetchSearchArtist(searchText:searchText)
             self.fetchAllService()
         }
-        self.searchTextViewModel = searchText
+        self.searchTextViewModel = searchText.lowercased()
         view?.prepareTabbarHidden(isHidden: true)
         view?.prepareColllectionView()
         view?.setBackgroundColor("backColor")
@@ -171,6 +149,16 @@ extension SearchViewModel : SearchViewModelInterface  {
         self.searchTextViewModel = searchText
         view?.prepareColllectionView()
     }
+    
+    func searchArtistSort(sortType: SortType) {
+        print("ViewModel \(sortType.toServiceType())")
+        Task {
+            @MainActor in
+            self.fetchsearchArtistSort(sortType:sortType)
+        }
+       
+    }
+    
     func numberOfSections() -> Int {
         return 2
     }

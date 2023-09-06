@@ -11,9 +11,7 @@ protocol SearchServiceInterface {
     func fetchAllService(completion:@escaping(Result<[AllService]?,Error> ) -> ())
     func fetchSearchArtist(searchText:String,completion:@escaping(Result<[TopArtist]?,Error> ) -> ())
     func fetchSearchArtistFilterService(searchText:String,serviceId:Int,completion:@escaping(Result<[TopArtist]?,Error> ) -> ())
-    func fetchSearchArtistPayDesc(searchText:String,completion:@escaping(Result<[TopArtist]?,Error> ) -> ())
-    func fetchSearchArtistPayAsc(searchText:String,completion:@escaping(Result<[TopArtist]?,Error> ) -> ())
-    func fetchSearchArtistHightRating(searchText:String,completion:@escaping(Result<[TopArtist]?,Error> ) -> ())
+    func fetchSearchArtistSort(sortType:SortType,searchText: String, completion: @escaping (Result<[TopArtist]?, Error>) -> ())
 }
 
 final class SearchService : SearchServiceInterface {
@@ -55,10 +53,13 @@ final class SearchService : SearchServiceInterface {
         
     }
     
-    func fetchSearchArtistPayDesc(searchText: String, completion: @escaping (Result<[TopArtist]?, Error>) -> ()) {
-        NetworkManager.shared.fetch(target: .payDesc(searchText), responseClass: TopArtist.self) { response in
+    func fetchSearchArtistSort(sortType:SortType,searchText: String, completion: @escaping (Result<[TopArtist]?, Error>) -> ()) {
+        print(sortType.toServiceType())
+        print("Serice \(searchText)")
+        NetworkManager.shared.fetch(target: .searhArtistSort(sortType.toServiceType(), searchText), responseClass: TopArtist.self) { response in
             switch response {
             case .success(let success):
+
                 completion(.success(success))
             case .failure(let failure):
                 completion(.failure(failure))
@@ -67,33 +68,7 @@ final class SearchService : SearchServiceInterface {
         }
 
     }
-    
-    func fetchSearchArtistPayAsc(searchText: String, completion: @escaping (Result<[TopArtist]?, Error>) -> ()) {
-        NetworkManager.shared.fetch(target: .payAsc(searchText), responseClass: TopArtist.self) { response in
-            switch response {
-            case .success(let success):
-                completion(.success(success))
-            case .failure(let failure):
-                completion(.failure(failure))
-            }
-            
-        }
-
-    }
-    
-    func fetchSearchArtistHightRating(searchText: String, completion: @escaping (Result<[TopArtist]?, Error>) -> ()) {
-        NetworkManager.shared.fetch(target: .hightRating(searchText), responseClass: TopArtist.self) { response in
-            switch response {
-            case .success(let success):
-                completion(.success(success))
-            case .failure(let failure):
-                completion(.failure(failure))
-            }
-            
-        }
-
-    }
-    
+ 
     
     
 }

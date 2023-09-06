@@ -10,7 +10,6 @@ import Foundation
 protocol ArtistDetailViewModelInterface{
     //var sectionType : SectionTabs { get }
     func viewDidLoad(artistId:Int)
-    func sendMessageButtonTap()
     func didTapTab(selectLabel:String,artistId:Int)
     func numberOfRowsInSection() -> Int
     func cellForRowAt(at indexPath:IndexPath) -> (comment:Comment,backColor:String,borderColor:String)
@@ -71,10 +70,7 @@ extension ArtistDetailViewModel : ArtistDetailViewModelInterface {
         view?.setBackgroundColor("backColor")
     }
     
-    func sendMessageButtonTap() {
-        let vc = ChatViewController()
-        view?.pushViewControllerable(vc, identifier: "ChatViewControllerIndetifier")
-    }
+    
     
  
     func didTapTab(selectLabel:String,artistId:Int) {

@@ -52,13 +52,7 @@ final class MockHomeViewController : HomeViewInterface {
         invokedPushViewControllerList.append((identifier :identifier,()))
     }
  
-    
-    var invokedPrepareCollectionView = false
-    var invokedPrepareCollectionViewCount = 0
-    func prepareCollectionView() {
-        invokedPrepareCollectionView = true
-        invokedPrepareCollectionViewCount += 1
-    }
+
     
     var invokedPrepareTableView = false
     var invokedPrepareTableViewCount = 0
@@ -87,15 +81,7 @@ final class MockHomeViewController : HomeViewInterface {
         invokedSearchTextFieldList.append((text:text,()))
         
     }
-  
-    var invokedReloadCollectionViewData = false
-    var invokedReloadDataCollectionViewCount = 0
-    
-    func reloadDataCollectionView() {
-        
-         invokedReloadCollectionViewData = true
-         invokedReloadDataCollectionViewCount += 1
-    }
+
     
     var invokedReloadTableViewData = false
     var invokedReloadDataTableViewCount = 0

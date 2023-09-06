@@ -12,7 +12,7 @@ class MainTabbarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let vc1 = UINavigationController(rootViewController: HomeViewController())
-        let vc2 = UINavigationController(rootViewController: ChatListViewController())
+     
         let vc3 = UINavigationController(rootViewController: BookMarkViewController())
         let vc4 = UINavigationController(rootViewController: ProfileViewController())
         self.tabBar.tintColor = .black
@@ -20,8 +20,7 @@ class MainTabbarViewController: UITabBarController {
         vc1.tabBarItem.image = UIImage(systemName: "house")
         vc1.tabBarItem.selectedImage = UIImage(systemName: "house.fill")
         
-        vc2.tabBarItem.image = UIImage(systemName: "message")
-        vc2.tabBarItem.selectedImage = UIImage(systemName: "message.fill")
+     
         
         vc3.tabBarItem.image = UIImage(systemName: "bookmark")
         vc3.tabBarItem.selectedImage = UIImage(systemName: "bookmark.fill")
@@ -31,7 +30,7 @@ class MainTabbarViewController: UITabBarController {
         
         
         
-        setViewControllers([vc1,vc2,vc3,vc4] ,animated: true)
+        setViewControllers([vc1,vc3,vc4] ,animated: true)
         
     }
     

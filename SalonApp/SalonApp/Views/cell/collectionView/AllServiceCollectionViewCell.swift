@@ -16,10 +16,11 @@ class AllServiceCollectionViewCell: UICollectionViewCell {
          label.text = "Service"
         return label
     }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(serviceName)
+      
         configureConstraints()
     }
     

@@ -14,10 +14,9 @@ public class LayoutBuilder {
     
     public static func buildAllServiceSectionLayout() -> NSCollectionLayoutSection {
         
-        let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0)))
+        let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.7)))
         let itemInset = NSDirectionalEdgeInsets(top: 0.0, leading: 5.0, bottom: 0.0, trailing: 5.0)
         item.contentInsets = itemInset
-        
         let size =  NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.25), heightDimension: .fractionalHeight(0.1))
        
         let group = NSCollectionLayoutGroup.vertical(layoutSize: size, subitems: [item])

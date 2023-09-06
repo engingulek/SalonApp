@@ -8,14 +8,12 @@
 import UIKit
 import SnapKit
 
+
 protocol HomeViewInterface : AnyObject,ViewAble,SeguePerformable {
-    func prepareCollectionView()
     func prepareTableView()
     func prepareTabbarHidden(isHidden:Bool)
     func prepareTextFieldController(text:String)
-    func reloadDataCollectionView()
     func reloadDataTableView()
-    func indicatorViewTopService(animate:Bool)
     func indicatoViewTopArtist(animate:Bool)
     
 }
@@ -24,13 +22,7 @@ final class HomeViewController: UIViewController {
     private lazy var headerView = HomeHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: self.view.layer.frame.height / 4 ))
     private var status = true
     private lazy var viewModel = HomeViewModel(view: self)
-    private let indicatorTopService: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView()
-        indicator.style = .large
-        indicator.color = .black
-        indicator.hidesWhenStopped = true
-        return indicator
-    }()
+
     private let indicatorTopArtist: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
         indicator.style = .large
@@ -49,28 +41,6 @@ final class HomeViewController: UIViewController {
         textField.textAlignment = .center
  
         return textField
-    }()
-
-    private let serviceTitleLabel : UILabel = {
-        let label = UILabel()
-        label.text = "Top Services"
-        label.textColor = .black
-        label.font = .systemFont(ofSize: 18,weight: .bold)
-        return label
-    }()
-    
-    private let serviceCollectionView  : UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 10)
-        layout.minimumLineSpacing = 10
-        layout.minimumInteritemSpacing = 10
-        layout.itemSize = CGSize(width: 80, height: 80)
-        let collectionView = UICollectionView(frame: .infinite,collectionViewLayout: layout)
-        collectionView.register(ServiceCollectionViewCell.self, forCellWithReuseIdentifier: ServiceCollectionViewCell.identifier)
-        collectionView.backgroundColor = UIColor(named: "backColor")
-        
-        return collectionView
     }()
     
     private let topArtistLabel : UILabel = {
@@ -118,11 +88,8 @@ final class HomeViewController: UIViewController {
         view.backgroundColor = UIColor(named: "backColor")
         view.addSubview(headerView)
         view.addSubview(searchTextFeield)
-        view.addSubview(serviceTitleLabel)
-        view.addSubview(serviceCollectionView)
         view.addSubview(topArtistLabel)
         view.addSubview(artistTableView)
-        view.addSubview(indicatorTopService)
         view.addSubview(indicatorTopArtist)
         searchTextFeield.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom).offset(20)
@@ -131,29 +98,8 @@ final class HomeViewController: UIViewController {
             make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).offset(-10)
         }
         
-       
-        
-        serviceTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(searchTextFeield.snp.bottom).offset(20)
-            make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(15)
-            
-        }
-        
-        serviceCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(serviceTitleLabel.snp.bottom).offset(10)
-            make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading)
-            make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing)
-            make.height.equalTo(80)
-        }
-        
-        indicatorTopService.snp.makeConstraints { make in
-            make.top.equalTo(serviceTitleLabel.snp.bottom).offset(10)
-            make.centerX.equalTo(self.view.safeAreaLayoutGuide.snp.centerX)
-        }
-        
-        
         topArtistLabel.snp.makeConstraints { make in
-            make.top.equalTo(serviceCollectionView.snp.bottom).offset(10)
+            make.top.equalTo(searchTextFeield.snp.bottom).offset(10)
             make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(15)
         }
         
@@ -194,24 +140,7 @@ extension HomeViewController : HomeViewInterface {
     func prepareTabbarHidden(isHidden:Bool) {
         tabBarController?.tabBar.isHidden = isHidden
     }
-    
-    func prepareCollectionView() {
-        serviceCollectionView.delegate = self
-        serviceCollectionView.dataSource = self
-        serviceCollectionView.reloadData()
-      
-    }
-    
-    func reloadDataCollectionView() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else {
-                return
-            }
-            self.serviceCollectionView.reloadData()
-        }
-        
-    }
-    
+
     func reloadDataTableView() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
@@ -221,59 +150,16 @@ extension HomeViewController : HomeViewInterface {
         }
     }
     
-    func indicatorViewTopService(animate: Bool) {
-        DispatchQueue.main.async { [weak self] in
-                   guard let self = self else { return }
-                   animate ? self.indicatorTopService.startAnimating() : self.indicatorTopService.stopAnimating()
-                   self.indicatorTopService.isHidden = !animate
-               }
-    }
-    
     func indicatoViewTopArtist(animate: Bool) {
         DispatchQueue.main.async { [weak self] in
                    guard let self = self else { return }
-                   animate ? self.indicatorTopService.startAnimating() : self.indicatorTopService.stopAnimating()
+                   animate ? self.indicatorTopArtist.startAnimating() : self.indicatorTopArtist.stopAnimating()
             self.indicatorTopArtist.isHidden = !animate
                }
     }
     
     
 }
-
-extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSource{
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.numberOfItemsInSection()
-    }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-         if collectionView == self.serviceCollectionView {
-            guard let cell =  serviceCollectionView.dequeueReusableCell(withReuseIdentifier: ServiceCollectionViewCell.identifier,
-                                                                       for: indexPath) as? ServiceCollectionViewCell else {
-                return UICollectionViewCell()
-            }
-             
-             let item = viewModel.cellForItemAt(at: indexPath)
-             cell.backgroundColor = UIColor(named: item.backColor)
-             cell.configureData(topService: item.topService)
-             let backroundView = UIView()
-             backroundView.backgroundColor = UIColor(named: item.cellSelectBackColor)
-             cell.selectedBackgroundView =  backroundView
-             cell.layer.cornerRadius = 20
-             cell.layer.borderColor = UIColor(named: item.boderColor)?.cgColor
-            return cell
-        }
-        else {
-            return UICollectionViewCell()
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        viewModel.didSelectItem(at: indexPath)
-    }
-}
-
 
 extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -80,7 +80,6 @@ final class ArtistDetailTest: XCTestCase {
     
     func test_didTapTab_ReturnAbout(){
         viewModel.didTapTab(selectLabel: "About",artistId: 0)
-
         XCTAssertEqual(viewModel.sectionType, .about)
     }
     
@@ -89,17 +88,7 @@ final class ArtistDetailTest: XCTestCase {
         XCTAssertEqual(viewModel.sectionType,.comment)
     }
     
-    func test_sendMessage_toChatViewController_pushViewController(){
-        XCTAssertTrue(view.invokedPushViewControllerList.isEmpty)
-        let artistDetail = ArtistDetail(id: 1, imageUrl: "", rating: 1.0, name: "", bestService: "", locationcity: "", pay: 2.0, about: "")
-        
-        serviceManager.mockFetchArtistDetailResult = .success([artistDetail])
-        
-        viewModel.fetchArtistDetail(artistId: 1)
-        viewModel.sendMessageButtonTap()
-        
-        XCTAssertEqual(view.invokedPushViewControllerList.map(\.identifier),["ChatViewControllerIndetifier"])
-    }
+   
     
     
    

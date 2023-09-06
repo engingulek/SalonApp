@@ -9,9 +9,6 @@ import Foundation
 @testable import SalonApp
 import UIKit.UIViewController
 final class MockArtistDetailViewController : ArtistDetailViewInterface{
-    
-   
-    
     var invokedSetBackroundColor = false
     
     var involedBackColor:String! = nil
@@ -88,6 +85,7 @@ final class MockArtistDetailViewController : ArtistDetailViewInterface{
          invokedReloadDataTableViewCount += 1
     }
       func getArtistDetail() {}
+    func popViewControllerAble() {}
     
     
     

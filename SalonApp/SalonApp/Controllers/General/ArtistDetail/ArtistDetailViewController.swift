@@ -49,17 +49,7 @@ class ArtistDetailViewController: UIViewController {
         return stackView
     }()
   
-    private let sendMessageButton : UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Send Message", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
-        button.backgroundColor = .black
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = 25
-        
-        return button
-    }()
+  
     
     private let textViewAbout : UITextView = {
         let textView = UITextView()
@@ -86,7 +76,7 @@ class ArtistDetailViewController: UIViewController {
         super.viewDidLoad()
         guard let id = artistId else {return }
         
-        sendMessageButton.addTarget(self, action: #selector(didTapSedMesseaga(_:)), for: .touchUpInside)
+       
         configureStackButton()
         configureContraints()
         viewModel.viewDidLoad(artistId: id)
@@ -97,7 +87,7 @@ class ArtistDetailViewController: UIViewController {
     private func configureContraints(){
         
         view.addSubview(headerView)
-        view.addSubview(sendMessageButton)
+        
         view.addSubview(textViewAbout)
         view.addSubview(commentTableView)
         view.addSubview(sectionStack)
@@ -112,18 +102,13 @@ class ArtistDetailViewController: UIViewController {
             make.height.equalTo(35)
         }
         
-        sendMessageButton.snp.makeConstraints { make in
-            make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(20)
-            make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).offset(-20)
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-10)
-            make.height.equalTo(50)
-        }
+       
         
         textViewAbout.snp.makeConstraints { make in
             make.top.equalTo(sectionStack.snp.bottom).offset(10)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(25)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-25)
-            make.bottom.equalTo(sendMessageButton.snp.top).offset(-10)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
         
      
@@ -132,7 +117,7 @@ class ArtistDetailViewController: UIViewController {
             make.top.equalTo(sectionStack.snp.bottom).offset(10)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(25)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-25)
-            make.bottom.equalTo(sendMessageButton.snp.top).offset(-10)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
         
         indicator.snp.makeConstraints { make in
@@ -142,10 +127,7 @@ class ArtistDetailViewController: UIViewController {
     }
     
     
-    @objc private func didTapSedMesseaga(_ sender : UIButton){
-        viewModel.sendMessageButtonTap()
-    }
-    
+
     // MARK: - Will change tab text color  when select tab
     private func configureStackButton() {
         for (_, button) in sectionStack.arrangedSubviews.enumerated() {

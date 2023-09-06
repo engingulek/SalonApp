@@ -14,16 +14,13 @@ enum CustomError: Error {
 }
 
 enum NetworkPath  {
-    case topServices
     case topArtists
     case artistDetail(Int)
     case artistComments(Int)
     case allServices
     case searchArtist(String)
     case searhArtistFilter(String,Int)
-    case payDesc(String)
-    case payAsc(String)
-    case hightRating(String)
+    case searhArtistSort(String,String)
 }
 
 extension NetworkPath : TargetType {
@@ -33,9 +30,6 @@ extension NetworkPath : TargetType {
     
     var path: String {
         switch self {
-        case .topServices:
-            return "topServices/getAll"
-            
         case .topArtists:
             return "artists/getTopArtists"
         case .artistDetail(let artistId):
@@ -48,13 +42,10 @@ extension NetworkPath : TargetType {
             return "artists/getArtistSearchResult?searchText=\(searchText)"
         case .searhArtistFilter(let searchText, let serviceId):
             return "artists/getArtistSearchResultFilterService?searchText=\(searchText)&serviceId=\(serviceId)"
-        case .payDesc(let searchText):
-            return "artists/getArtistSearchResultOrderPayDESC?searchText=\(searchText)"
-        case .payAsc(let searchText):
-            return "artists/getArtistSearchResultOrderPayASC?searchText=\(searchText)"
-        case .hightRating(let searchText):
-            return "artists/getArtistSearchResultHighRating?searchText=\(searchText)"
-     
+        case .searhArtistSort(let sortType, let searchText):
+            print("Utils \(sortType)")
+            print("Search Text \(searchText)")
+            return "artists/getArtistSearchResultSort?sortType=\(sortType)&searchText=\(searchText)"
         }
     }
     

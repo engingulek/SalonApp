@@ -26,32 +26,4 @@ final class MockHomePageService : HomePageServiceInterface {
 
 }
 
-
-/*final class MockHomePageService : HomePageServiceInterface {
-    func fetchTopServices() async -> Result<[SalonApp.TopService]?, Error> {
-        
-    }
-    
-    func fetchTopArtists() async -> Result<[SalonApp.TopArtist]?, Error> {
-        
-    }
-    
-    var topArtists: [SalonApp.TopArtist] = []
-    
-    func fetchTopArtists(completion: @escaping () -> ()) async {
-        
-    }
-    
-    var topServices: [SalonApp.TopService] = []
-    var invokedFetchTopService = false
-    var invokedFetchTopServiceCount = 0
-    
-    func fetchTopServices(completion: @escaping () -> ()) async {
-        invokedFetchTopService = true
-        invokedFetchTopServiceCount += 1
-        completion()
-    }
-    
-    
-}*/
  

@@ -13,8 +13,10 @@ fileprivate let RESULT_ARTIST : Int = 1
 
 protocol SearchViewInterface : AnyObject,SeguePerformable,NavigaitonBarAble,ViewAble  {
     func prepareColllectionView()
-    func reloadDataColllectionView()
+   // func reloadDataColllectionView()
     func prepareTabbarHidden(isHidden:Bool)
+    func reloadArtistSection()
+    func reloadServiceSection()
 }
 
 final class SearchViewController: UIViewController {
@@ -24,6 +26,8 @@ final class SearchViewController: UIViewController {
     var searchText : String = ""
     var sections : [TableSection] = [.allService,.resultArtist]
     
+    
+  
     
    private lazy var collectionView: UICollectionView = {
         let collectionView: UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: self.makeLayout())
@@ -78,9 +82,9 @@ final class SearchViewController: UIViewController {
     }
     
     private func sortMenuConstraints(){
-        let priceDesc = UIAction(title: "Price Descending") { _ in self.viewModel.fetchSearchArtistPayDesc()}
-        let priceAsc = UIAction(title: "Price Increasing") { _ in self.viewModel.fetchSearchArtistPayAsc()}
-        let hightRating = UIAction(title: "Hight Rating") { _ in self.viewModel.fetchSearchArtistPayHightRating()}
+        let priceDesc = UIAction(title: SortType.priceDESC.rawValue) { _ in self.viewModel.searchArtistSort(sortType: .priceDESC)}
+        let priceAsc = UIAction(title: SortType.priceASC.rawValue) { _ in self.viewModel.searchArtistSort(sortType: .priceASC)}
+        let hightRating = UIAction(title: SortType.hightRating.rawValue) { _ in self.viewModel.searchArtistSort(sortType: .hightRating)}
         let menu = UIMenu(title: "Sort Type", options: .displayInline, children: [priceDesc , priceAsc , hightRating])
         self.navigationItem.rightBarButtonItem = .init(image: UIImage(systemName: "arrow.up.arrow.down"))
         navigationItem.rightBarButtonItem!.menu = menu
@@ -112,6 +116,12 @@ extension SearchViewController: UICollectionViewDelegate,UICollectionViewDataSou
         if ALL_SERVICE == indexPath.section {
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AllServiceCollectionViewCell.identifier, for: indexPath) as? AllServiceCollectionViewCell {
                 let item = viewModel.cellForItemAt(section: indexPath.section, indexPath: indexPath)
+                cell.backgroundColor = .white
+                let backroundView = UIView()
+                backroundView.layer.cornerRadius = 10
+                backroundView.layer.borderWidth = 2
+                cell.selectedBackgroundView =  backroundView
+                cell.layer.cornerRadius = 10
                 cell.configureData(service: item.service!)
                 return cell
             } else {
@@ -122,7 +132,7 @@ extension SearchViewController: UICollectionViewDelegate,UICollectionViewDataSou
         if RESULT_ARTIST == indexPath.section {
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ResultArtistCollectionViewCell.identifier, for: indexPath) as? ResultArtistCollectionViewCell {
                 cell.backgroundColor = .white
-                cell.layer.cornerRadius = 20
+                cell.layer.cornerRadius = 15
                 let item = viewModel.cellForItemAt(section: indexPath.section, indexPath: indexPath)
                 cell.configureData(resultArtist: item.artist!)
                 return cell
@@ -140,21 +150,31 @@ extension SearchViewController: UICollectionViewDelegate,UICollectionViewDataSou
 
 
 extension SearchViewController : SearchViewInterface {
+    func reloadArtistSection() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            collectionView.reloadSections(IndexSet(integer: 1))
+          
+        }
+        
+    }
+    func reloadServiceSection(){
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            collectionView.reloadSections(IndexSet(integer: 0))
+          
+        }
+    }
+    
     func prepareColllectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.reloadData()
     }
-    
-    func reloadDataColllectionView() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else {
-                return
-            }
-            self.collectionView.reloadData()
-        }
-    }
-    
     func prepareTabbarHidden(isHidden: Bool) {
         tabBarController?.tabBar.isHidden = isHidden
     }
