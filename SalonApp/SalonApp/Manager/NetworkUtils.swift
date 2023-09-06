@@ -20,6 +20,10 @@ enum NetworkPath  {
     case artistComments(Int)
     case allServices
     case searchArtist(String)
+    case searhArtistFilter(String,Int)
+    case payDesc(String)
+    case payAsc(String)
+    case hightRating(String)
 }
 
 extension NetworkPath : TargetType {
@@ -42,39 +46,28 @@ extension NetworkPath : TargetType {
             return "service/getAll"
         case .searchArtist(let searchText):
             return "artists/getArtistSearchResult?searchText=\(searchText)"
+        case .searhArtistFilter(let searchText, let serviceId):
+            return "artists/getArtistSearchResultFilterService?searchText=\(searchText)&serviceId=\(serviceId)"
+        case .payDesc(let searchText):
+            return "artists/getArtistSearchResultOrderPayDESC?searchText=\(searchText)"
+        case .payAsc(let searchText):
+            return "artists/getArtistSearchResultOrderPayASC?searchText=\(searchText)"
+        case .hightRating(let searchText):
+            return "artists/getArtistSearchResultHighRating?searchText=\(searchText)"
+     
         }
     }
     
     var method: AlamofireMethod {
         switch self {
-        case .topServices:
-            return .get
-        case .topArtists:
-            return .get
-        case .artistDetail:
-            return .get
-        case .artistComments:
-            return .get
-        case .allServices:
-            return .get
-        case .searchArtist:
+        default:
             return .get
         }
     }
     
     var requestType: RequestType {
         switch self {
-        case .topServices:
-            return .requestPlain
-        case .topArtists:
-            return .requestPlain
-        case .artistDetail:
-            return .requestPlain
-        case .artistComments:
-            return .requestPlain
-        case .allServices:
-            return .requestPlain
-        case .searchArtist:
+        default:
             return .requestPlain
         }
     }

@@ -31,7 +31,7 @@ enum TableSection : CaseIterable {
     func register(tableView : UITableView) {
         switch self {
         case .allService:
-          tableView.register(AllServiceTableViewCell.self, forCellReuseIdentifier: AllServiceTableViewCell.identifier)
+            break
             
         case .resultArtist:
             tableView.register(ArtistTableViewCell.self, forCellReuseIdentifier: ArtistTableViewCell.identifier)

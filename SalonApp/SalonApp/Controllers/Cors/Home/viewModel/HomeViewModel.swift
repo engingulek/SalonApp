@@ -28,6 +28,7 @@ final class HomeViewModel  {
     var selectedTopServiceIndex:IndexPath = [0,0]
     private var topServiceList: [TopService] = []
      var topArtistList : [TopArtist] = []
+  
     
     init(view: HomeViewInterface,servisManager: HomePageServiceInterface = HomePageService.shared) {
         self.view = view
