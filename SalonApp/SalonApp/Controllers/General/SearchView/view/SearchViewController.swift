@@ -17,6 +17,8 @@ protocol SearchViewInterface : AnyObject,SeguePerformable,NavigaitonBarAble,View
     func prepareTabbarHidden(isHidden:Bool)
     func reloadArtistSection()
     func reloadServiceSection()
+    func searchDidNotComeData(message:String,icon:String)
+    func onErrorSearch(message:String,icon:String)
 }
 
 final class SearchViewController: UIViewController {
@@ -26,17 +28,14 @@ final class SearchViewController: UIViewController {
     var searchText : String = ""
     var sections : [TableSection] = [.allService,.resultArtist]
     
-    
-  
-    
    private lazy var collectionView: UICollectionView = {
         let collectionView: UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: self.makeLayout())
         collectionView.backgroundColor = UIColor(named: "backColor")
-     
-       collectionView.register(AllServiceCollectionViewCell.self, forCellWithReuseIdentifier: AllServiceCollectionViewCell.identifier)
-       collectionView.register(ResultArtistCollectionViewCell.self, forCellWithReuseIdentifier: ResultArtistCollectionViewCell.identifier)
+       collectionView.register(AllServiceCollectionViewCell.self,
+                               forCellWithReuseIdentifier: AllServiceCollectionViewCell.identifier)
+       collectionView.register(ResultArtistCollectionViewCell.self,
+                               forCellWithReuseIdentifier: ResultArtistCollectionViewCell.identifier)
       
-       
         return collectionView
     }()
     
@@ -53,6 +52,8 @@ final class SearchViewController: UIViewController {
         
     }
     
+    
+    private lazy var messageUIView =  MessageUIView()
   
     
     override func viewDidLoad() {
@@ -65,8 +66,8 @@ final class SearchViewController: UIViewController {
         setBackgroundColor("backColor")
         headerView.searchTextFeield.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         sortMenuConstraints()
-        
-      
+        messageUIView.isHidden = true
+       
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -93,7 +94,14 @@ final class SearchViewController: UIViewController {
     private func configureContraints(){
         view.addSubview(headerView)
         view.addSubview(collectionView)
+        view.addSubview(messageUIView)
         collectionView.snp.makeConstraints { make in
+            make.top.equalTo(headerView.snp.bottom)
+            make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading)
+            make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+        }
+        messageUIView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom)
             make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing)
@@ -150,6 +158,10 @@ extension SearchViewController: UICollectionViewDelegate,UICollectionViewDataSou
 
 
 extension SearchViewController : SearchViewInterface {
+    
+    
+    
+    
     func reloadArtistSection() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
@@ -177,6 +189,17 @@ extension SearchViewController : SearchViewInterface {
     }
     func prepareTabbarHidden(isHidden: Bool) {
         tabBarController?.tabBar.isHidden = isHidden
+    }
+    func searchDidNotComeData(message:String,icon:String) {
+        collectionView.isHidden = true
+        messageUIView.isHidden = false
+        messageUIView.configureData(icon: icon, message: message)
+    }
+    
+    func onErrorSearch(message:String,icon:String) {
+        collectionView.isHidden = true
+        messageUIView.isHidden = false
+        messageUIView.configureData(icon: icon, message: message)
     }
     
 }

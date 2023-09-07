@@ -59,5 +59,56 @@ final class SearchTest : XCTestCase {
         
     }
     
+    // Buları gözden geçir
+    func test_viewDidLoad_fetchSearchArtist_RetrunTrue() {
+        XCTAssertFalse(serviceManager.fetchSearchArtistCalled)
+        let artist = TopArtist(id: 0, imageUrl: "url", rating: 1.0, name: "Test Name", bestService: "Test Best Service", locationcity: "Test City", pay: 0.0)
+        serviceManager.mockFetchsearchArtist = .success([artist])
+        viewModel.viewDidLoad(searchText: "sel")
+        viewModel.fetchSearchArtist(searchText: "sel")
+        XCTAssertTrue(serviceManager.fetchSearchArtistCalled)
+    }
+    
+    func test_viewDidload_fetchSearchArtist_EmptyData_RetrunNoDataIcon(){
+        XCTAssertFalse(view.invokedsearchDidNotComeData)
+        serviceManager.mockFetchsearchArtist = .success([])
+        viewModel.viewDidLoad(searchText: "sel")
+        viewModel.fetchSearchArtist(searchText: "sel")
+        XCTAssertEqual(view.invokedsearchDidNotComeDataIcon, "no-data")
+        
+    }
+    
+    
+    func test_viewDidload_fetchSearchArtist_EmptyData_RetrunMessage(){
+        XCTAssertFalse(view.invokedsearchDidNotComeData)
+        serviceManager.mockFetchsearchArtist = .success([])
+        viewModel.viewDidLoad(searchText: "sel")
+        viewModel.fetchSearchArtist(searchText: "sel")
+        XCTAssertEqual(view.invokedsearchDidNotComeDataMessage, "No product matching your search was found")
+    }
+    
+    
+    
+    
+    
+    func test_viewDidload_fetchSearchArtist_NetworkError_RetrunError404Icon(){
+        XCTAssertFalse(view.invokedsearchDidNotComeData)
+        serviceManager.mockFetchsearchArtist = .failure(CustomError.networkError)
+        viewModel.viewDidLoad(searchText: "sel")
+        viewModel.fetchSearchArtist(searchText: "sel")
+        XCTAssertEqual(view.invokedonErrorSearchIcon,"error-404")
+    }
+    
+    
+    func test_viewDidload_fetchSearchArtist_NetworkError_RetrunMessage(){
+        XCTAssertFalse(view.invokedsearchDidNotComeData)
+        serviceManager.mockFetchsearchArtist = .failure(CustomError.networkError)
+        viewModel.viewDidLoad(searchText: "sel")
+        viewModel.fetchSearchArtist(searchText: "sel")
+        XCTAssertEqual(view.invokedonErrorSearchMessage,"Page not found. Try again")
+    }
+    
+    
+    
    
 }

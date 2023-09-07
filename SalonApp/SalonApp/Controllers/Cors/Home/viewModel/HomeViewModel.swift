@@ -39,7 +39,7 @@ final class HomeViewModel  {
                 self.topArtistList = list ?? []
                 self.view?.reloadDataTableView()
             case .failure(let failure):
-                print(failure.localizedDescription)
+                print("Denemelik \(failure.localizedDescription)")
             }
              self.view?.indicatoViewTopArtist(animate: false)
         })

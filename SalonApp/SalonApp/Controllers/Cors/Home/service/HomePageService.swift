@@ -22,6 +22,7 @@ final class HomePageService :  HomePageServiceInterface{
                 completion(.success(success))
             case .failure(let failure):
                 completion(.failure(failure))
+             
             }
         }
     }

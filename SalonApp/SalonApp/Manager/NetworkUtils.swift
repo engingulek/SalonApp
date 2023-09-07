@@ -9,9 +9,7 @@ import Foundation
 import Alamofire
 
 
-enum CustomError: Error {
-    case networkError
-}
+
 
 enum NetworkPath  {
     case topArtists

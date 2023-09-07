@@ -10,6 +10,8 @@ import UIKit
 
 final class MockSearchViewController : SearchViewInterface {
     
+    
+    
     var invokedPrepareCollectionView = false
     var invokedPrepareCollectionViewCount = 0
     func prepareColllectionView() {
@@ -63,6 +65,27 @@ final class MockSearchViewController : SearchViewInterface {
     func setBackgroundColor(_ color: String) {
         invokedSetBackroundColor = true
        involedBackColor = color
+    }
+    
+    var invokedsearchDidNotComeData = false
+    var invokedsearchDidNotComeDataCount = 0
+    var invokedsearchDidNotComeDataMessage : String!
+    var invokedsearchDidNotComeDataIcon : String!
+    
+    func searchDidNotComeData(message: String, icon: String) {
+        invokedsearchDidNotComeData = true
+        invokedsearchDidNotComeDataCount += 1
+        invokedsearchDidNotComeDataMessage = message
+        invokedsearchDidNotComeDataIcon = icon
+    }
+    
+    var invokedonErrorSearch = false
+    var invokedonErrorSearchCount = 0
+    var invokedonErrorSearchMessage : String!
+    var invokedonErrorSearchIcon : String!
+    func onErrorSearch(message: String, icon: String) {
+         invokedonErrorSearchMessage = message
+         invokedonErrorSearchIcon  = icon
     }
     
     func popViewControllerAble() {}

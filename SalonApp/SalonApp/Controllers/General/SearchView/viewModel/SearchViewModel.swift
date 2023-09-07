@@ -31,7 +31,6 @@ enum SortType : String {
 
 protocol SearchViewModelInterface {
     func viewDidLoad(searchText:String)
- 
     func numberOfSections() -> Int
     func numberOfItemsInSection(section:Int) -> Int
     func cellForItemAt(section:Int,indexPath:IndexPath)->(service: AllService?, artist: TopArtist?)
@@ -39,9 +38,6 @@ protocol SearchViewModelInterface {
     func searchAction(searchText:String)
     func searchArtistSort(sortType:SortType)
     
- 
-    
-  
 }
 
 final class SearchViewModel {
@@ -64,6 +60,7 @@ final class SearchViewModel {
             switch resonse {
             case .success(let list):
                 self.allServiceList = list ?? []
+                
                 self.view?.reloadServiceSection()
             case .failure(let failure):
                 print(failure.localizedDescription)
@@ -71,17 +68,19 @@ final class SearchViewModel {
         }
     }
     
-    func fetchSearchArtist(searchText:String){
+    func fetchSearchArtist(searchText:String) {
         if !searchTextViewModel.isEmpty {
             serviceManager.fetchSearchArtist(searchText: searchText.lowercased()) { response in
                 switch response {
                 case .success(let list):
                     //self.searchArtistList = []
                     self.searchArtistList = list ?? []
-                    print(searchText.lowercased())
+                    if self.searchArtistList.isEmpty {
+                        self.view?.searchDidNotComeData(message: "No product matching your search was found", icon: "no-data")
+                    }
                     self.view?.reloadArtistSection()
                 case .failure(let failure):
-                    print(failure.localizedDescription)
+                    self.searchErrorHandler(error: failure)
                 }
                 
             }
@@ -96,6 +95,7 @@ final class SearchViewModel {
                 case .success(let list):
                     //self.searchArtistList = []
                     self.searchArtistList = list ?? []
+                    print("Search View Model \(self.searchArtistList.count)")
                     print(searchText.lowercased())
                     self.view?.reloadArtistSection()
                 case .failure(let failure):
@@ -128,12 +128,18 @@ final class SearchViewModel {
 
 
 extension SearchViewModel : SearchViewModelInterface  {
+    
+    
+   
+    
     func viewDidLoad(searchText:String) {
         Task {
             @MainActor in
-            self.fetchSearchArtist(searchText:searchText)
+            
             self.fetchAllService()
+          self.fetchSearchArtist(searchText:searchText)
         }
+      
         self.searchTextViewModel = searchText.lowercased()
         view?.prepareTabbarHidden(isHidden: true)
         view?.prepareColllectionView()
@@ -157,6 +163,16 @@ extension SearchViewModel : SearchViewModelInterface  {
             self.fetchsearchArtistSort(sortType:sortType)
         }
        
+    }
+    
+   private func searchErrorHandler(error:Error){
+       if  CustomError.networkError == error as! CustomError {
+           view?.onErrorSearch(message: "Page not found. Try again", icon: "error-404")
+       }
+       
+       if CustomError.testError == error as! CustomError {
+           view?.onErrorSearch(message: "Something went wrong.", icon: "cross")
+       }
     }
     
     func numberOfSections() -> Int {
@@ -211,8 +227,5 @@ extension SearchViewModel : SearchViewModelInterface  {
             view?.pushViewControllerable(vc, identifier: "ArtistDetailViewControllerIdentifier")
         }
     }
-    
-    
-    
 }
 
