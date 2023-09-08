@@ -9,7 +9,9 @@ import Foundation
 
 protocol HomePageServiceInterface {
     func fetchTopArtists(completion:@escaping(Result<[TopArtist]?,Error> ) -> ())
-    func fetchbookMarkListId(userId:Int,completion:@escaping(Result<[Int]?,Error> ) -> ())
+    func fetchbookMarkListId(userId:Int,completion:@escaping(Result<[BookMarkList]?,Error> ) -> ())
+    func fetchAddArtistToBookMarkList(userId:Int,artistId:Int)
+    func deleteArtistFromBookMarkList(id:Int)
 }
 
 
@@ -27,9 +29,9 @@ final class HomePageService :  HomePageServiceInterface{
         }
     }
     
-    func fetchbookMarkListId(userId:Int,completion: @escaping (Result<[Int]?, Error>) -> ()) {
+    func fetchbookMarkListId(userId:Int,completion: @escaping (Result<[BookMarkList]?, Error>) -> ()) {
         NetworkManager.shared.fetch(target: .bookMarkListId(userId),
-                                    responseClass: Int.self) { response in
+                                    responseClass: BookMarkList.self) { response in
             switch response {
             case .success(let success):
                 completion(.success(success))
@@ -37,6 +39,29 @@ final class HomePageService :  HomePageServiceInterface{
                 completion(.failure(failure))
             }
             
+        }
+    }
+    
+    func fetchAddArtistToBookMarkList(userId:Int,artistId:Int){
+        let params  = ["user_id" : userId, "artist_id" : artistId]
+        NetworkManager.shared.fetch(target: .addBookMarkList(params), responseClass: AddDataResult.self) { response in
+            switch response {
+            case .success(let success):
+                print(success![0])
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        }
+    }
+    
+    func deleteArtistFromBookMarkList(id:Int){
+        NetworkManager.shared.fetch(target: .deleteArtistFromBookMarkList(id), responseClass: AddDataResult.self) { response in
+            switch response {
+            case .success(let success):
+                print(success![0])
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
         }
     }
 }

@@ -53,7 +53,7 @@ class NetworkManager : NetworkManagerProtocol {
                 }
             }
         }
-        }
+    }
 
     private func buildParams(requestType: RequestType) -> ([String: Any], ParameterEncoding) {
          

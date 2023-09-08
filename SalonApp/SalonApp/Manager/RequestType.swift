@@ -10,6 +10,8 @@ import Alamofire
 
 enum AlamofireMethod: String {
     case get = "GET"
+    case post = "POST"
+    case delete = "DELETE"
 }
 
 

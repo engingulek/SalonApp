@@ -119,7 +119,7 @@ final class HomeViewController: UIViewController {
 
 extension HomeViewController : ArtistTableViewCellDelegate {
     func selectBookmarkIcon(indexPathRow: Int) {
-        print("HomeViewController \(indexPathRow)")
+        viewModel.bookMarkTapIcon(item: indexPathRow)
     }
 }
 

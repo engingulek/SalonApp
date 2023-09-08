@@ -37,6 +37,7 @@ protocol SearchViewModelInterface {
     func didSelectItem(section:Int,indexPath:IndexPath)
     func searchAction(searchText:String)
     func searchArtistSort(sortType:SortType)
+    func bookMarkTapIcon(item:Int)
     
 }
 
@@ -138,6 +139,8 @@ final class SearchViewModel {
 
 
 extension SearchViewModel : SearchViewModelInterface  {
+    
+    
     func viewDidLoad(searchText:String) {
         Task {
             @MainActor in
@@ -238,6 +241,15 @@ extension SearchViewModel : SearchViewModelInterface  {
             let vc = ArtistDetailViewController()
             vc.artistId = searchArtistList[indexPath.row].id
             view?.pushViewControllerable(vc, identifier: "ArtistDetailViewControllerIdentifier")
+        }
+    }
+    
+    func bookMarkTapIcon(item: Int) {
+        let artistId = searchArtistList[item].id
+        if bookMarkListIdList.contains(artistId){
+            print("silinecek")
+        }else{
+            print("eklenecek")
         }
     }
 }

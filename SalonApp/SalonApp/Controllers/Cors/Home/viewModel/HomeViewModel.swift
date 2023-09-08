@@ -15,6 +15,7 @@ protocol HomeViewModelInterface {
     func didSelectRow(at indexPath:IndexPath)
     func cellForRowAt(at indexPath:IndexPath) -> (topArtist:TopArtist,iconType:String)
     func numberOfRowsInSection() -> Int
+    func bookMarkTapIcon(item:Int)
     
 }
 
@@ -22,7 +23,7 @@ final class HomeViewModel  {
     private weak var view: HomeViewInterface?
     private let servisManager : HomePageServiceInterface
     private var topArtistList : [TopArtist] = []
-    private var bookMarkListIdList : [Int] = []
+    private var bookMarkListIdList : [BookMarkList] = []
     
   
     
@@ -49,17 +50,25 @@ final class HomeViewModel  {
             switch response {
             case .success(let list):
                 self.bookMarkListIdList = list ?? []
+                self.view?.reloadDataTableView()
             case .failure(let failure):
                 print(failure.localizedDescription)
             }
         }
     }
+    
+    func fetchAddBookMarkList(userId:Int,artistId:Int){
+        servisManager.fetchAddArtistToBookMarkList(userId: 1, artistId: artistId)
+        self.view?.reloadDataTableView()
+       
+    }
+    
+    func deleteArtistFromBookMarkList(id:Int){
+        servisManager.deleteArtistFromBookMarkList(id: id)
+    }
 }
 
 extension HomeViewModel : HomeViewModelInterface{
-   
-    
-    
     func viewDidLoad() {
         view?.indicatoViewTopArtist(animate: true)
         Task {
@@ -100,7 +109,7 @@ extension HomeViewModel : HomeViewModelInterface{
         var topArtist : TopArtist
         var iconType : String
         topArtist = topArtistList[indexPath.row]
-        if bookMarkListIdList.contains(topArtist.id){
+        if bookMarkListIdList.contains(where: {$0.artist_id == topArtist.id}) {
             iconType = "bookmark.fill"
         }else{
             iconType = "bookmark"
@@ -118,7 +127,30 @@ extension HomeViewModel : HomeViewModelInterface{
         view?.pushViewControllerable(vc, identifier: "ArtistDetailViewControllerIdentifier")
     }
     
-    
+    func bookMarkTapIcon(item: Int) {
+        let artistId = topArtistList[item].id
+        
+        Task {
+            @MainActor in
+            self.fetchookMarkListId()
+        }
+        
+        if bookMarkListIdList.contains(where: {$0.artist_id ==  artistId}) {
+            Task {
+                @MainActor in
+               let info = bookMarkListIdList.filter {
+                    $0.artist_id == artistId && $0.user_id == 1
+               }.first
+                self.deleteArtistFromBookMarkList(id:info!.id)
+            }
+           
+        }else{
+            Task{
+                @MainActor in
+                self.fetchAddBookMarkList(userId:1,artistId:artistId)
+            }
+        }
+    }
 }
 
 

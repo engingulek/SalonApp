@@ -20,6 +20,8 @@ enum NetworkPath  {
     case searhArtistFilter(String,Int)
     case searhArtistSort(String,String)
     case bookMarkListId(Int)
+    case addBookMarkList(Parameters)
+    case deleteArtistFromBookMarkList(Int)
 }
 
 extension NetworkPath : TargetType {
@@ -45,12 +47,19 @@ extension NetworkPath : TargetType {
             return "artists/getArtistSearchResultSort?sortType=\(sortType)&searchText=\(searchText)"
         case .bookMarkListId(let user_id):
             return "bookMarkList/bookMarkListId?user_id=\(user_id)"
-            
+        case .addBookMarkList:
+            return "bookMarkList/add"
+        case .deleteArtistFromBookMarkList(let id):
+            return "bookMarkList/deleteArtistFromBookMarkList?id=\(id)"
         }
     }
     
     var method: AlamofireMethod {
         switch self {
+        case .addBookMarkList:
+            return .post
+        case .deleteArtistFromBookMarkList:
+            return .delete
         default:
             return .get
         }
@@ -58,6 +67,8 @@ extension NetworkPath : TargetType {
     
     var requestType: RequestType {
         switch self {
+        case .addBookMarkList(let parameters):
+            return .requestParameters(parameters: parameters, encoding: JSONEncoding.init())
         default:
             return .requestPlain
         }

@@ -7,8 +7,17 @@
 
 import UIKit
 import SnapKit
+
+protocol ResultArtistCollectionViewCellDelegate {
+    func selectBookmarkIcon(indexPathRow : Int)
+}
+
+
+
 class ResultArtistCollectionViewCell: UICollectionViewCell {
     static let identifier = "ResultArtistCollectionViewCell"
+    var cellDelegate : ResultArtistCollectionViewCellDelegate?
+    var indexPathItem : Int?
     private let artistCellImage : UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "hairdresser")
@@ -100,11 +109,18 @@ class ResultArtistCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         configureConstraints()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapBookmarkIcon(_:)))
+        self.bookmarkIcon.addGestureRecognizer(tap)
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    @objc func tapBookmarkIcon(_ sender: UITapGestureRecognizer){
+        guard let delegate = cellDelegate else {return}
+        delegate.selectBookmarkIcon(indexPathRow: indexPathItem!)
+     }
     
     func configureData(resultArtist:TopArtist,iconType:String){
         artistCellImage.kf.setImage(with: URL(string: resultArtist.imageUrl))
