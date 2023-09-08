@@ -22,7 +22,9 @@ final class ArtistDetailViewModel{
     private var selectionString : String = "About"
     private var selectedTab : Int = 0
     var artistDetail : ArtistDetail? = nil
+   
     var artistComment : [Comment] = []
+   
     
     init(view: ArtistDetailViewInterface,serviceManager: ArtistDetailServiceInterfece = ArtistDetailService.shared) {
         self.view = view
@@ -40,6 +42,8 @@ final class ArtistDetailViewModel{
             }
         }
     }
+    
+  
     func fetchArtistComment(artistId:Int){
         serviceManager.fetchArtistComment(artisId: artistId) { response in
             switch response {
@@ -62,12 +66,18 @@ extension ArtistDetailViewModel : ArtistDetailViewModelInterface {
     
     func viewDidLoad(artistId:Int)  {
         view?.indicatorView(animate: true)
-        self.fetchArtistDetail(artistId:artistId)
+        Task {
+            @MainActor in
+            self.fetchArtistDetail(artistId:artistId)
+           
+        }
+       
         
         view?.prepareTableView()
         view?.prepareTabbarHidden(isHidden: true)
         view?.prepareNavigationBarCollor(colorText: "black")
         view?.setBackgroundColor("backColor")
+        view?.navigationItemTitle(title: "Artist Detail")
     }
     
     

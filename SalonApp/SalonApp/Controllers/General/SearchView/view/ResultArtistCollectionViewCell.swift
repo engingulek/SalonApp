@@ -8,16 +8,12 @@
 import UIKit
 import SnapKit
 
-protocol ResultArtistCollectionViewCellDelegate {
-    func selectBookmarkIcon(indexPathRow : Int)
-}
+
 
 
 
 class ResultArtistCollectionViewCell: UICollectionViewCell {
     static let identifier = "ResultArtistCollectionViewCell"
-    var cellDelegate : ResultArtistCollectionViewCellDelegate?
-    var indexPathItem : Int?
     private let artistCellImage : UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "hairdresser")
@@ -38,16 +34,7 @@ class ResultArtistCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    let bookmarkIcon : UIImageView = {
-        let imageView = UIImageView()
-        imageView.image =  UIImage(systemName: "bookmark")
-        imageView.tintColor = UIColor.orange
-        imageView.backgroundColor = .white
-        imageView.layer.cornerRadius = 10
-
-        imageView.isUserInteractionEnabled = true
-        return imageView
-    }()
+ 
     
     private let ratingLabel : UILabel = {
         let label = UILabel()
@@ -109,27 +96,22 @@ class ResultArtistCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         configureConstraints()
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tapBookmarkIcon(_:)))
-        self.bookmarkIcon.addGestureRecognizer(tap)
+       
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func tapBookmarkIcon(_ sender: UITapGestureRecognizer){
-        guard let delegate = cellDelegate else {return}
-        delegate.selectBookmarkIcon(indexPathRow: indexPathItem!)
-     }
-    
-    func configureData(resultArtist:TopArtist,iconType:String){
+
+    func configureData(resultArtist:TopArtist){
         artistCellImage.kf.setImage(with: URL(string: resultArtist.imageUrl))
         ratingLabel.text = "\(resultArtist.rating)"
         artistNameLabel.text = resultArtist.name
         baseServiceNameLabel.text = resultArtist.bestService
         locaitonLabel.text = resultArtist.locationcity
         priceLabel.text = "$\(resultArtist.pay)"
-        bookmarkIcon.image = UIImage(systemName: iconType)
+      
         
     }
    
@@ -145,7 +127,7 @@ class ResultArtistCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(locaitonLabel)
         contentView.addSubview(priceLabel)
         contentView.addSubview(priceType)
-        contentView.addSubview(bookmarkIcon)
+     
         
         artistCellImage.snp.makeConstraints { make in
             make.centerX.equalTo(self.contentView.safeAreaLayoutGuide.snp.centerX)
@@ -155,10 +137,7 @@ class ResultArtistCollectionViewCell: UICollectionViewCell {
             
         }
         
-        bookmarkIcon.snp.makeConstraints { make in
-            make.trailing.equalTo(self.contentView.safeAreaLayoutGuide.snp.trailing).offset(-8)
-            make.top.equalTo(self.contentView.safeAreaLayoutGuide.snp.top).offset(10)
-        }
+      
         artistNameLabel.snp.makeConstraints { make in
             make.centerX.equalTo(self.contentView.safeAreaLayoutGuide.snp.centerX)
             make.top.equalTo(artistCellImage.snp.bottom).offset(10)

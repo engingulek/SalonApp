@@ -45,7 +45,7 @@ final class HomeViewModel  {
         })
     }
     
-    func fetchookMarkListId(){
+    /*func fetchookMarkListId(){
         servisManager.fetchbookMarkListId(userId: 1) { response in
             switch response {
             case .success(let list):
@@ -55,17 +55,17 @@ final class HomeViewModel  {
                 print(failure.localizedDescription)
             }
         }
-    }
+    }*/
     
-    func fetchAddBookMarkList(userId:Int,artistId:Int){
+    /*func fetchAddBookMarkList(userId:Int,artistId:Int){
         servisManager.fetchAddArtistToBookMarkList(userId: 1, artistId: artistId)
         self.view?.reloadDataTableView()
        
-    }
+    }*/
     
-    func deleteArtistFromBookMarkList(id:Int){
+    /*func deleteArtistFromBookMarkList(id:Int){
         servisManager.deleteArtistFromBookMarkList(id: id)
-    }
+    }*/
 }
 
 extension HomeViewModel : HomeViewModelInterface{
@@ -74,7 +74,7 @@ extension HomeViewModel : HomeViewModelInterface{
         Task {
             @MainActor in
             self.fetchTopArtists()
-            self.fetchookMarkListId()
+            //self.fetchookMarkListId()
         }
         
         view?.setBackgroundColor("backColor")
@@ -83,6 +83,13 @@ extension HomeViewModel : HomeViewModelInterface{
     }
     
     func viewWillAppear() {
+        view?.indicatoViewTopArtist(animate: true)
+        Task {
+            @MainActor in
+            self.fetchTopArtists()
+           // self.fetchookMarkListId()
+        }
+        view?.prepareTableView()
         view?.prepareTabbarHidden(isHidden: false)
     }
     
@@ -130,9 +137,9 @@ extension HomeViewModel : HomeViewModelInterface{
     func bookMarkTapIcon(item: Int) {
         let artistId = topArtistList[item].id
         
-        Task {
+      /*  Task {
             @MainActor in
-            self.fetchookMarkListId()
+           // self.fetchookMarkListId()
         }
         
         if bookMarkListIdList.contains(where: {$0.artist_id ==  artistId}) {
@@ -149,7 +156,7 @@ extension HomeViewModel : HomeViewModelInterface{
                 @MainActor in
                 self.fetchAddBookMarkList(userId:1,artistId:artistId)
             }
-        }
+        }*/
     }
 }
 

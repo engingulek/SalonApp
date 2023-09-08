@@ -20,7 +20,6 @@ protocol HomeViewInterface : AnyObject,ViewAble,SeguePerformable {
 
 final class HomeViewController: UIViewController {
     private lazy var headerView = HomeHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: self.view.layer.frame.height / 4 ))
-    private var status = true
     private lazy var viewModel = HomeViewModel(view: self)
 
     private let indicatorTopArtist: UIActivityIndicatorView = {
@@ -173,7 +172,7 @@ extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
                 return UITableViewCell()
             }
            let item =  viewModel.cellForRowAt(at: indexPath)
-            cell.configureData(topArtist: item.topArtist,bookmarkIconType: item.iconType)
+            cell.configureData(topArtist: item.topArtist,iconType: item.iconType)
             cell.cellDelegate = self
             cell.indexPathRow = indexPath.row
             cell.selectionStyle = .none

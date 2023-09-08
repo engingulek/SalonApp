@@ -14,6 +14,8 @@ protocol ArtistDetailServiceInterfece {
 
 
 final class ArtistDetailService : ArtistDetailServiceInterfece {
+ 
+    
    
     
     static let shared = ArtistDetailService()
@@ -39,6 +41,4 @@ final class ArtistDetailService : ArtistDetailServiceInterfece {
             }
         }
     }
-    
-    
 }

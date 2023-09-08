@@ -48,8 +48,9 @@ class ArtistDetailViewController: UIViewController {
         stackView.alignment = .center
         return stackView
     }()
-  
-  
+    
+
+
     
     private let textViewAbout : UITextView = {
         let textView = UITextView()
@@ -92,6 +93,7 @@ class ArtistDetailViewController: UIViewController {
         view.addSubview(commentTableView)
         view.addSubview(sectionStack)
         view.addSubview(indicator)
+    
 
         
         sectionStack.snp.makeConstraints { make in

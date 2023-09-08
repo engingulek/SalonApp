@@ -17,6 +17,7 @@ class ArtistDetailView: UIView {
         imageView.layer.cornerRadius = 10
         return imageView
     }()
+
     
     private let ratingImage : UIImageView = {
         let imageView = UIImageView()
@@ -94,6 +95,7 @@ class ArtistDetailView: UIView {
         addSubview(locaitonLabel)
         addSubview(priceLabel)
         addSubview(priceType)
+       
         configureConstraints()
       
     }
@@ -108,6 +110,7 @@ class ArtistDetailView: UIView {
         baseServiceNameLabel.text = artistDetail.bestService
         locaitonLabel.text = artistDetail.locationcity
         priceLabel.text = "$\(artistDetail.pay)"
+      
     }
     
     private func configureConstraints() {
@@ -133,6 +136,8 @@ class ArtistDetailView: UIView {
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(30)
             make.leading.equalTo(ratingImage.snp.trailing).offset(10)
         }
+        
+     
         
         artistNameLabel.snp.makeConstraints { make in
             make.top.equalTo(ratingImage.snp.bottom).offset(5)

@@ -14,7 +14,6 @@ enum AlamofireMethod: String {
     case delete = "DELETE"
 }
 
-
 enum RequestType {
     case requestPlain
     case requestParameters(parameters: [String: Any], encoding: ParameterEncoding)

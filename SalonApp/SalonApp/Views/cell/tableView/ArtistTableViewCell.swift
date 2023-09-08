@@ -36,7 +36,7 @@ class ArtistTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    let bookmarkIcon : UIImageView = {
+    let icon : UIImageView = {
         let imageView = UIImageView()
        
         imageView.tintColor = UIColor.orange
@@ -112,12 +112,12 @@ class ArtistTableViewCell: UITableViewCell {
         contentView.addSubview(locaitonLabel)
         contentView.addSubview(priceLabel)
         contentView.addSubview(priceType)
-        contentView.addSubview(bookmarkIcon)
+        contentView.addSubview(icon)
         self.contentView.backgroundColor = .white
         self.contentView.layer.cornerRadius = 10
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapBookmarkIcon(_:)))
         
-        self.bookmarkIcon.addGestureRecognizer(tap)
+        self.icon.addGestureRecognizer(tap)
      
 
         configureConstraints()
@@ -138,14 +138,14 @@ class ArtistTableViewCell: UITableViewCell {
        delegate.selectBookmarkIcon(indexPathRow: indexPathRow!)
     }
     
-    func configureData(topArtist:TopArtist,bookmarkIconType:String){
+    func configureData(topArtist:TopArtist,iconType:String){
         artistCellImage.kf.setImage(with: URL(string: topArtist.imageUrl))
         ratingLabel.text = "\(topArtist.rating)"
         artistNameLabel.text = topArtist.name
         baseServiceNameLabel.text = topArtist.bestService
         locaitonLabel.text = topArtist.locationcity
         priceLabel.text = "$\(topArtist.pay)"
-        bookmarkIcon.image = UIImage(systemName: bookmarkIconType)
+        icon.image = UIImage(systemName: iconType)
         
     }
     
@@ -159,7 +159,7 @@ class ArtistTableViewCell: UITableViewCell {
             make.height.equalTo(self.contentView.layer.frame.width / 2)
         }
         
-        bookmarkIcon.snp.makeConstraints { make in
+        icon.snp.makeConstraints { make in
             make.top.equalTo(self.contentView.safeAreaLayoutGuide.snp.top).offset(10)
             make.trailing.equalTo(self.contentView.safeAreaLayoutGuide.snp.trailing).offset(-15)
             make.width.equalTo(18)

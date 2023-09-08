@@ -9,9 +9,9 @@ import Foundation
 
 protocol HomePageServiceInterface {
     func fetchTopArtists(completion:@escaping(Result<[TopArtist]?,Error> ) -> ())
-    func fetchbookMarkListId(userId:Int,completion:@escaping(Result<[BookMarkList]?,Error> ) -> ())
-    func fetchAddArtistToBookMarkList(userId:Int,artistId:Int)
-    func deleteArtistFromBookMarkList(id:Int)
+   
+    /*func fetchAddArtistToBookMarkList(userId:Int,artistId:Int)
+    func deleteArtistFromBookMarkList(id:Int)*/
 }
 
 
@@ -29,7 +29,7 @@ final class HomePageService :  HomePageServiceInterface{
         }
     }
     
-    func fetchbookMarkListId(userId:Int,completion: @escaping (Result<[BookMarkList]?, Error>) -> ()) {
+   /* func fetchbookMarkListId(userId:Int,completion: @escaping (Result<[BookMarkList]?, Error>) -> ()) {
         NetworkManager.shared.fetch(target: .bookMarkListId(userId),
                                     responseClass: BookMarkList.self) { response in
             switch response {
@@ -63,5 +63,5 @@ final class HomePageService :  HomePageServiceInterface{
                 print(failure.localizedDescription)
             }
         }
-    }
+    }*/
 }

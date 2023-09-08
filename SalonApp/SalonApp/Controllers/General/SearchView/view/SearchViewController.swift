@@ -143,9 +143,8 @@ extension SearchViewController: UICollectionViewDelegate,UICollectionViewDataSou
                 cell.layer.cornerRadius = 15
                 let item = viewModel.cellForItemAt(section: indexPath.section, indexPath: indexPath)
 
-                cell.configureData(resultArtist: item.artist!,iconType: item.iconType!)
-                cell.cellDelegate = self
-                cell.indexPathItem = indexPath.item
+                cell.configureData(resultArtist: item.artist!)
+              
                 
                 return cell
             } else {
@@ -203,11 +202,7 @@ extension SearchViewController : SearchViewInterface {
 }
 
 
-extension SearchViewController : ResultArtistCollectionViewCellDelegate {
-    func selectBookmarkIcon(indexPathRow: Int) {
-        viewModel.bookMarkTapIcon(item: indexPathRow)
-    }
-}
+
 
 
 
