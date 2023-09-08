@@ -12,9 +12,12 @@ protocol SearchServiceInterface {
     func fetchSearchArtist(searchText:String,completion:@escaping(Result<[TopArtist]?,Error> ) -> ())
     func fetchSearchArtistFilterService(searchText:String,serviceId:Int,completion:@escaping(Result<[TopArtist]?,Error> ) -> ())
     func fetchSearchArtistSort(sortType:SortType,searchText: String, completion: @escaping (Result<[TopArtist]?, Error>) -> ())
+    func fetchbookMarkListId(userId:Int,completion:@escaping(Result<[Int]?,Error> ) -> ())
+    
 }
 
 final class SearchService : SearchServiceInterface {
+        
     static let shared = SearchService()
     func fetchAllService(completion: @escaping (Result<[AllService]?, Error>) -> ()) {
         NetworkManager.shared.fetch(target: .allServices, responseClass: AllService.self) { response in
@@ -66,8 +69,21 @@ final class SearchService : SearchServiceInterface {
             }
             
         }
-
     }
+    
+    func fetchbookMarkListId(userId: Int, completion: @escaping (Result<[Int]?, Error>) -> ()) {
+        NetworkManager.shared.fetch(target: .bookMarkListId(userId),
+                                    responseClass: Int.self) { response in
+            switch response {
+            case .success(let success):
+                completion(.success(success))
+            case .failure(let failure):
+                completion(.failure(failure))
+            }
+            
+        }
+    }
+
  
     
     

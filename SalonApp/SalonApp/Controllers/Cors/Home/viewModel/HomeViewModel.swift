@@ -8,13 +8,12 @@
 import Foundation
 
 protocol HomeViewModelInterface {
-    var selectedTopServiceIndex: IndexPath {get set}
     func viewDidLoad()
     func viewWillAppear()
     func viewWillDisappear()
     func textFieldDidChange(_ text:String)
     func didSelectRow(at indexPath:IndexPath)
-    func cellForRowAt(at indexPath:IndexPath) -> (topArtist:TopArtist,Void)
+    func cellForRowAt(at indexPath:IndexPath) -> (topArtist:TopArtist,iconType:String)
     func numberOfRowsInSection() -> Int
     
 }
@@ -22,9 +21,9 @@ protocol HomeViewModelInterface {
 final class HomeViewModel  {
     private weak var view: HomeViewInterface?
     private let servisManager : HomePageServiceInterface
-    var selectedTopServiceIndex:IndexPath = [0,0]
-    private var topServiceList: [TopService] = []
-     var topArtistList : [TopArtist] = []
+    private var topArtistList : [TopArtist] = []
+    private var bookMarkListIdList : [Int] = []
+    
   
     
     init(view: HomeViewInterface,servisManager: HomePageServiceInterface = HomePageService.shared) {
@@ -39,20 +38,34 @@ final class HomeViewModel  {
                 self.topArtistList = list ?? []
                 self.view?.reloadDataTableView()
             case .failure(let failure):
-                print("Denemelik \(failure.localizedDescription)")
+                print(failure.localizedDescription)
             }
              self.view?.indicatoViewTopArtist(animate: false)
         })
     }
+    
+    func fetchookMarkListId(){
+        servisManager.fetchbookMarkListId(userId: 1) { response in
+            switch response {
+            case .success(let list):
+                self.bookMarkListIdList = list ?? []
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        }
+    }
 }
 
 extension HomeViewModel : HomeViewModelInterface{
+   
+    
     
     func viewDidLoad() {
         view?.indicatoViewTopArtist(animate: true)
         Task {
             @MainActor in
             self.fetchTopArtists()
+            self.fetchookMarkListId()
         }
         
         view?.setBackgroundColor("backColor")
@@ -79,18 +92,20 @@ extension HomeViewModel : HomeViewModelInterface{
         }
     }
     
-    func numberOfItemsInSection() -> Int {
-        return topServiceList.count
-    }
+   
     
-    func didSelectItem(at indexPath: IndexPath) {
-        self.selectedTopServiceIndex = indexPath
-    }
+   
     
-    func cellForRowAt(at indexPath: IndexPath) -> (topArtist: TopArtist, Void) {
+    func cellForRowAt(at indexPath: IndexPath) -> (topArtist: TopArtist, iconType:String) {
         var topArtist : TopArtist
+        var iconType : String
         topArtist = topArtistList[indexPath.row]
-        return (topArtist,())
+        if bookMarkListIdList.contains(topArtist.id){
+            iconType = "bookmark.fill"
+        }else{
+            iconType = "bookmark"
+        }
+        return (topArtist,iconType)
     }
     
     func numberOfRowsInSection() -> Int {

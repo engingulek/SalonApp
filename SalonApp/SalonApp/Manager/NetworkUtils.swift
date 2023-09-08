@@ -19,6 +19,7 @@ enum NetworkPath  {
     case searchArtist(String)
     case searhArtistFilter(String,Int)
     case searhArtistSort(String,String)
+    case bookMarkListId(Int)
 }
 
 extension NetworkPath : TargetType {
@@ -41,9 +42,10 @@ extension NetworkPath : TargetType {
         case .searhArtistFilter(let searchText, let serviceId):
             return "artists/getArtistSearchResultFilterService?searchText=\(searchText)&serviceId=\(serviceId)"
         case .searhArtistSort(let sortType, let searchText):
-            print("Utils \(sortType)")
-            print("Search Text \(searchText)")
             return "artists/getArtistSearchResultSort?sortType=\(sortType)&searchText=\(searchText)"
+        case .bookMarkListId(let user_id):
+            return "bookMarkList/bookMarkListId?user_id=\(user_id)"
+            
         }
     }
     

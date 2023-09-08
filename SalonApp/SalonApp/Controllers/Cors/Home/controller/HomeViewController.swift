@@ -173,7 +173,7 @@ extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
                 return UITableViewCell()
             }
            let item =  viewModel.cellForRowAt(at: indexPath)
-           cell.configureData(topArtist: item.topArtist)
+            cell.configureData(topArtist: item.topArtist,bookmarkIconType: item.iconType)
             cell.cellDelegate = self
             cell.indexPathRow = indexPath.row
             cell.selectionStyle = .none

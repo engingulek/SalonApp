@@ -142,7 +142,8 @@ extension SearchViewController: UICollectionViewDelegate,UICollectionViewDataSou
                 cell.backgroundColor = .white
                 cell.layer.cornerRadius = 15
                 let item = viewModel.cellForItemAt(section: indexPath.section, indexPath: indexPath)
-                cell.configureData(resultArtist: item.artist!)
+
+                cell.configureData(resultArtist: item.artist!,iconType: item.iconType!)
                 return cell
             } else {
                 return UICollectionViewCell()
@@ -158,19 +159,13 @@ extension SearchViewController: UICollectionViewDelegate,UICollectionViewDataSou
 
 
 extension SearchViewController : SearchViewInterface {
-    
-    
-    
-    
     func reloadArtistSection() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
                 return
             }
             collectionView.reloadSections(IndexSet(integer: 1))
-          
         }
-        
     }
     func reloadServiceSection(){
         DispatchQueue.main.async { [weak self] in

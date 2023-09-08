@@ -33,7 +33,7 @@ protocol SearchViewModelInterface {
     func viewDidLoad(searchText:String)
     func numberOfSections() -> Int
     func numberOfItemsInSection(section:Int) -> Int
-    func cellForItemAt(section:Int,indexPath:IndexPath)->(service: AllService?, artist: TopArtist?)
+    func cellForItemAt(section:Int,indexPath:IndexPath) -> (service: AllService?, artist: TopArtist?,iconType:String?)
     func didSelectItem(section:Int,indexPath:IndexPath)
     func searchAction(searchText:String)
     func searchArtistSort(sortType:SortType)
@@ -46,6 +46,7 @@ final class SearchViewModel {
     private  let serviceManager : SearchServiceInterface
     var searchArtistList : [TopArtist] = []
     var allServiceList : [AllService] = []
+    private var bookMarkListIdList : [Int] = []
     private var searchTextViewModel : String = ""
     
     init(view: SearchViewInterface,serviceManager :
@@ -120,24 +121,29 @@ final class SearchViewModel {
         
     }
     
-   
-    
-    
+    func fetchookMarkListId(){
+       
+        serviceManager.fetchbookMarkListId(userId: 1) { response in
+            switch response {
+            case .success(let list):
+                self.bookMarkListIdList = list ?? []
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        }
+    }
+
 }
 
 
 
 extension SearchViewModel : SearchViewModelInterface  {
-    
-    
-   
-    
     func viewDidLoad(searchText:String) {
         Task {
             @MainActor in
-            
             self.fetchAllService()
-          self.fetchSearchArtist(searchText:searchText)
+            self.fetchSearchArtist(searchText:searchText)
+            self.fetchookMarkListId()
         }
       
         self.searchTextViewModel = searchText.lowercased()
@@ -190,20 +196,27 @@ extension SearchViewModel : SearchViewModelInterface  {
         return 0
     }
     
-    func cellForItemAt(section:Int,indexPath:IndexPath) -> (service: AllService?, artist: TopArtist?) {
+    func cellForItemAt(section:Int,indexPath:IndexPath) -> (service: AllService?, artist: TopArtist?,iconType:String?) {
         var service : AllService? = nil
         var artist: TopArtist? = nil
+        var iconType : String? = nil
         
         if ALL_SERVICE == section {
             service = allServiceList[indexPath.item]
-            return (service:service,artist:nil)
+            return (service:service,artist:nil,iconType:nil)
         }
         if RESULT_ARTIST == section {
             print("sectipnm aa \(searchArtistList.count)")
             artist = searchArtistList[indexPath.item]
-            return (service:nil,artist:artist)
+            if bookMarkListIdList.contains(artist!.id){
+                iconType = "bookmark.fill"
+            }else{
+                iconType = "bookmark"
+            }
+            
+            return (service:nil,artist:artist,iconType:iconType)
         }
-        return (service:nil,artist:nil)
+        return (service:nil,artist:nil,iconType:nil)
         
     }
     

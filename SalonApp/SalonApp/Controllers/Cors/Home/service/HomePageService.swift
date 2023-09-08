@@ -9,11 +9,11 @@ import Foundation
 
 protocol HomePageServiceInterface {
     func fetchTopArtists(completion:@escaping(Result<[TopArtist]?,Error> ) -> ())
+    func fetchbookMarkListId(userId:Int,completion:@escaping(Result<[Int]?,Error> ) -> ())
 }
 
 
 final class HomePageService :  HomePageServiceInterface{
-    
     static let shared = HomePageService()        
     func fetchTopArtists(completion:@escaping(Result<[TopArtist]?,Error> ) -> ())  {
         NetworkManager.shared.fetch(target: .topArtists, responseClass: TopArtist.self) { response in
@@ -24,6 +24,19 @@ final class HomePageService :  HomePageServiceInterface{
                 completion(.failure(failure))
              
             }
+        }
+    }
+    
+    func fetchbookMarkListId(userId:Int,completion: @escaping (Result<[Int]?, Error>) -> ()) {
+        NetworkManager.shared.fetch(target: .bookMarkListId(userId),
+                                    responseClass: Int.self) { response in
+            switch response {
+            case .success(let success):
+                completion(.success(success))
+            case .failure(let failure):
+                completion(.failure(failure))
+            }
+            
         }
     }
 }

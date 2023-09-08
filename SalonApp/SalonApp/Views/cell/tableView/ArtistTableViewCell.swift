@@ -33,13 +33,12 @@ class ArtistTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.image =  UIImage(systemName: "star.fill")
         imageView.tintColor = UIColor.orange
-        
         return imageView
     }()
     
     let bookmarkIcon : UIImageView = {
         let imageView = UIImageView()
-        imageView.image =  UIImage(systemName: "bookmark")
+       
         imageView.tintColor = UIColor.orange
 
         imageView.isUserInteractionEnabled = true
@@ -139,13 +138,14 @@ class ArtistTableViewCell: UITableViewCell {
        delegate.selectBookmarkIcon(indexPathRow: indexPathRow!)
     }
     
-    func configureData(topArtist:TopArtist){
+    func configureData(topArtist:TopArtist,bookmarkIconType:String){
         artistCellImage.kf.setImage(with: URL(string: topArtist.imageUrl))
         ratingLabel.text = "\(topArtist.rating)"
         artistNameLabel.text = topArtist.name
         baseServiceNameLabel.text = topArtist.bestService
         locaitonLabel.text = topArtist.locationcity
         priceLabel.text = "$\(topArtist.pay)"
+        bookmarkIcon.image = UIImage(systemName: bookmarkIconType)
         
     }
     

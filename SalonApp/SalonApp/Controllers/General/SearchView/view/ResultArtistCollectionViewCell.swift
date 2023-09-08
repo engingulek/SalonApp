@@ -33,6 +33,8 @@ class ResultArtistCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.image =  UIImage(systemName: "bookmark")
         imageView.tintColor = UIColor.orange
+        imageView.backgroundColor = .white
+        imageView.layer.cornerRadius = 10
 
         imageView.isUserInteractionEnabled = true
         return imageView
@@ -104,13 +106,14 @@ class ResultArtistCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureData(resultArtist:TopArtist){
+    func configureData(resultArtist:TopArtist,iconType:String){
         artistCellImage.kf.setImage(with: URL(string: resultArtist.imageUrl))
         ratingLabel.text = "\(resultArtist.rating)"
         artistNameLabel.text = resultArtist.name
         baseServiceNameLabel.text = resultArtist.bestService
         locaitonLabel.text = resultArtist.locationcity
         priceLabel.text = "$\(resultArtist.pay)"
+        bookmarkIcon.image = UIImage(systemName: iconType)
         
     }
    
@@ -134,6 +137,11 @@ class ResultArtistCollectionViewCell: UICollectionViewCell {
             make.width.equalTo(self.contentView.layer.frame.width / 1.5)
             make.height.equalTo(self.contentView.layer.frame.width / 1.5)
             
+        }
+        
+        bookmarkIcon.snp.makeConstraints { make in
+            make.trailing.equalTo(self.contentView.safeAreaLayoutGuide.snp.trailing).offset(-8)
+            make.top.equalTo(self.contentView.safeAreaLayoutGuide.snp.top).offset(10)
         }
         artistNameLabel.snp.makeConstraints { make in
             make.centerX.equalTo(self.contentView.safeAreaLayoutGuide.snp.centerX)
