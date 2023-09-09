@@ -14,7 +14,6 @@
 		7D1A10572A93849200A48C48 /* MockHomePageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1A10562A93849200A48C48 /* MockHomePageService.swift */; };
 		7D39AE192A73EC25009791C8 /* ChatTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D39AE182A73EC25009791C8 /* ChatTextView.swift */; };
 		7D3DBABE2AA0E0CC00C01A43 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3DBABD2AA0E0CC00C01A43 /* SearchViewModel.swift */; };
-		7D3DBAC02AA0F7EE00C01A43 /* TableSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3DBABF2AA0F7EE00C01A43 /* TableSection.swift */; };
 		7D3DBAC62AA3636200C01A43 /* AllSerice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3DBAC52AA3636200C01A43 /* AllSerice.swift */; };
 		7D47B3662AA4D53D00EC1CD5 /* ResultArtistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D47B3652AA4D53D00EC1CD5 /* ResultArtistCollectionViewCell.swift */; };
 		7D47B3682AA4E06D00EC1CD5 /* LayoutBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D47B3672AA4E06D00EC1CD5 /* LayoutBuilder.swift */; };
@@ -57,7 +56,6 @@
 		7DB780F12AA8D4F700A81572 /* MockSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB780F02AA8D4F700A81572 /* MockSearchService.swift */; };
 		7DB780F32AA8D5D000A81572 /* MockSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB780F22AA8D5D000A81572 /* MockSearchViewController.swift */; };
 		7DB780F52AA8E03700A81572 /* SearchViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB780F42AA8E03700A81572 /* SearchViewModelTest.swift */; };
-		7DC1B3A22AAB8C4E008C3912 /* BookMarkList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC1B3A12AAB8C4E008C3912 /* BookMarkList.swift */; };
 		7DC1B3A52AABA2F0008C3912 /* BookMarkListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC1B3A42AABA2F0008C3912 /* BookMarkListViewModel.swift */; };
 		7DC1B3A72AABA612008C3912 /* BookMarkListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC1B3A62AABA612008C3912 /* BookMarkListService.swift */; };
 		7DC1B3AB2AABD1D9008C3912 /* BookMarkListArtist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC1B3AA2AABD1D9008C3912 /* BookMarkListArtist.swift */; };
@@ -96,7 +94,6 @@
 		7D1A10562A93849200A48C48 /* MockHomePageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHomePageService.swift; sourceTree = "<group>"; };
 		7D39AE182A73EC25009791C8 /* ChatTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextView.swift; sourceTree = "<group>"; };
 		7D3DBABD2AA0E0CC00C01A43 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
-		7D3DBABF2AA0F7EE00C01A43 /* TableSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSection.swift; sourceTree = "<group>"; };
 		7D3DBAC52AA3636200C01A43 /* AllSerice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllSerice.swift; sourceTree = "<group>"; };
 		7D47B3652AA4D53D00EC1CD5 /* ResultArtistCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultArtistCollectionViewCell.swift; sourceTree = "<group>"; };
 		7D47B3672AA4E06D00EC1CD5 /* LayoutBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutBuilder.swift; sourceTree = "<group>"; };
@@ -140,7 +137,6 @@
 		7DB780F02AA8D4F700A81572 /* MockSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSearchService.swift; sourceTree = "<group>"; };
 		7DB780F22AA8D5D000A81572 /* MockSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSearchViewController.swift; sourceTree = "<group>"; };
 		7DB780F42AA8E03700A81572 /* SearchViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModelTest.swift; sourceTree = "<group>"; };
-		7DC1B3A12AAB8C4E008C3912 /* BookMarkList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkList.swift; sourceTree = "<group>"; };
 		7DC1B3A42AABA2F0008C3912 /* BookMarkListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkListViewModel.swift; sourceTree = "<group>"; };
 		7DC1B3A62AABA612008C3912 /* BookMarkListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkListService.swift; sourceTree = "<group>"; };
 		7DC1B3AA2AABD1D9008C3912 /* BookMarkListArtist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkListArtist.swift; sourceTree = "<group>"; };
@@ -203,30 +199,13 @@
 		7D3DBABC2AA0E0B200C01A43 /* SearchView */ = {
 			isa = PBXGroup;
 			children = (
-				7D3DBACA2AA369F500C01A43 /* view */,
-				7D3DBAC72AA365EE00C01A43 /* viewModel */,
-				7D3DBABF2AA0F7EE00C01A43 /* TableSection.swift */,
-			);
-			path = SearchView;
-			sourceTree = "<group>";
-		};
-		7D3DBAC72AA365EE00C01A43 /* viewModel */ = {
-			isa = PBXGroup;
-			children = (
-				7D3DBABD2AA0E0CC00C01A43 /* SearchViewModel.swift */,
-				7D0587302AA3C828001D0A5E /* SearchService.swift */,
-			);
-			path = viewModel;
-			sourceTree = "<group>";
-		};
-		7D3DBACA2AA369F500C01A43 /* view */ = {
-			isa = PBXGroup;
-			children = (
 				7DD3F0D32A6FDFF50018D0C4 /* SearchViewController.swift */,
 				7D47B3652AA4D53D00EC1CD5 /* ResultArtistCollectionViewCell.swift */,
 				7D47B3672AA4E06D00EC1CD5 /* LayoutBuilder.swift */,
+				7D3DBABD2AA0E0CC00C01A43 /* SearchViewModel.swift */,
+				7D0587302AA3C828001D0A5E /* SearchService.swift */,
 			);
-			path = view;
+			path = SearchView;
 			sourceTree = "<group>";
 		};
 		7D5069382A6D302E00EB053B /* cell */ = {
@@ -282,28 +261,12 @@
 		7D7AB99F2A9215C900F02613 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				7DA659092A9CA9AF0067E9E6 /* service */,
+				7D7AB9C02A9267D100F02613 /* HomePageService.swift */,
+				7D7AB9A02A9215DB00F02613 /* HomeViewModel.swift */,
+				7DA9932A2A6AC0C20053B022 /* HomeViewController.swift */,
 				7D7AB9B72A92440700F02613 /* entity */,
-				7D7AB9A72A921ED100F02613 /* viewModel */,
-				7D7AB9A62A921EBD00F02613 /* controller */,
 			);
 			path = Home;
-			sourceTree = "<group>";
-		};
-		7D7AB9A62A921EBD00F02613 /* controller */ = {
-			isa = PBXGroup;
-			children = (
-				7DA9932A2A6AC0C20053B022 /* HomeViewController.swift */,
-			);
-			path = controller;
-			sourceTree = "<group>";
-		};
-		7D7AB9A72A921ED100F02613 /* viewModel */ = {
-			isa = PBXGroup;
-			children = (
-				7D7AB9A02A9215DB00F02613 /* HomeViewModel.swift */,
-			);
-			path = viewModel;
 			sourceTree = "<group>";
 		};
 		7D7AB9AD2A9238EB00F02613 /* Manager */ = {
@@ -313,7 +276,6 @@
 				7D7AB9B02A923A5F00F02613 /* NetworkUtils.swift */,
 				7D7AB9BC2A92450A00F02613 /* DataResult.swift */,
 				7D7AB9BE2A9250A900F02613 /* RequestType.swift */,
-				7DC1B3A12AAB8C4E008C3912 /* BookMarkList.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -328,6 +290,15 @@
 			path = entity;
 			sourceTree = "<group>";
 		};
+		7D94211B2AACE77E00937206 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				7DA6590D2A9CB0C50067E9E6 /* Comment.swift */,
+				7DA659112A9CDE700067E9E6 /* ArtistDetail.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		7DA659072A9CA9920067E9E6 /* BaseViewControllerProtocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -336,23 +307,14 @@
 			path = BaseViewControllerProtocols;
 			sourceTree = "<group>";
 		};
-		7DA659092A9CA9AF0067E9E6 /* service */ = {
-			isa = PBXGroup;
-			children = (
-				7D7AB9C02A9267D100F02613 /* HomePageService.swift */,
-			);
-			path = service;
-			sourceTree = "<group>";
-		};
 		7DA6590A2A9CA9C90067E9E6 /* ArtistDetail */ = {
 			isa = PBXGroup;
 			children = (
+				7D94211B2AACE77E00937206 /* model */,
 				7D50693F2A6D7CD600EB053B /* ArtistDetailView.swift */,
 				7D50693D2A6D7C3B00EB053B /* ArtistDetailViewController.swift */,
 				7DA6590B2A9CA9E00067E9E6 /* ArtistDetailViewModel.swift */,
-				7DA6590D2A9CB0C50067E9E6 /* Comment.swift */,
 				7DA6590F2A9CDDB70067E9E6 /* ArtistDetilService.swift */,
-				7DA659112A9CDE700067E9E6 /* ArtistDetail.swift */,
 			);
 			path = ArtistDetail;
 			sourceTree = "<group>";
@@ -633,7 +595,6 @@
 				7DC1B3A72AABA612008C3912 /* BookMarkListService.swift in Sources */,
 				7D50693E2A6D7C3B00EB053B /* ArtistDetailViewController.swift in Sources */,
 				7DA9932B2A6AC0C20053B022 /* HomeViewController.swift in Sources */,
-				7D3DBAC02AA0F7EE00C01A43 /* TableSection.swift in Sources */,
 				7D50693B2A6D305E00EB053B /* ArtistTableViewCell.swift in Sources */,
 				7DA659102A9CDDB70067E9E6 /* ArtistDetilService.swift in Sources */,
 				7D7AB9C12A9267D100F02613 /* HomePageService.swift in Sources */,
@@ -651,7 +612,6 @@
 				7DADAE492A753F580040BCDC /* OnboardingViewController.swift in Sources */,
 				7DD3F0D42A6FDFF50018D0C4 /* SearchViewController.swift in Sources */,
 				7DA659122A9CDE700067E9E6 /* ArtistDetail.swift in Sources */,
-				7DC1B3A22AAB8C4E008C3912 /* BookMarkList.swift in Sources */,
 				7DC1B3A52AABA2F0008C3912 /* BookMarkListViewModel.swift in Sources */,
 				7D7D54352AAA008A002EF101 /* MessageUIView.swift in Sources */,
 				7DA993272A6AC0C20053B022 /* AppDelegate.swift in Sources */,

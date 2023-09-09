@@ -9,16 +9,17 @@ import Foundation
 
 protocol BookMarkListServiceInterface {
     func fetchBookMarkList(userId:Int,completion:@escaping(Result<[BookMarkListArtist]?,Error> ) -> ())
-    func deleteArtistFromBookMarkList(id:Int)
+    func deleteArtistToBookMarkList(id: Int, completion: @escaping (Result<MessageResult, Error>) -> ())
 }
 
 final class BookMarkListService : BookMarkListServiceInterface  {
     static let shared = BookMarkListService()
     func fetchBookMarkList(userId: Int, completion: @escaping (Result<[BookMarkListArtist]?, Error>) -> ()) {
-        NetworkManager.shared.fetch(target: .bookMarkListArtist(userId), responseClass: BookMarkListArtist.self) { response in
+        NetworkManager.shared.fetch(target: .bookMarkListArtist(userId), responseClass: DataResult<BookMarkListArtist>.self) { response in
             switch response {
             case .success(let success):
-                completion(.success(success))
+                let list  = success?.data
+                completion(.success(list))
             case .failure(let failure):
                 completion(.failure(failure))
             }
@@ -26,16 +27,20 @@ final class BookMarkListService : BookMarkListServiceInterface  {
         
     }
     
-    func deleteArtistFromBookMarkList(id:Int){
-         NetworkManager.shared.fetch(target: .deleteArtistFromBookMarkList(id), responseClass: AddDataResult.self) { response in
-             switch response {
-             case .success(let success):
-                 print(success![0])
-             case .failure(let failure):
-                 print(failure.localizedDescription)
-             }
-         }
-     }
+   
+    
+    func deleteArtistToBookMarkList(id: Int, completion: @escaping (Result<MessageResult, Error>) -> ()) {
+        NetworkManager.shared.fetch(target: .deleteArtistFromBookMarkList(id), responseClass: MessageResult.self) { response in
+            switch  response {
+            case .success(let success):
+                if let result = success {
+                    completion(.success(result))
+                }
+            case .failure(let failure):
+                completion(.failure(failure))
+            }
+        }
+    }
     
     
 }

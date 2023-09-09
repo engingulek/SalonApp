@@ -31,6 +31,11 @@ final class BookMarkListViewModel {
             switch response {
             case .success(let list):
                 self.bookMarkList = list ?? []
+                if self.bookMarkList.isEmpty {
+                    self.view?.emptyBookMarkList(message: "Bookmark List is Empty", isHidden:true)
+                }else{
+                    self.view?.emptyBookMarkList(message: "", isHidden:false)
+                }
                 self.view?.reloadDataTableView()
             case .failure(let failure):
                 print(failure.localizedDescription)
@@ -40,7 +45,17 @@ final class BookMarkListViewModel {
     }
     
     func deleteArtistFromBookMarkList(id:Int) {
-        serviceManager.deleteArtistFromBookMarkList(id: id)
+        Task {
+            @MainActor in
+            serviceManager.deleteArtistToBookMarkList(id: id) { response in
+                switch response {
+                case .success:
+                    self.view?.reloadDataTableView()
+                case .failure(let failure):
+                    print(failure.localizedDescription)
+                }
+            }
+        }
     }
 }
 
@@ -86,11 +101,8 @@ extension BookMarkListViewModel : BookMarkListViewModelInterface {
     
     func trashTapIcon(row: Int) {
         let id = bookMarkList[row].id
-        Task {
-            @MainActor in
-            self.deleteArtistFromBookMarkList(id:id)
-        }
-        
+        self.deleteArtistFromBookMarkList(id: id)
+        self.fetchBookMarkList()
     }
     
     

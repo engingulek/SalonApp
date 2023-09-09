@@ -12,17 +12,28 @@ protocol BookMarkViewInterface : AnyObject,ViewAble,SeguePerformable,NavigaitonB
     func prepareTabbarHidden(isHidden:Bool)
     func reloadDataTableView()
     func indicator(animate:Bool)
+    func emptyBookMarkList(message:String,isHidden:Bool)
 }
 final class BookMarkViewController: UIViewController {
 
     private lazy var viewModel = BookMarkListViewModel(view: self)
-    private let artistTableView : UITableView = {
+    private lazy var artistTableView : UITableView = {
         let tableView = UITableView()
         tableView.register(ArtistTableViewCell.self, forCellReuseIdentifier: ArtistTableViewCell.identifier)
         tableView.backgroundColor = UIColor(named: "backColor")
         tableView.separatorColor =  UIColor(named: "backColor")
   
         return tableView
+    }()
+    
+    
+    
+    private lazy var bookMarkEmptyLabel : UILabel = {
+        let label =  UILabel()
+        label.font = .systemFont(ofSize: 20,weight: .semibold)
+        label.textAlignment  = .center
+        label.textColor = .black
+        return label
     }()
     
     private lazy var indicator: UIActivityIndicatorView = {
@@ -36,11 +47,7 @@ final class BookMarkViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // BUDA INTERDACE ALINACAK
-       
-      
         viewModel.viewDidLoad()
-     
         configureConstraints()
       
     }
@@ -52,6 +59,8 @@ final class BookMarkViewController: UIViewController {
     private func configureConstraints() {
         view.addSubview(artistTableView)
         view.addSubview(indicator)
+       
+        view.addSubview(bookMarkEmptyLabel)
         artistTableView.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
             make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading)
@@ -60,6 +69,13 @@ final class BookMarkViewController: UIViewController {
         }
         
         indicator.snp.makeConstraints { make in
+            make.centerX.equalTo(self.view.safeAreaLayoutGuide.snp.centerX)
+            make.centerY.equalTo(self.view.safeAreaLayoutGuide.snp.centerY)
+        }
+        
+      
+        
+        bookMarkEmptyLabel.snp.makeConstraints { make in
             make.centerX.equalTo(self.view.safeAreaLayoutGuide.snp.centerX)
             make.centerY.equalTo(self.view.safeAreaLayoutGuide.snp.centerY)
         }
@@ -115,7 +131,6 @@ extension BookMarkViewController : ArtistTableViewCellDelegate {
 }
 
 extension BookMarkViewController : BookMarkViewInterface {
-   
     
     func prepareTableView() {
         artistTableView.delegate = self
@@ -143,6 +158,13 @@ extension BookMarkViewController : BookMarkViewInterface {
                    animate ? self.indicator.startAnimating() : self.indicator.stopAnimating()
             self.indicator.isHidden = !animate
                }
+    }
+    
+    
+    func  emptyBookMarkList(message:String,isHidden:Bool) {
+        bookMarkEmptyLabel.text = message
+        artistTableView.isHidden = isHidden
+        bookMarkEmptyLabel.isHidden = !isHidden
     }
     
     

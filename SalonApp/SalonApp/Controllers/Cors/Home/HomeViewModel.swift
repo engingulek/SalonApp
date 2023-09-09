@@ -23,9 +23,7 @@ final class HomeViewModel  {
     private weak var view: HomeViewInterface?
     private let servisManager : HomePageServiceInterface
     private var topArtistList : [TopArtist] = []
-    private var bookMarkListIdList : [BookMarkList] = []
-    
-  
+    private var bookMarkListArtist : [BookMarkListArtist] = []
     
     init(view: HomeViewInterface,servisManager: HomePageServiceInterface = HomePageService.shared) {
         self.view = view
@@ -45,27 +43,51 @@ final class HomeViewModel  {
         })
     }
     
-    /*func fetchookMarkListId(){
-        servisManager.fetchbookMarkListId(userId: 1) { response in
-            switch response {
-            case .success(let list):
-                self.bookMarkListIdList = list ?? []
-                self.view?.reloadDataTableView()
-            case .failure(let failure):
-                print(failure.localizedDescription)
+    func fetchookMarkListArtist(){
+        Task {
+            @MainActor in
+            servisManager.fetchBookMarkList(userId: 1) { response in
+                switch response {
+                case .success(let list):
+                    self.bookMarkListArtist = list ?? []
+                    self.view?.reloadDataTableView()
+                case .failure(let failure):
+                    print(failure.localizedDescription)
+                }
             }
         }
-    }*/
+    }
     
-    /*func fetchAddBookMarkList(userId:Int,artistId:Int){
-        servisManager.fetchAddArtistToBookMarkList(userId: 1, artistId: artistId)
-        self.view?.reloadDataTableView()
+    func addArtistToBookMarkList(userId:Int,artistId:Int)  {
+        let params = ["user_id" : userId,"artist_id":artistId]
+        Task {
+            @MainActor in
+            servisManager.addArtistToBookMarkList(parameters: params) { response in
+                switch response {
+                case .success:
+                    self.view?.reloadDataTableView()
+                case .failure(let failure):
+                    print("Add Home View Model Failure \(failure.localizedDescription)")
+                }
+            }
+        }
        
-    }*/
+    }
     
-    /*func deleteArtistFromBookMarkList(id:Int){
-        servisManager.deleteArtistFromBookMarkList(id: id)
-    }*/
+    func deleteArtistToBookMarkList(id:Int) {
+        Task {
+            @MainActor in
+            servisManager.deleteArtistToBookMarkList(id: id) { response in
+                switch response {
+                case .success:
+                    self.view?.reloadDataTableView()
+                case .failure(let failure):
+                    print("delete Home View Model Failure \(failure.localizedDescription)")
+                }
+            }
+        }
+       
+    }
 }
 
 extension HomeViewModel : HomeViewModelInterface{
@@ -74,7 +96,7 @@ extension HomeViewModel : HomeViewModelInterface{
         Task {
             @MainActor in
             self.fetchTopArtists()
-            //self.fetchookMarkListId()
+            self.fetchookMarkListArtist()
         }
         
         view?.setBackgroundColor("backColor")
@@ -87,7 +109,7 @@ extension HomeViewModel : HomeViewModelInterface{
         Task {
             @MainActor in
             self.fetchTopArtists()
-           // self.fetchookMarkListId()
+            self.fetchookMarkListArtist()
         }
         view?.prepareTableView()
         view?.prepareTabbarHidden(isHidden: false)
@@ -116,7 +138,8 @@ extension HomeViewModel : HomeViewModelInterface{
         var topArtist : TopArtist
         var iconType : String
         topArtist = topArtistList[indexPath.row]
-        if bookMarkListIdList.contains(where: {$0.artist_id == topArtist.id}) {
+        iconType = ""
+        if bookMarkListArtist.contains(where: {$0.artistId == topArtist.id}){
             iconType = "bookmark.fill"
         }else{
             iconType = "bookmark"
@@ -135,28 +158,20 @@ extension HomeViewModel : HomeViewModelInterface{
     }
     
     func bookMarkTapIcon(item: Int) {
+        
+        self.fetchookMarkListArtist()
         let artistId = topArtistList[item].id
+        let info = bookMarkListArtist.filter {
+            $0.artistId == artistId && $0.userId == 1
+        }.first
         
-      /*  Task {
-            @MainActor in
-           // self.fetchookMarkListId()
-        }
-        
-        if bookMarkListIdList.contains(where: {$0.artist_id ==  artistId}) {
-            Task {
-                @MainActor in
-               let info = bookMarkListIdList.filter {
-                    $0.artist_id == artistId && $0.user_id == 1
-               }.first
-                self.deleteArtistFromBookMarkList(id:info!.id)
+        if bookMarkListArtist.contains(where: {$0.artistId == artistId}) {
+            
+            if let id = info?.id {
+                self.deleteArtistToBookMarkList(id:id)
             }
-           
-        }else{
-            Task{
-                @MainActor in
-                self.fetchAddBookMarkList(userId:1,artistId:artistId)
-            }
-        }*/
+            
+        }else{ self.addArtistToBookMarkList(userId:1,artistId:artistId) }
     }
 }
 

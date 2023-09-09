@@ -26,7 +26,7 @@ final class SearchViewController: UIViewController {
     private lazy var headerView = SearchHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: self.view.layer.frame.height / 5 ))
     private lazy var viewModel = SearchViewModel(view: self)
     var searchText : String = ""
-    var sections : [TableSection] = [.allService,.resultArtist]
+    
     
    private lazy var collectionView: UICollectionView = {
         let collectionView: UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: self.makeLayout())

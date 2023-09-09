@@ -22,10 +22,11 @@ final class SearchService : SearchServiceInterface {
         
     static let shared = SearchService()
     func fetchAllService(completion: @escaping (Result<[AllService]?, Error>) -> ()) {
-        NetworkManager.shared.fetch(target: .allServices, responseClass: AllService.self) { response in
+        NetworkManager.shared.fetch(target: .allServices, responseClass: DataResult<AllService>.self) { response in
             switch response {
             case .success(let success):
-                completion(.success(success))
+                let list  = success?.data
+                completion(.success(list))
             case .failure(let failure):
                 completion(.failure(failure))
             }
@@ -34,11 +35,11 @@ final class SearchService : SearchServiceInterface {
     }
     
     func fetchSearchArtist(searchText: String, completion: @escaping (Result<[TopArtist]?, Error>) -> ()) {
-        NetworkManager.shared.fetch(target: .searchArtist(searchText), responseClass: TopArtist.self) { response in
+        NetworkManager.shared.fetch(target: .searchArtist(searchText), responseClass: DataResult<TopArtist>.self) { response in
             switch response {
             case .success(let success):
-                completion(.success(success))
-            case .failure(let failure):
+                let list  = success?.data
+                completion(.success(list))            case .failure(let failure):
                 completion(.failure(failure))
             }
             
@@ -47,10 +48,11 @@ final class SearchService : SearchServiceInterface {
     
     func fetchSearchArtistFilterService(searchText: String,serviceId: Int, completion: @escaping (Result<[TopArtist]?, Error>) -> ()) {
         NetworkManager.shared.fetch(target: .searhArtistFilter(searchText, serviceId),
-                                    responseClass: TopArtist.self) { response in
+                                    responseClass: DataResult<TopArtist>.self) { response in
             switch response {
             case .success(let success):
-                completion(.success(success))
+                let list  = success?.data
+                completion(.success(list))
             case .failure(let failure):
                 completion(.failure(failure))
             }
@@ -61,11 +63,11 @@ final class SearchService : SearchServiceInterface {
     func fetchSearchArtistSort(sortType:SortType,searchText: String, completion: @escaping (Result<[TopArtist]?, Error>) -> ()) {
         print(sortType.toServiceType())
         print("Serice \(searchText)")
-        NetworkManager.shared.fetch(target: .searhArtistSort(sortType.toServiceType(), searchText), responseClass: TopArtist.self) { response in
+        NetworkManager.shared.fetch(target: .searhArtistSort(sortType.toServiceType(), searchText), responseClass: DataResult<TopArtist>.self) { response in
             switch response {
             case .success(let success):
-
-                completion(.success(success))
+                let list  = success?.data
+                completion(.success(list))
             case .failure(let failure):
                 completion(.failure(failure))
             }

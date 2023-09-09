@@ -20,10 +20,11 @@ final class ArtistDetailService : ArtistDetailServiceInterfece {
     
     static let shared = ArtistDetailService()
     func fetchArtistDetail(artistId:Int,completion: @escaping (Result<[ArtistDetail]?, Error>) -> ()) {
-        NetworkManager.shared.fetch(target: .artistDetail(artistId), responseClass: ArtistDetail.self) { response in
+        NetworkManager.shared.fetch(target: .artistDetail(artistId), responseClass: DataResult<ArtistDetail>.self) { response in
             switch response {
             case .success(let success):
-                completion(.success(success))
+                let list  = success?.data
+                completion(.success(list))
             case .failure(let failure):
                 completion(.failure(failure))
             }
@@ -32,10 +33,11 @@ final class ArtistDetailService : ArtistDetailServiceInterfece {
     
     
     func fetchArtistComment(artisId: Int, completion: @escaping (Result<[Comment]?, Error>) -> ()) {
-        NetworkManager.shared.fetch(target: .artistComments(artisId), responseClass: Comment.self) { response in
+        NetworkManager.shared.fetch(target: .artistComments(artisId), responseClass: DataResult<Comment>.self) { response in
             switch response {
             case .success(let success):
-                completion(.success(success))
+                let list  = success?.data
+                completion(.success(list))
             case .failure(let failure):
                 completion(.failure(failure))
             }

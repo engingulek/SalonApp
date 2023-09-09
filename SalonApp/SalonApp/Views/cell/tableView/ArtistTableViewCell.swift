@@ -36,13 +36,12 @@ class ArtistTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    let icon : UIImageView = {
-        let imageView = UIImageView()
-       
-        imageView.tintColor = UIColor.orange
-
-        imageView.isUserInteractionEnabled = true
-        return imageView
+    let icon : UIButton = {
+        
+        let button =  UIButton()
+        button .isUserInteractionEnabled = true
+        button.tintColor = .orange
+        return button
     }()
     
     private let ratingLabel : UILabel = {
@@ -115,9 +114,11 @@ class ArtistTableViewCell: UITableViewCell {
         contentView.addSubview(icon)
         self.contentView.backgroundColor = .white
         self.contentView.layer.cornerRadius = 10
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tapBookmarkIcon(_:)))
         
-        self.icon.addGestureRecognizer(tap)
+        icon.addTarget(self, action: #selector(tapBookmarkIcon), for: .touchUpInside)
+      
+        
+       
      
 
         configureConstraints()
@@ -133,7 +134,7 @@ class ArtistTableViewCell: UITableViewCell {
           self.contentView.frame = self.contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 10, bottom: bottomSpace, right: 10))
      }
     
-   @objc func tapBookmarkIcon(_ sender: UITapGestureRecognizer){
+   @objc func tapBookmarkIcon(){
        guard let delegate = cellDelegate else {return}
        delegate.selectBookmarkIcon(indexPathRow: indexPathRow!)
     }
@@ -145,7 +146,8 @@ class ArtistTableViewCell: UITableViewCell {
         baseServiceNameLabel.text = topArtist.bestService
         locaitonLabel.text = topArtist.locationcity
         priceLabel.text = "$\(topArtist.pay)"
-        icon.image = UIImage(systemName: iconType)
+        icon.setImage(UIImage(systemName: iconType), for: .normal)
+       
         
     }
     
