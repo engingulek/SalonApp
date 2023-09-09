@@ -9,6 +9,10 @@ import Foundation
 @testable import SalonApp
 import UIKit.UIViewController
 final class MockArtistDetailViewController : ArtistDetailViewInterface{
+    func navigationItemTitle(title: String) {
+        
+    }
+    
     var invokedSetBackroundColor = false
     
     var involedBackColor:String! = nil

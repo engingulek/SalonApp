@@ -13,3 +13,9 @@ struct DataResult<T:Decodable> : Decodable {
     let message:String
     var data:[T]
 }
+
+struct MessageResult:  Decodable {
+    let success:Bool
+    let message:String
+    
+}

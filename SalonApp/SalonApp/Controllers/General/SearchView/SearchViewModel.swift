@@ -33,10 +33,11 @@ protocol SearchViewModelInterface {
     func viewDidLoad(searchText:String)
     func numberOfSections() -> Int
     func numberOfItemsInSection(section:Int) -> Int
-    func cellForItemAt(section:Int,indexPath:IndexPath)->(service: AllService?, artist: TopArtist?)
+    func cellForItemAt(section:Int,indexPath:IndexPath) -> (service: AllService?, artist: TopArtist?)
     func didSelectItem(section:Int,indexPath:IndexPath)
     func searchAction(searchText:String)
     func searchArtistSort(sortType:SortType)
+   
     
 }
 
@@ -121,8 +122,8 @@ final class SearchViewModel {
     }
     
    
-    
-    
+
+
 }
 
 
@@ -130,14 +131,12 @@ final class SearchViewModel {
 extension SearchViewModel : SearchViewModelInterface  {
     
     
-   
-    
     func viewDidLoad(searchText:String) {
         Task {
             @MainActor in
-            
             self.fetchAllService()
-          self.fetchSearchArtist(searchText:searchText)
+            self.fetchSearchArtist(searchText:searchText)
+          
         }
       
         self.searchTextViewModel = searchText.lowercased()
@@ -193,13 +192,13 @@ extension SearchViewModel : SearchViewModelInterface  {
     func cellForItemAt(section:Int,indexPath:IndexPath) -> (service: AllService?, artist: TopArtist?) {
         var service : AllService? = nil
         var artist: TopArtist? = nil
+      
         
         if ALL_SERVICE == section {
             service = allServiceList[indexPath.item]
             return (service:service,artist:nil)
         }
         if RESULT_ARTIST == section {
-            print("sectipnm aa \(searchArtistList.count)")
             artist = searchArtistList[indexPath.item]
             return (service:nil,artist:artist)
         }

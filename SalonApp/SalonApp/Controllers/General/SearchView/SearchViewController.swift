@@ -26,7 +26,7 @@ final class SearchViewController: UIViewController {
     private lazy var headerView = SearchHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: self.view.layer.frame.height / 5 ))
     private lazy var viewModel = SearchViewModel(view: self)
     var searchText : String = ""
-    var sections : [TableSection] = [.allService,.resultArtist]
+    
     
    private lazy var collectionView: UICollectionView = {
         let collectionView: UICollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: self.makeLayout())
@@ -142,7 +142,10 @@ extension SearchViewController: UICollectionViewDelegate,UICollectionViewDataSou
                 cell.backgroundColor = .white
                 cell.layer.cornerRadius = 15
                 let item = viewModel.cellForItemAt(section: indexPath.section, indexPath: indexPath)
+
                 cell.configureData(resultArtist: item.artist!)
+              
+                
                 return cell
             } else {
                 return UICollectionViewCell()
@@ -158,19 +161,13 @@ extension SearchViewController: UICollectionViewDelegate,UICollectionViewDataSou
 
 
 extension SearchViewController : SearchViewInterface {
-    
-    
-    
-    
     func reloadArtistSection() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
                 return
             }
             collectionView.reloadSections(IndexSet(integer: 1))
-          
         }
-        
     }
     func reloadServiceSection(){
         DispatchQueue.main.async { [weak self] in
@@ -203,6 +200,8 @@ extension SearchViewController : SearchViewInterface {
     }
     
 }
+
+
 
 
 

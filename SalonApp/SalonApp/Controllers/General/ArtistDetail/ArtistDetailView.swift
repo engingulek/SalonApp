@@ -1,14 +1,13 @@
 //
-//  ResultArtistCollectionViewCell.swift
+//  ArtistDetailView.swift
 //  SalonApp
 //
-//  Created by engin gülek on 3.09.2023.
+//  Created by engin gülek on 23.07.2023.
 //
 
 import UIKit
 import SnapKit
-class ResultArtistCollectionViewCell: UICollectionViewCell {
-    static let identifier = "ResultArtistCollectionViewCell"
+class ArtistDetailView: UIView {
     private let artistCellImage : UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "hairdresser")
@@ -18,23 +17,13 @@ class ResultArtistCollectionViewCell: UICollectionViewCell {
         imageView.layer.cornerRadius = 10
         return imageView
     }()
-    
-    
+
     
     private let ratingImage : UIImageView = {
         let imageView = UIImageView()
         imageView.image =  UIImage(systemName: "star.fill")
         imageView.tintColor = UIColor.orange
         
-        return imageView
-    }()
-    
-    let bookmarkIcon : UIImageView = {
-        let imageView = UIImageView()
-        imageView.image =  UIImage(systemName: "bookmark")
-        imageView.tintColor = UIColor.orange
-
-        imageView.isUserInteractionEnabled = true
         return imageView
     }()
     
@@ -96,88 +85,91 @@ class ResultArtistCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        backgroundColor = UIColor(named: "homeViewHeaderBackColor")
+        addSubview(artistCellImage)
+        addSubview(ratingImage)
+        addSubview(ratingLabel)
+        addSubview(artistNameLabel)
+        addSubview(baseServiceNameLabel)
+        addSubview(locaitonImage)
+        addSubview(locaitonLabel)
+        addSubview(priceLabel)
+        addSubview(priceType)
+       
         configureConstraints()
+      
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureData(resultArtist:TopArtist){
-        artistCellImage.kf.setImage(with: URL(string: resultArtist.imageUrl))
-        ratingLabel.text = "\(resultArtist.rating)"
-        artistNameLabel.text = resultArtist.name
-        baseServiceNameLabel.text = resultArtist.bestService
-        locaitonLabel.text = resultArtist.locationcity
-        priceLabel.text = "$\(resultArtist.pay)"
-        
+    func configureData(artistDetail:ArtistDetail) {
+        artistNameLabel.text = artistDetail.name
+        ratingLabel.text =  "\(artistDetail.rating)"
+        baseServiceNameLabel.text = artistDetail.bestService
+        locaitonLabel.text = artistDetail.locationcity
+        priceLabel.text = "$\(artistDetail.pay)"
+      
     }
-   
     
     private func configureConstraints() {
         
-        contentView.addSubview(artistCellImage)
-        contentView.addSubview(ratingImage)
-        contentView.addSubview(ratingLabel)
-        contentView.addSubview(artistNameLabel)
-        contentView.addSubview(baseServiceNameLabel)
-        contentView.addSubview(locaitonImage)
-        contentView.addSubview(locaitonLabel)
-        contentView.addSubview(priceLabel)
-        contentView.addSubview(priceType)
-        contentView.addSubview(bookmarkIcon)
-        
         artistCellImage.snp.makeConstraints { make in
-            make.centerX.equalTo(self.contentView.safeAreaLayoutGuide.snp.centerX)
-            make.top.equalTo(self.contentView.safeAreaLayoutGuide.snp.top).offset(10)
-            make.width.equalTo(self.contentView.layer.frame.width / 1.5)
-            make.height.equalTo(self.contentView.layer.frame.width / 1.5)
-            
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(10)
+            make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-15)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-10)
+            make.width.equalTo(self.layer.frame.width / 2.5)
+            make.height.equalTo(self.layer.frame.width / 2)
         }
-        artistNameLabel.snp.makeConstraints { make in
-            make.centerX.equalTo(self.contentView.safeAreaLayoutGuide.snp.centerX)
-            make.top.equalTo(artistCellImage.snp.bottom).offset(10)
-        }
+        
+      
         
         ratingImage.snp.makeConstraints { make in
-            make.trailing.equalTo(ratingLabel.snp.leading).offset(-5)
-            make.top.equalTo(artistNameLabel.snp.bottom).offset(5)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(30)
+            make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(15)
             make.width.equalTo(18)
             make.height.equalTo(18)
-           
         }
         
         ratingLabel.snp.makeConstraints { make in
-            make.centerX.equalTo(self.contentView.safeAreaLayoutGuide.snp.centerX)
-            make.top.equalTo(artistNameLabel.snp.bottom).offset(5)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(30)
+            make.leading.equalTo(ratingImage.snp.trailing).offset(10)
         }
-  
+        
+     
+        
+        artistNameLabel.snp.makeConstraints { make in
+            make.top.equalTo(ratingImage.snp.bottom).offset(5)
+            make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(15)
+        }
         
         baseServiceNameLabel.snp.makeConstraints { make in
-            make.centerX.equalTo(self.contentView.safeAreaLayoutGuide.snp.centerX)
-            make.top.equalTo(ratingImage.snp.bottom).offset(10)
+            make.top.equalTo(artistNameLabel.snp.bottom).offset(5)
+            make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(15)
         }
         
         locaitonImage.snp.makeConstraints { make in
-            make.centerX.equalTo(self.contentView.safeAreaLayoutGuide.snp.centerX).offset(-30)
-            make.top.equalTo(baseServiceNameLabel.snp.bottom).offset(10)
+            make.top.equalTo(baseServiceNameLabel.snp.bottom).offset(5)
+            make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(15)
+            make.width.equalTo(18)
+            make.height.equalTo(18)
         }
         
+        
         locaitonLabel.snp.makeConstraints { make in
-            make.centerX.equalTo(self.contentView.safeAreaLayoutGuide.snp.centerX).offset(10)
-            make.top.equalTo(baseServiceNameLabel.snp.bottom).offset(10)
+            make.top.equalTo(baseServiceNameLabel.snp.bottom).offset(5)
+            make.leading.equalTo(locaitonImage.snp.trailing).offset(10)
         }
         
         priceLabel.snp.makeConstraints { make in
-            make.centerX.equalTo(self.contentView.safeAreaLayoutGuide.snp.centerX).offset(-15)
-            make.top.equalTo(locaitonLabel.snp.bottom).offset(10)
-           
+            make.top.equalTo(locaitonImage.snp.bottom).offset(5)
+            make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(15)
         }
         priceType.snp.makeConstraints { make in
             make.bottom.equalTo(priceLabel.snp.bottom).offset(-5)
             make.leading.equalTo(priceLabel.snp.trailing).offset(1)
         }
+
     }
-    
 }
