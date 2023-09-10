@@ -7,7 +7,13 @@
 
 import UIKit
 import SnapKit
-class LoginViewController: UIViewController {
+
+protocol LoginViewInterface : AnyObject,ViewAble,NavigaitonBarAble {
+ 
+}
+
+final class LoginViewController: UIViewController {
+    private lazy var viewModel = LoginViewModel(view: self)
     private let loginTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -54,18 +60,16 @@ class LoginViewController: UIViewController {
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor =  UIColor(named: "backColor")
-        view.addSubview(loginTitleLabel)
-        view.addSubview(emailTextField)
-        view.addSubview(passwordTextField)
-        view.addSubview(loginButton)
         configureConstraints()
-        self.navigationController?.navigationBar.tintColor = UIColor.black
-        
     }
     
     
     private func configureConstraints() {
+        view.addSubview(loginTitleLabel)
+        view.addSubview(emailTextField)
+        view.addSubview(passwordTextField)
+        view.addSubview(loginButton)
+       
         loginTitleLabel.snp.makeConstraints { make in
             make.centerX.equalTo(view.snp.centerX)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
@@ -94,4 +98,8 @@ class LoginViewController: UIViewController {
             make.height.equalTo(50)
         }
     }
+}
+
+extension LoginViewController : LoginViewInterface {
+    
 }

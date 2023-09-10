@@ -148,6 +148,7 @@ class ArtistDetailViewController: UIViewController {
 extension ArtistDetailViewController : ArtistDetailViewInterface {
 
 
+
     func prepareTableView() {
         commentTableView.delegate = self
         commentTableView.dataSource = self

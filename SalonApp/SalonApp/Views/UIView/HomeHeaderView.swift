@@ -31,7 +31,7 @@ class HomeHeaderView: UIView {
     
     private let displayNameLabel : UILabel = {
         let label = UILabel()
-        label.text = "Engin Gülek"
+        //label.text = "Engin Gülek"
         label.font = .systemFont(ofSize: 18,weight: .light)
         label.textColor = .black
         return label
@@ -47,6 +47,11 @@ class HomeHeaderView: UIView {
         
     }
     
+    func configureData(name:String,imageUrl:String){
+        displayNameLabel.text = name
+    }
+    
+
     private func configureConstraints() {
         
         headerLabel.snp.makeConstraints { make in

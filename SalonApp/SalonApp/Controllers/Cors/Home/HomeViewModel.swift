@@ -6,6 +6,9 @@
 //
 
 import Foundation
+import UIKit
+import CoreData
+
 
 protocol HomeViewModelInterface {
     func viewDidLoad()
@@ -19,15 +22,43 @@ protocol HomeViewModelInterface {
     
 }
 
+struct User  {
+    let id:UUID
+}
+
+private let appDelegate = UIApplication.shared.delegate as! AppDelegate
 final class HomeViewModel  {
     private weak var view: HomeViewInterface?
     private let servisManager : HomePageServiceInterface
     private var topArtistList : [TopArtist] = []
     private var bookMarkListArtist : [BookMarkListArtist] = []
+    private var userInfo : [UserInfo] = []
+   private let context = appDelegate.persistentContainer.viewContext
+    
     
     init(view: HomeViewInterface,servisManager: HomePageServiceInterface = HomePageService.shared) {
         self.view = view
         self.servisManager = servisManager
+    }
+
+    
+    func fetchUserInfo(){
+    
+        do{
+            userInfo = try context.fetch(UserInfo.fetchRequest())
+        }catch{
+            print("Veri okurken hata oluştu")
+        }
+        
+        if userInfo.isEmpty {
+            view?.headViewInfo(name: "Enter Sing In", imageUrl: "")
+            print("Giriş yapımammış")
+        }else{
+            let id = userInfo[0].id
+            print("Test \(id)")
+        }
+       
+      
     }
     
      func fetchTopArtists() {
@@ -97,6 +128,7 @@ extension HomeViewModel : HomeViewModelInterface{
             @MainActor in
             self.fetchTopArtists()
             self.fetchookMarkListArtist()
+            fetchUserInfo()
         }
         
         view?.setBackgroundColor("backColor")

@@ -22,6 +22,9 @@ enum NetworkPath  {
     case addArtistToBookMarkList(Parameters)
     case bookMarkListArtist(Int)
     case deleteArtistFromBookMarkList(Int)
+    case createUser(Parameters)
+    case singIn(Parameters)
+    case userUpdate(Parameters)
 }
 
 extension NetworkPath : TargetType {
@@ -53,12 +56,24 @@ extension NetworkPath : TargetType {
             return "bookMarkList/deleteArtistFromBookMarkList?id=\(id)"
         case .addArtistToBookMarkList:
             return "bookMarkList/add"
+        case .createUser:
+            return "users/userCreate"
+        case .singIn:
+            return "users/singIn"
+        case .userUpdate:
+            return "users/userUpdate"
         }
     }
     
     var method: AlamofireMethod {
         switch self {
         case .addArtistToBookMarkList:
+            return .post
+        case .createUser:
+            return .post
+        case .singIn:
+            return .post
+        case .userUpdate:
             return .post
         case .deleteArtistFromBookMarkList:
             return .delete
@@ -72,6 +87,12 @@ extension NetworkPath : TargetType {
     var requestType: RequestType {
         switch self {
         case .addArtistToBookMarkList(let parameters):
+            return .requestParameters(parameters: parameters, encoding: JSONEncoding.init())
+        case .createUser(let parameters):
+            return .requestParameters(parameters: parameters, encoding: JSONEncoding.init())
+        case .singIn(let parameters):
+            return .requestParameters(parameters: parameters, encoding: JSONEncoding.init())
+        case .userUpdate(let parameters):
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.init())
         default:
             return .requestPlain

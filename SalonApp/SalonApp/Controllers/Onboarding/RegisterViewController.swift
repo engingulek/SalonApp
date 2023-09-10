@@ -7,8 +7,13 @@
 
 import UIKit
 import SnapKit
-class RegisterViewController: UIViewController {
-    
+
+protocol RegisterViewInterface : AnyObject,ViewAble,SeguePerformable,NavigaitonBarAble {
+    func prepareTabbarHidden(isHidden:Bool)
+}
+
+final class RegisterViewController: UIViewController {
+    private lazy var viewModel = RegisterViewModel(view: self)
     private let registerTitleLabel: UILabel = {
           let label = UILabel()
           
@@ -52,19 +57,43 @@ class RegisterViewController: UIViewController {
          return button
      }()
     
+    private let promptLabel: UILabel = {
+        let label = UILabel()
+        label.tintColor = .gray
+        label.text = "Have an account already?"
+        label.font = .systemFont(ofSize: 14, weight: .regular)
+        return label
+    }()
+    
+    private let loginButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Login", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 14)
+        button.tintColor = UIColor(named: "allServiceSelected")
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor =  UIColor(named: "backColor")
+        viewModel.viewDidLoad()
+        configureConstraints()
+        loginButton.addTarget(self, action: #selector(didTapLogin), for: .touchUpInside)
+    }
+    
+    @objc private func didTapLogin(){
+        print("test")
+        viewModel.didTapLogin()
+    }
+    
+    private func configureConstraints() {
+        
         view.addSubview(registerTitleLabel)
         view.addSubview(emailTextField)
         view.addSubview(passwordTextField)
         view.addSubview(registerButton)
-        configureConstraints()
-        self.navigationController?.navigationBar.tintColor = UIColor.black
-    }
-    
-    
-    private func configureConstraints() {
+        view.addSubview(promptLabel)
+        view.addSubview(loginButton)
+        
         registerTitleLabel.snp.makeConstraints { make in
             make.centerX.equalTo(view.snp.centerX)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
@@ -92,7 +121,24 @@ class RegisterViewController: UIViewController {
             make.width.equalTo(180)
             make.height.equalTo(50)
         }
+        
+        
+        promptLabel.snp.makeConstraints { make in
+            make.leading.equalTo(view.snp.leading).offset(20)
+            make.top.equalTo(registerButton.snp.bottom).offset(20)
+        }
+        
+        loginButton.snp.makeConstraints { make in
+            make.leading.equalTo(promptLabel.snp.trailing).offset(10)
+            make.bottom.equalTo(promptLabel.snp.bottom).offset(7)
+        }
     }
+}
 
-
+extension RegisterViewController : RegisterViewInterface {
+    func prepareTabbarHidden(isHidden: Bool) {
+        tabBarController?.tabBar.isHidden = isHidden
+    }
+    
+    
 }

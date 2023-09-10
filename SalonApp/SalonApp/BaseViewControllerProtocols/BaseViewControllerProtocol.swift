@@ -35,7 +35,7 @@ extension SeguePerformable where Self : UIViewController {
 protocol NavigaitonBarAble {
     func prepareNavigationBarCollor(colorText:String)
     func navigationItemTitle(title:String)
-    func popViewControllerAble()
+    //func popViewControllerAble()
 }
 
 extension NavigaitonBarAble where Self : UIViewController{
@@ -43,9 +43,9 @@ extension NavigaitonBarAble where Self : UIViewController{
         self.navigationController?.navigationBar.tintColor = UIColor(named: colorText)
     }
     
-    func popViewControllerAble(){
+    /*func popViewControllerAble(){
         self.navigationController?.popViewController(animated: true)
-    }
+    }*/
     
     func navigationItemTitle(title:String){
         self.navigationItem.title = title

@@ -8,13 +8,13 @@
 import UIKit
 import SnapKit
 
-
 protocol HomeViewInterface : AnyObject,ViewAble,SeguePerformable {
     func prepareTableView()
     func prepareTabbarHidden(isHidden:Bool)
     func prepareTextFieldController(text:String)
     func reloadDataTableView()
     func indicatoViewTopArtist(animate:Bool)
+    func headViewInfo(name:String,imageUrl:String)
     
 }
 
@@ -123,6 +123,10 @@ extension HomeViewController : ArtistTableViewCellDelegate {
 }
 
 extension HomeViewController : HomeViewInterface {
+    func headViewInfo(name:String,imageUrl:String) {
+        headerView.configureData(name: name, imageUrl: "")
+    }
+    
   
 
     func prepareTableView() {
