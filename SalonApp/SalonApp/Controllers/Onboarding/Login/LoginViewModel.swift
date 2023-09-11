@@ -9,8 +9,6 @@ import Foundation
 
 protocol LoginViewModelInterface {
     func viewDidLoad()
-    func controlEmail(email:String)
-    func controlPassword(password:String)
     func login(email:String,password:String)
 
 }
@@ -18,9 +16,8 @@ protocol LoginViewModelInterface {
 final class LoginViewModel {
     private weak var view : LoginViewInterface?
     private let serviceManager : LoginServiceInterface
-    private var loginButtonEnable : Bool = false
-    private var emailData : String = ""
-    private var passwordData : String = ""
+   
+  
     init(view:LoginViewInterface,serviceManager : LoginServiceInterface = LoginService.shared){
         self.view = view
         self.serviceManager = serviceManager
@@ -55,14 +52,7 @@ final class LoginViewModel {
 
 extension LoginViewModel  : LoginViewModelInterface {
     
-    func controlEmail(email: String) {
-        emailData = email
-    }
-    
-    func controlPassword(password: String) {
-       passwordData = password
-    }
-    
+ 
    
     
     func viewDidLoad() {
@@ -71,13 +61,13 @@ extension LoginViewModel  : LoginViewModelInterface {
         view?.singError(isHidden: true, message: "")
     }
     
-    func login(email name:String,password surname:String)  {
-        if !emailData.isValidEmail() {
+    func login(email:String,password:String)  {
+        if !email.isValidEmail() {
             view?.alertMessage(isHiddenEmailMes: false, isHiddenPassMes: true,
                                emailMes: "Please enter a valid e-mail address", pasmessage: "",
                                emailColor: "allServiceSelected", passcolor: "black")
             
-        } else if emailData.isValidEmail() && passwordData.count < 8 {
+        } else if email.isValidEmail() && password.count < 8 {
             view?.alertMessage(isHiddenEmailMes: true, isHiddenPassMes: false,
                                emailMes: "", pasmessage: "Enter a password of at least 10 characters",
                                emailColor: "black", passcolor: "allServiceSelected")
@@ -85,7 +75,7 @@ extension LoginViewModel  : LoginViewModelInterface {
             view?.alertMessage(isHiddenEmailMes: true, isHiddenPassMes: true,
                                emailMes: " ", pasmessage: " ",
                                emailColor: "black", passcolor: "black")
-            loginUser(email: emailData, password: passwordData)
+            loginUser(email: email, password: password)
         }
     }
     

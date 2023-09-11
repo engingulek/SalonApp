@@ -30,14 +30,14 @@ final class LoginViewController: UIViewController {
         return label
     }()
     
-    private let emailalertMessageLabel: UILabel  = {
+    private lazy var emailalertMessageLabel: UILabel  = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .semibold)
         label.textColor =  UIColor(named: "allServiceSelected")
         return label
     }()
     
-    private let passwordalertMessageLabel: UILabel  = {
+    private lazy var passwordalertMessageLabel: UILabel  = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .semibold)
         label.textColor =  UIColor(named: "allServiceSelected")
@@ -91,7 +91,7 @@ final class LoginViewController: UIViewController {
         return button
     }()
     
-    private let errorSingInLabel : UILabel = {
+    private lazy var errorSingInLabel : UILabel = {
         let label = UILabel()
         label.textColor = .white
         label.font = .systemFont(ofSize: 15)
@@ -103,27 +103,9 @@ final class LoginViewController: UIViewController {
         super.viewDidLoad()
         viewModel.viewDidLoad()
         configureConstraints()
-        
-        emailTextField.addTarget(self, action: #selector(emailTextFieldDidChange), for: .editingChanged)
-        passwordTextField.addTarget(self, action: #selector(passwordTextFieldDidChange), for: .editingChanged)
-        
         loginButton.addTarget(self, action: #selector(loginAction), for: .touchUpInside)
+    }
 
-      
-    }
-    
- 
-    
-    @objc private func emailTextFieldDidChange(_ textField: UITextField) {
-        viewModel.controlEmail(email:  textField.text ?? "")
-    }
-    
-    @objc private func passwordTextFieldDidChange(_ textField: UITextField) {
-        viewModel.controlPassword(password: textField.text ?? "")
-    }
-    
-
-    
     @objc private func loginAction(){
         viewModel.login(email: emailTextField.text ?? "",
                         password: passwordTextField.text ?? "")
@@ -136,7 +118,6 @@ final class LoginViewController: UIViewController {
         view.addSubview(emailalertMessageLabel)
         view.addSubview(passwordTextField)
         view.addSubview(passwordalertMessageLabel)
-        
         view.addSubview(loginButton)
         view.addSubview(errorSingInLabel)
        

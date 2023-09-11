@@ -10,6 +10,10 @@ import SnapKit
 
 protocol RegisterViewInterface : AnyObject,ViewAble,SeguePerformable,NavigaitonBarAble {
     func prepareTabbarHidden(isHidden:Bool)
+    func alertMessage(isNameAlertHidden:Bool,nameAlertMes:String,
+                 isSurnameAlertHidden:Bool,surnameAlertMes:String,
+                 isEmailAlertHidden:Bool,emailAlertMes:String,
+                 isPasswordAlertHidden:Bool,passwordAlertMes:String)
 }
 
 final class RegisterViewController: UIViewController {
@@ -22,6 +26,33 @@ final class RegisterViewController: UIViewController {
           return label
       }()
     
+    private let nameTextFied: UITextField = {
+        let textField = UITextField()
+        textField.keyboardType = .default
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "Name",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
+        )
+        textField.texrFielLogin()
+        textField.leftViewMode = .always
+        textField.leftView = textField.leftUIView()
+        return textField
+    }()
+    
+    private let surnameTextField: UITextField = {
+        let textField = UITextField()
+        textField.keyboardType = .default
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "Surnma",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
+        )
+        textField.texrFielLogin()
+        textField.leftView = textField.leftUIView()
+      
+      
+        return textField
+    }()
+    
     private let emailTextField: UITextField = {
         let textField = UITextField()
         
@@ -30,6 +61,8 @@ final class RegisterViewController: UIViewController {
             string: "Email",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
         )
+        textField.texrFielLogin()
+        textField.leftView = textField.leftUIView()
         return textField
     }()
     
@@ -37,10 +70,14 @@ final class RegisterViewController: UIViewController {
     private let passwordTextField: UITextField = {
         let textField = UITextField()
         
+        textField.translatesAutoresizingMaskIntoConstraints = false
         textField.attributedPlaceholder = NSAttributedString(
             string: "Password",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
         )
+        textField.texrFielLogin()
+        textField.leftView = textField.leftUIView()
+        textField.rightViewMode = .always
         textField.isSecureTextEntry = true
         return textField
     }()
@@ -53,7 +90,6 @@ final class RegisterViewController: UIViewController {
          button.backgroundColor = UIColor(named: "allServiceSelected")
          button.layer.masksToBounds = true
          button.layer.cornerRadius = 25
-         button.isEnabled = false
          return button
      }()
     
@@ -73,12 +109,51 @@ final class RegisterViewController: UIViewController {
         return button
     }()
     
+    private lazy var nameAlertMessageLabel: UILabel  = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 15, weight: .semibold)
+        label.textColor =  UIColor(named: "allServiceSelected")
+        return label
+    }()
+    
+    private lazy var surnameAlertMessageLabel: UILabel  = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 15, weight: .semibold)
+        label.textColor =  UIColor(named: "allServiceSelected")
+        return label
+    }()
+    
+    
+    private lazy var emailalertMessageLabel: UILabel  = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 15, weight: .semibold)
+        label.textColor =  UIColor(named: "allServiceSelected")
+        return label
+    }()
+    
+    private lazy var passwordalertMessageLabel: UILabel  = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 15, weight: .semibold)
+        label.textColor =  UIColor(named: "allServiceSelected")
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.viewDidLoad()
         configureConstraints()
         loginButton.addTarget(self, action: #selector(didTapLogin), for: .touchUpInside)
+        registerButton.addTarget(self, action: #selector(createAccount), for: .touchUpInside)
     }
+    
+    @objc private func createAccount(){
+        viewModel.createAccount(name: nameTextFied.text ?? "",
+                                surname: surnameTextField.text ?? "",
+                                email: emailTextField.text ?? "",
+                                password: passwordTextField.text ?? "")
+    }
+    
+
     
     @objc private func didTapLogin(){
         print("test")
@@ -88,18 +163,25 @@ final class RegisterViewController: UIViewController {
     private func configureConstraints() {
         
         view.addSubview(registerTitleLabel)
+        view.addSubview(nameTextFied)
+        view.addSubview(surnameTextField)
         view.addSubview(emailTextField)
         view.addSubview(passwordTextField)
         view.addSubview(registerButton)
         view.addSubview(promptLabel)
         view.addSubview(loginButton)
+        view.addSubview(nameAlertMessageLabel)
+        view.addSubview(surnameAlertMessageLabel)
+        view.addSubview(emailalertMessageLabel)
+        view.addSubview(passwordalertMessageLabel)
         
         registerTitleLabel.snp.makeConstraints { make in
             make.centerX.equalTo(view.snp.centerX)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
         }
         
-        emailTextField.snp.makeConstraints { make in
+        
+        nameTextFied.snp.makeConstraints { make in
             make.leading.equalTo(view.snp.leading).offset(20)
             make.top.equalTo(registerTitleLabel.snp.bottom).offset(20)
             make.width.equalTo(view.frame.width - 40)
@@ -107,9 +189,56 @@ final class RegisterViewController: UIViewController {
             make.height.equalTo(60)
         }
         
+        nameAlertMessageLabel.snp.makeConstraints { make in
+            make.leading.equalTo(view.snp.leading).offset(20)
+            make.top.equalTo(nameTextFied.snp.bottom).offset(5)
+            make.width.equalTo(view.frame.width - 40)
+            make.centerX.equalTo(view.snp.centerX)
+        }
+        
+        
+        surnameTextField.snp.makeConstraints { make in
+            make.leading.equalTo(view.snp.leading).offset(20)
+            make.top.equalTo(nameAlertMessageLabel.snp.bottom).offset(20)
+            make.width.equalTo(view.frame.width - 40)
+            make.centerX.equalTo(view.snp.centerX)
+            make.height.equalTo(60)
+        }
+        
+       surnameAlertMessageLabel.snp.makeConstraints { make in
+            make.leading.equalTo(view.snp.leading).offset(20)
+            make.top.equalTo(surnameTextField.snp.bottom).offset(5)
+            make.width.equalTo(view.frame.width - 40)
+            make.centerX.equalTo(view.snp.centerX)
+          
+        }
+        
+        emailTextField.snp.makeConstraints { make in
+            make.leading.equalTo(view.snp.leading).offset(20)
+            make.top.equalTo(surnameAlertMessageLabel.snp.bottom).offset(20)
+            make.width.equalTo(view.frame.width - 40)
+            make.centerX.equalTo(view.snp.centerX)
+            make.height.equalTo(60)
+        }
+        
+        emailalertMessageLabel.snp.makeConstraints { make in
+            make.leading.equalTo(view.snp.leading).offset(20)
+            make.top.equalTo(emailTextField.snp.bottom).offset(5)
+            make.width.equalTo(view.frame.width - 40)
+            make.centerX.equalTo(view.snp.centerX)
+        }
+        
         passwordTextField.snp.makeConstraints { make in
             make.leading.equalTo(view.snp.leading).offset(20)
-            make.top.equalTo(emailTextField.snp.bottom).offset(20)
+            make.top.equalTo(emailalertMessageLabel.snp.bottom).offset(20)
+            make.width.equalTo(view.frame.width - 40)
+            make.centerX.equalTo(view.snp.centerX)
+            make.height.equalTo(60)
+        }
+        
+        passwordalertMessageLabel.snp.makeConstraints { make in
+            make.leading.equalTo(view.snp.leading).offset(20)
+            make.top.equalTo(passwordTextField.snp.bottom).offset(5)
             make.width.equalTo(view.frame.width - 40)
             make.centerX.equalTo(view.snp.centerX)
             make.height.equalTo(60)
@@ -117,7 +246,7 @@ final class RegisterViewController: UIViewController {
         
         registerButton.snp.makeConstraints { make in
             make.trailing.equalTo(view.snp.trailing).offset(-20)
-            make.top.equalTo(passwordTextField.snp.bottom).offset(20)
+            make.top.equalTo(passwordalertMessageLabel.snp.bottom).offset(10)
             make.width.equalTo(180)
             make.height.equalTo(50)
         }
@@ -136,6 +265,18 @@ final class RegisterViewController: UIViewController {
 }
 
 extension RegisterViewController : RegisterViewInterface {
+    func alertMessage(isNameAlertHidden: Bool, nameAlertMes: String, isSurnameAlertHidden: Bool, surnameAlertMes: String, isEmailAlertHidden: Bool, emailAlertMes: String, isPasswordAlertHidden: Bool, passwordAlertMes: String) {
+        nameAlertMessageLabel.isHidden = isNameAlertHidden
+        surnameAlertMessageLabel.isHidden = isSurnameAlertHidden
+        emailalertMessageLabel.isHidden = isEmailAlertHidden
+        passwordalertMessageLabel.isHidden = isPasswordAlertHidden
+        
+        nameAlertMessageLabel.text = nameAlertMes
+        surnameAlertMessageLabel.text = surnameAlertMes
+        emailalertMessageLabel.text = emailAlertMes
+        passwordalertMessageLabel.text = passwordAlertMes
+    }
+    
     func prepareTabbarHidden(isHidden: Bool) {
         tabBarController?.tabBar.isHidden = isHidden
     }

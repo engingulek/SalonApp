@@ -48,17 +48,16 @@ class ProfileViewController: UIViewController {
     private let toAccountAciton : UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Crean or Sing in", for: .normal)
+        button.setTitle("Creat And Login", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        //button.tintColor = .white
         button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
         button.backgroundColor = UIColor(named: "allServiceSelected")
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
-        //button.isEnabled = false
+       
         return button
     }()
-    
+
     
     private let nameTextField: UITextField = {
         let textField = UITextField()
