@@ -21,6 +21,7 @@
 		7D50693B2A6D305E00EB053B /* ArtistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D50693A2A6D305E00EB053B /* ArtistTableViewCell.swift */; };
 		7D50693E2A6D7C3B00EB053B /* ArtistDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D50693D2A6D7C3B00EB053B /* ArtistDetailViewController.swift */; };
 		7D5069402A6D7CD600EB053B /* ArtistDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D50693F2A6D7CD600EB053B /* ArtistDetailView.swift */; };
+		7D5B24352AAF496900602094 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5B24342AAF496900602094 /* UITextField+Extension.swift */; };
 		7D63F4382A9D203F00A7799B /* ArtistDetailTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D63F4372A9D203F00A7799B /* ArtistDetailTest.swift */; };
 		7D63F43A2A9D209D00A7799B /* MockArtistDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D63F4392A9D209D00A7799B /* MockArtistDetailService.swift */; };
 		7D63F43C2A9D257200A7799B /* MockArtistDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D63F43B2A9D257200A7799B /* MockArtistDetailViewController.swift */; };
@@ -104,6 +105,7 @@
 		7D50693A2A6D305E00EB053B /* ArtistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistTableViewCell.swift; sourceTree = "<group>"; };
 		7D50693D2A6D7C3B00EB053B /* ArtistDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetailViewController.swift; sourceTree = "<group>"; };
 		7D50693F2A6D7CD600EB053B /* ArtistDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetailView.swift; sourceTree = "<group>"; };
+		7D5B24342AAF496900602094 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		7D63F4372A9D203F00A7799B /* ArtistDetailTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetailTest.swift; sourceTree = "<group>"; };
 		7D63F4392A9D209D00A7799B /* MockArtistDetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockArtistDetailService.swift; sourceTree = "<group>"; };
 		7D63F43B2A9D257200A7799B /* MockArtistDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockArtistDetailViewController.swift; sourceTree = "<group>"; };
@@ -244,6 +246,14 @@
 			path = General;
 			sourceTree = "<group>";
 		};
+		7D5B24332AAF495200602094 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				7D5B24342AAF496900602094 /* UITextField+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		7D63F4352A9D200A00A7799B /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -348,6 +358,7 @@
 		7DA993252A6AC0C20053B022 /* SalonApp */ = {
 			isa = PBXGroup;
 			children = (
+				7D5B24332AAF495200602094 /* Extension */,
 				7DA659072A9CA9920067E9E6 /* BaseViewControllerProtocols */,
 				7D7AB9AD2A9238EB00F02613 /* Manager */,
 				7DA993572A6ACD780053B022 /* Controllers */,
@@ -606,6 +617,7 @@
 				7D7AB9BF2A9250A900F02613 /* RequestType.swift in Sources */,
 				7DFCB5FF2A6E82DA00109CB5 /* CommentTableViewCell.swift in Sources */,
 				7D0596EF2A705D970026FB87 /* SearchCellHeader.swift in Sources */,
+				7D5B24352AAF496900602094 /* UITextField+Extension.swift in Sources */,
 				7DC001892AAE098A001BD024 /* UserInfo.xcdatamodeld in Sources */,
 				7D7AB9A12A9215DB00F02613 /* HomeViewModel.swift in Sources */,
 				7DA6590C2A9CA9E00067E9E6 /* ArtistDetailViewModel.swift in Sources */,
