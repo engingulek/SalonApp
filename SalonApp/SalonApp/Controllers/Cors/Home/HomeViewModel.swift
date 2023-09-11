@@ -22,9 +22,7 @@ protocol HomeViewModelInterface {
     
 }
 
-struct User  {
-    let id:UUID
-}
+
 
 private let appDelegate = UIApplication.shared.delegate as! AppDelegate
 final class HomeViewModel  {
@@ -102,7 +100,7 @@ final class HomeViewModel  {
                 }
             }
         }
-       
+
     }
     
     func deleteArtistToBookMarkList(id:Int) {

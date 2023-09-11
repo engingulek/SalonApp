@@ -14,6 +14,8 @@ protocol LoginViewInterface : AnyObject,ViewAble,NavigaitonBarAble {
                       pasmessage:String,
                       emailColor:String,
                       passcolor:String)
+    
+    func singError(isHidden:Bool,message:String)
   
  
 }
@@ -55,8 +57,6 @@ final class LoginViewController: UIViewController {
         )
         textField.texrFielLogin()
         textField.leftView = textField.leftUIView()
-      
-      
         return textField
     }()
     
@@ -90,12 +90,20 @@ final class LoginViewController: UIViewController {
      
         return button
     }()
+    
+    private let errorSingInLabel : UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 15)
+        label.backgroundColor = .black
+        label.textAlignment = .center
+        return label
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.viewDidLoad()
         configureConstraints()
         
-       
         emailTextField.addTarget(self, action: #selector(emailTextFieldDidChange), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(passwordTextFieldDidChange), for: .editingChanged)
         
@@ -130,6 +138,7 @@ final class LoginViewController: UIViewController {
         view.addSubview(passwordalertMessageLabel)
         
         view.addSubview(loginButton)
+        view.addSubview(errorSingInLabel)
        
        
         loginTitleLabel.snp.makeConstraints { make in
@@ -169,10 +178,22 @@ final class LoginViewController: UIViewController {
             make.width.equalTo(180)
             make.height.equalTo(50)
         }
+        
+        errorSingInLabel.snp.makeConstraints { make in
+            make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading)
+            make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+            make.height.equalTo(40)
+        }
     }
 }
 
 extension LoginViewController : LoginViewInterface {
+    func singError(isHidden: Bool, message: String){
+        errorSingInLabel.isHidden = isHidden
+        errorSingInLabel.text = message
+    }
+    
     func alertMessage(isHiddenEmailMes: Bool,
                       isHiddenPassMes: Bool,
                       emailMes: String,
@@ -184,8 +205,9 @@ extension LoginViewController : LoginViewInterface {
         passwordalertMessageLabel.isHidden = isHiddenPassMes
         emailalertMessageLabel.text = emailMes
         passwordalertMessageLabel.text = pasmessage
-        passwordTextField.layer.borderColor = UIColor(named: passcolor)?.cgColor
-        emailTextField.layer.borderColor = UIColor(named: emailColor)?.cgColor
+        
+        /*passwordTextField.layer.borderColor = UIColor(named: passcolor)?.cgColor
+        emailTextField.layer.borderColor = UIColor(named: emailColor)?.cgColor*/
         
     }
     

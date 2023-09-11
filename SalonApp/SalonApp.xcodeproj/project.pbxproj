@@ -22,6 +22,8 @@
 		7D50693E2A6D7C3B00EB053B /* ArtistDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D50693D2A6D7C3B00EB053B /* ArtistDetailViewController.swift */; };
 		7D5069402A6D7CD600EB053B /* ArtistDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D50693F2A6D7CD600EB053B /* ArtistDetailView.swift */; };
 		7D5B24352AAF496900602094 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5B24342AAF496900602094 /* UITextField+Extension.swift */; };
+		7D5B24392AAF6AE000602094 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5B24382AAF6AE000602094 /* User.swift */; };
+		7D5B243B2AAF6B9A00602094 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5B243A2AAF6B9A00602094 /* LoginService.swift */; };
 		7D63F4382A9D203F00A7799B /* ArtistDetailTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D63F4372A9D203F00A7799B /* ArtistDetailTest.swift */; };
 		7D63F43A2A9D209D00A7799B /* MockArtistDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D63F4392A9D209D00A7799B /* MockArtistDetailService.swift */; };
 		7D63F43C2A9D257200A7799B /* MockArtistDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D63F43B2A9D257200A7799B /* MockArtistDetailViewController.swift */; };
@@ -106,6 +108,8 @@
 		7D50693D2A6D7C3B00EB053B /* ArtistDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetailViewController.swift; sourceTree = "<group>"; };
 		7D50693F2A6D7CD600EB053B /* ArtistDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetailView.swift; sourceTree = "<group>"; };
 		7D5B24342AAF496900602094 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		7D5B24382AAF6AE000602094 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		7D5B243A2AAF6B9A00602094 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		7D63F4372A9D203F00A7799B /* ArtistDetailTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetailTest.swift; sourceTree = "<group>"; };
 		7D63F4392A9D209D00A7799B /* MockArtistDetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockArtistDetailService.swift; sourceTree = "<group>"; };
 		7D63F43B2A9D257200A7799B /* MockArtistDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockArtistDetailViewController.swift; sourceTree = "<group>"; };
@@ -252,6 +256,26 @@
 				7D5B24342AAF496900602094 /* UITextField+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		7D5B24362AAF68D000602094 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				7DADAE4A2A7544C40040BCDC /* LoginViewController.swift */,
+				7DC001922AAE356F001BD024 /* LoginViewModel.swift */,
+				7D5B24382AAF6AE000602094 /* User.swift */,
+				7D5B243A2AAF6B9A00602094 /* LoginService.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		7D5B24372AAF6ACF00602094 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				7DADAE4C2A7544D30040BCDC /* RegisterViewController.swift */,
+				7DC001902AAE3130001BD024 /* RegisterViewModel.swift */,
+			);
+			path = Register;
 			sourceTree = "<group>";
 		};
 		7D63F4352A9D200A00A7799B /* Home */ = {
@@ -427,10 +451,8 @@
 		7DADAE472A753F2F0040BCDC /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				7DADAE4A2A7544C40040BCDC /* LoginViewController.swift */,
-				7DADAE4C2A7544D30040BCDC /* RegisterViewController.swift */,
-				7DC001902AAE3130001BD024 /* RegisterViewModel.swift */,
-				7DC001922AAE356F001BD024 /* LoginViewModel.swift */,
+				7D5B24372AAF6ACF00602094 /* Register */,
+				7D5B24362AAF68D000602094 /* Login */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -628,6 +650,7 @@
 				7D50693B2A6D305E00EB053B /* ArtistTableViewCell.swift in Sources */,
 				7DA659102A9CDDB70067E9E6 /* ArtistDetilService.swift in Sources */,
 				7D7AB9C12A9267D100F02613 /* HomePageService.swift in Sources */,
+				7D5B24392AAF6AE000602094 /* User.swift in Sources */,
 				7D7AB9AF2A923A1600F02613 /* NetworkManager.swift in Sources */,
 				7D7AB9B12A923A5F00F02613 /* NetworkUtils.swift in Sources */,
 				7D7AB9B92A92442100F02613 /* TopService.swift in Sources */,
@@ -639,6 +662,7 @@
 				7D3DBABE2AA0E0CC00C01A43 /* SearchViewModel.swift in Sources */,
 				7DD2BCFA2A97591600FBE183 /* TopArtist.swift in Sources */,
 				7DA993592A6ACD980053B022 /* MainTabbarViewController.swift in Sources */,
+				7D5B243B2AAF6B9A00602094 /* LoginService.swift in Sources */,
 				7DD3F0D42A6FDFF50018D0C4 /* SearchViewController.swift in Sources */,
 				7DA659122A9CDE700067E9E6 /* ArtistDetail.swift in Sources */,
 				7DC001932AAE356F001BD024 /* LoginViewModel.swift in Sources */,
