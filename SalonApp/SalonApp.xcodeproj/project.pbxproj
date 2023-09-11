@@ -24,6 +24,7 @@
 		7D5B24352AAF496900602094 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5B24342AAF496900602094 /* UITextField+Extension.swift */; };
 		7D5B24392AAF6AE000602094 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5B24382AAF6AE000602094 /* User.swift */; };
 		7D5B243B2AAF6B9A00602094 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5B243A2AAF6B9A00602094 /* LoginService.swift */; };
+		7D5B243D2AAF97E800602094 /* RegisterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5B243C2AAF97E800602094 /* RegisterService.swift */; };
 		7D63F4382A9D203F00A7799B /* ArtistDetailTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D63F4372A9D203F00A7799B /* ArtistDetailTest.swift */; };
 		7D63F43A2A9D209D00A7799B /* MockArtistDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D63F4392A9D209D00A7799B /* MockArtistDetailService.swift */; };
 		7D63F43C2A9D257200A7799B /* MockArtistDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D63F43B2A9D257200A7799B /* MockArtistDetailViewController.swift */; };
@@ -110,6 +111,7 @@
 		7D5B24342AAF496900602094 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		7D5B24382AAF6AE000602094 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7D5B243A2AAF6B9A00602094 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
+		7D5B243C2AAF97E800602094 /* RegisterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterService.swift; sourceTree = "<group>"; };
 		7D63F4372A9D203F00A7799B /* ArtistDetailTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetailTest.swift; sourceTree = "<group>"; };
 		7D63F4392A9D209D00A7799B /* MockArtistDetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockArtistDetailService.swift; sourceTree = "<group>"; };
 		7D63F43B2A9D257200A7799B /* MockArtistDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockArtistDetailViewController.swift; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 			children = (
 				7DADAE4C2A7544D30040BCDC /* RegisterViewController.swift */,
 				7DC001902AAE3130001BD024 /* RegisterViewModel.swift */,
+				7D5B243C2AAF97E800602094 /* RegisterService.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -679,6 +682,7 @@
 				7DC0018F2AAE21F8001BD024 /* ProfileViewModel.swift in Sources */,
 				7DA993292A6AC0C20053B022 /* SceneDelegate.swift in Sources */,
 				7D39AE192A73EC25009791C8 /* ChatTextView.swift in Sources */,
+				7D5B243D2AAF97E800602094 /* RegisterService.swift in Sources */,
 				7DE9A1892A824E7400A806E4 /* BookMarkViewController.swift in Sources */,
 				7DADAE4B2A7544C40040BCDC /* LoginViewController.swift in Sources */,
 				7DB752FB2AA0B60600DD6548 /* BaseViewControllerProtocol.swift in Sources */,

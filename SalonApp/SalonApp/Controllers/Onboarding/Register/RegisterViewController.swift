@@ -8,12 +8,13 @@
 import UIKit
 import SnapKit
 
-protocol RegisterViewInterface : AnyObject,ViewAble,SeguePerformable,NavigaitonBarAble {
+protocol RegisterViewInterface : AnyObject,ViewAble,SeguePerformable,NavigaitonBarAble,TabbarSelected{
     func prepareTabbarHidden(isHidden:Bool)
     func alertMessage(isNameAlertHidden:Bool,nameAlertMes:String,
                  isSurnameAlertHidden:Bool,surnameAlertMes:String,
                  isEmailAlertHidden:Bool,emailAlertMes:String,
                  isPasswordAlertHidden:Bool,passwordAlertMes:String)
+    func createError(isHidden:Bool,message:String)
 }
 
 final class RegisterViewController: UIViewController {
@@ -138,6 +139,15 @@ final class RegisterViewController: UIViewController {
         return label
     }()
     
+    private lazy var errorCreateLabel : UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 15)
+        label.backgroundColor = .black
+        label.textAlignment = .center
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.viewDidLoad()
@@ -174,6 +184,7 @@ final class RegisterViewController: UIViewController {
         view.addSubview(surnameAlertMessageLabel)
         view.addSubview(emailalertMessageLabel)
         view.addSubview(passwordalertMessageLabel)
+        view.addSubview(errorCreateLabel)
         
         registerTitleLabel.snp.makeConstraints { make in
             make.centerX.equalTo(view.snp.centerX)
@@ -261,10 +272,23 @@ final class RegisterViewController: UIViewController {
             make.leading.equalTo(promptLabel.snp.trailing).offset(10)
             make.bottom.equalTo(promptLabel.snp.bottom).offset(7)
         }
+        
+        
+        errorCreateLabel.snp.makeConstraints { make in
+            make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading)
+            make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+            make.height.equalTo(40)
+        }
     }
 }
 
 extension RegisterViewController : RegisterViewInterface {
+    func createError(isHidden: Bool, message: String) {
+        errorCreateLabel.isHidden = isHidden
+        errorCreateLabel.text = message
+    }
+    
     func alertMessage(isNameAlertHidden: Bool, nameAlertMes: String, isSurnameAlertHidden: Bool, surnameAlertMes: String, isEmailAlertHidden: Bool, emailAlertMes: String, isPasswordAlertHidden: Bool, passwordAlertMes: String) {
         nameAlertMessageLabel.isHidden = isNameAlertHidden
         surnameAlertMessageLabel.isHidden = isSurnameAlertHidden

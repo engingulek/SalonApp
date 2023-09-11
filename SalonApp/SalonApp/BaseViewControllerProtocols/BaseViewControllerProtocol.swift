@@ -32,6 +32,16 @@ extension SeguePerformable where Self : UIViewController {
 
 }
 
+protocol TabbarSelected{
+    func tabbarSelectedIndex(at index:Int)
+}
+
+extension TabbarSelected where Self : UIViewController {
+    func tabbarSelectedIndex(at index:Int) {
+        self.tabBarController?.selectedIndex =  index
+    }
+}
+
 protocol NavigaitonBarAble {
     func prepareNavigationBarCollor(colorText:String)
     func navigationItemTitle(title:String)
@@ -42,11 +52,6 @@ extension NavigaitonBarAble where Self : UIViewController{
     func prepareNavigationBarCollor(colorText: String) {
         self.navigationController?.navigationBar.tintColor = UIColor(named: colorText)
     }
-    
-    /*func popViewControllerAble(){
-        self.navigationController?.popViewController(animated: true)
-    }*/
-    
     func navigationItemTitle(title:String){
         self.navigationItem.title = title
     }

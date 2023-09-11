@@ -7,13 +7,11 @@
 
 import UIKit
 import SnapKit
-protocol LoginViewInterface : AnyObject,ViewAble,NavigaitonBarAble {
+protocol LoginViewInterface : AnyObject,ViewAble,NavigaitonBarAble,TabbarSelected {
     func alertMessage(isHiddenEmailMes:Bool,
                       isHiddenPassMes:Bool,
                       emailMes:String,
-                      pasmessage:String,
-                      emailColor:String,
-                      passcolor:String)
+                      pasmessage:String)
     
     func singError(isHidden:Bool,message:String)
   
@@ -121,7 +119,6 @@ final class LoginViewController: UIViewController {
         view.addSubview(loginButton)
         view.addSubview(errorSingInLabel)
        
-       
         loginTitleLabel.snp.makeConstraints { make in
             make.centerX.equalTo(view.snp.centerX)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
@@ -178,9 +175,7 @@ extension LoginViewController : LoginViewInterface {
     func alertMessage(isHiddenEmailMes: Bool,
                       isHiddenPassMes: Bool,
                       emailMes: String,
-                      pasmessage: String,
-                      emailColor: String,
-                      passcolor: String) {
+                      pasmessage: String) {
         
         emailalertMessageLabel.isHidden = isHiddenEmailMes
         passwordalertMessageLabel.isHidden = isHiddenPassMes

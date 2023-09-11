@@ -17,13 +17,31 @@ protocol RegisterViewModelInterface {
 
 final class RegisterViewModel {
     private weak var view : RegisterViewInterface?
-    
-    init(view:RegisterViewInterface){
+    private let serviceManager : RegisterServiceProtocol
+    init(view:RegisterViewInterface,serviceManager : RegisterServiceProtocol
+         = RegisterService.shared
+    ){
         self.view = view
+        self.serviceManager = serviceManager
     }
     
-    func loginData(){
-        // serviceConnect
+    func registerUser(name:String,surnama:String,email:String,password:String) {
+        let paramaters = ["name":name,"surname":surnama,"imageurl":"",
+                          "email":email,"password":password]
+        
+        
+        serviceManager.registerUser(parameters: paramaters) { response in
+            switch response {
+            case .success(let result):
+                if result.success{
+                    self.view?.tabbarSelectedIndex(at: 0)
+                }else{
+                    self.view?.createError(isHidden: false, message: result.message)
+                }
+            case .failure(let failure): break
+                self.view?.createError(isHidden: false, message: failure.localizedDescription)
+            }
+        }
     }
 }
 
@@ -32,6 +50,7 @@ extension RegisterViewModel: RegisterViewModelInterface {
         view?.setBackgroundColor("backColor")
         view?.prepareNavigationBarCollor(colorText: "black")
         view?.prepareTabbarHidden(isHidden: true)
+        view?.createError(isHidden: true, message: "")
     }
     
     func viewWillAppear() {
@@ -76,7 +95,7 @@ extension RegisterViewModel: RegisterViewModelInterface {
         }
         
         else {
-            print("hesap oluşturma başarılı")
+            registerUser(name: name, surnama: surname, email: email, password: password)
         }
         
         view?.alertMessage(isNameAlertHidden: isNameAlertHidden, nameAlertMes: nameAlertMes, isSurnameAlertHidden: isSurnameAlertHidden, surnameAlertMes: surnameAlertMes, isEmailAlertHidden: isEmailAlertHidden, emailAlertMes: emailAlertMes, isPasswordAlertHidden: isPasswordAlertHidden, passwordAlertMes: passwordAlertMes)

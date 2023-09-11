@@ -31,19 +31,18 @@ final class LoginViewModel {
             switch response {
                  
             case .success(let success):
-                print(success.success)
-                print("hata 4")
+             
+             
                 if success.success{
-                    print("Giriş yapıldı")
-                    print("hata 3")
+                    self.view?.tabbarSelectedIndex(at: 0)
                 }else{
                     self.view?.singError(isHidden: false, message: "Email or password is incorrect")
-                    print("hata 2")
+                 
                 }
             case .failure(let failure):
                 print("Sing error \(failure.localizedDescription)")
                 self.view?.singError(isHidden: true, message: failure.localizedDescription)
-                print("hata 1")
+            
                 
             }
         }
@@ -62,21 +61,26 @@ extension LoginViewModel  : LoginViewModelInterface {
     }
     
     func login(email:String,password:String)  {
+        var  isHiddenEmailMes:Bool = true
+        var  isHiddenPassMes:Bool =  true
+        var  emailMes: String = ""
+        var  pasmessage:String = ""
+   
+        
         if !email.isValidEmail() {
-            view?.alertMessage(isHiddenEmailMes: false, isHiddenPassMes: true,
-                               emailMes: "Please enter a valid e-mail address", pasmessage: "",
-                               emailColor: "allServiceSelected", passcolor: "black")
-            
+            isHiddenEmailMes = false
+            emailMes = "Please enter a valid e-mail address"
         } else if email.isValidEmail() && password.count < 8 {
-            view?.alertMessage(isHiddenEmailMes: true, isHiddenPassMes: false,
-                               emailMes: "", pasmessage: "Enter a password of at least 10 characters",
-                               emailColor: "black", passcolor: "allServiceSelected")
+            isHiddenPassMes = false
+            pasmessage = "Enter a password of at least 10 characters"
         }else{
-            view?.alertMessage(isHiddenEmailMes: true, isHiddenPassMes: true,
-                               emailMes: " ", pasmessage: " ",
-                               emailColor: "black", passcolor: "black")
             loginUser(email: email, password: password)
         }
+        
+        view?.alertMessage(isHiddenEmailMes: isHiddenEmailMes,
+                           isHiddenPassMes: isHiddenPassMes,
+                           emailMes: emailMes,
+                           pasmessage: pasmessage)
     }
     
 
