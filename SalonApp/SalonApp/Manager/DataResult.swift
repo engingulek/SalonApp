@@ -17,5 +17,10 @@ struct DataResult<T:Decodable> : Decodable {
 struct MessageResult:  Decodable {
     let success:Bool
     let message:String
-    
+}
+
+struct SingInResult : Decodable {
+    let success : Bool
+    let message:String
+    let data : User?
 }

@@ -38,6 +38,7 @@ class NetworkManager : NetworkManagerProtocol {
                     completion(.success(result))
                 }
                 catch{
+                    print(error.localizedDescription)
                     DispatchQueue.main.async {
                         if let statusCode = response.response?.statusCode {
                             print(statusCode)

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import UIKit.UIApplication
 protocol BookMarkListViewModelInterface {
     func viewDidLoad()
     func viewWillAppear()
@@ -16,32 +16,53 @@ protocol BookMarkListViewModelInterface {
     func trashTapIcon(row:Int)
 }
 
+private let appDelegate = UIApplication.shared.delegate as! AppDelegate
 final class BookMarkListViewModel {
     private weak var view : BookMarkViewInterface?
     private let serviceManager : BookMarkListServiceInterface
     private var bookMarkList : [BookMarkListArtist] = []
+    private var userInfo : [UserInfo] = []
+    private let context = appDelegate.persistentContainer.viewContext
+    
+  
     
     init(view: BookMarkViewInterface, serviceManager: BookMarkListServiceInterface = BookMarkListService.shared) {
         self.view = view
         self.serviceManager = serviceManager
     }
     
+    private func fetchUserInfo(){
+         do{
+             userInfo = try context.fetch(UserInfo.fetchRequest())
+         }catch{
+             view?.emptyBookMarkList(message: "Something went wrong", isHidden: false)
+            
+         }
+     }
+    
     func fetchBookMarkList() {
-        serviceManager.fetchBookMarkList(userId: 1) { response in
-            switch response {
-            case .success(let list):
-                self.bookMarkList = list ?? []
-                if self.bookMarkList.isEmpty {
-                    self.view?.emptyBookMarkList(message: "Bookmark List is Empty", isHidden:true)
-                }else{
-                    self.view?.emptyBookMarkList(message: "", isHidden:false)
-                }
-                self.view?.reloadDataTableView()
-            case .failure(let failure):
-                print(failure.localizedDescription)
-            }
+        fetchUserInfo()
+        if userInfo.isEmpty {
+            view?.emptyBookMarkList(message: "Please log in from profile", isHidden: true)
             self.view?.indicator(animate: false)
+        }else{
+            serviceManager.fetchBookMarkList(userId: Int(userInfo[0].id)) { response in
+                switch response {
+                case .success(let list):
+                    self.bookMarkList = list ?? []
+                    if self.bookMarkList.isEmpty {
+                        self.view?.emptyBookMarkList(message: "Bookmark List is Empty", isHidden:true)
+                    }else{
+                        self.view?.emptyBookMarkList(message: "", isHidden:false)
+                    }
+                    self.view?.reloadDataTableView()
+                case .failure(let failure):
+                    print(failure.localizedDescription)
+                }
+                self.view?.indicator(animate: false)
+            }
         }
+      
     }
     
     func deleteArtistFromBookMarkList(id:Int) {
@@ -66,7 +87,9 @@ extension BookMarkListViewModel : BookMarkListViewModelInterface {
         view?.indicator(animate: true)
         Task {
             @MainActor in
+    
             self.fetchBookMarkList()
+           
         }
         view?.setBackgroundColor("backColor")
         view?.navigationItemTitle(title: "Book Mark List")
@@ -78,6 +101,7 @@ extension BookMarkListViewModel : BookMarkListViewModelInterface {
         Task {
             @MainActor in
             self.fetchBookMarkList()
+           
         }
         view?.prepareTableView()
         view?.prepareTabbarHidden(isHidden: false)
