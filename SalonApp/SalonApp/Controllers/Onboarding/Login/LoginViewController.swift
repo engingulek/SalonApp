@@ -7,7 +7,7 @@
 
 import UIKit
 import SnapKit
-protocol LoginViewInterface : AnyObject,ViewAble,NavigaitonBarAble,TabbarSelected {
+protocol LoginViewInterface : AnyObject,ViewAble,NavigaitonBarAble,TabbarSelected,SeguePerformable{
     func alertMessage(isHiddenEmailMes:Bool,
                       isHiddenPassMes:Bool,
                       emailMes:String,
@@ -107,6 +107,7 @@ final class LoginViewController: UIViewController {
     @objc private func loginAction(){
         viewModel.login(email: emailTextField.text ?? "",
                         password: passwordTextField.text ?? "")
+       
     }
     
     

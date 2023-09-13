@@ -9,18 +9,16 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-protocol ProfileViewInterface : AnyObject,ViewAble,SeguePerformable,NavigaitonBarAble{
+protocol ProfileViewInterface : AnyObject,ViewAble,SeguePerformable,NavigaitonBarAble,TabbarSelected{
     func prepareTabbarHidden(isHidden:Bool)
     func userInfoData(userInfo : [UserInfo]?,isHidden:Bool)
- 
-    
 }
 
 
 class ProfileViewController: UIViewController {
     
     private lazy var viewModel = ProfileViewModel(view:self)
-    private var  saveButton = UIBarButtonItem()
+  
     private let profileAvatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
@@ -41,7 +39,6 @@ class ProfileViewController: UIViewController {
         button.backgroundColor = UIColor(named: "allServiceSelected")
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 25
-        button.isEnabled = false
         return button
     }()
     
@@ -61,7 +58,7 @@ class ProfileViewController: UIViewController {
     
     private let nameTextField: UITextField = {
         let textField = UITextField()
-        textField.text = "Engin"
+       
         textField.font = .systemFont(ofSize: 20)
         return textField
     }()
@@ -70,7 +67,7 @@ class ProfileViewController: UIViewController {
     private let surnameTextField: UITextField = {
         let textField = UITextField()
         textField.font = .systemFont(ofSize: 20)
-        textField.text = "Gülek"
+       
         return textField
     }()
     
@@ -79,20 +76,60 @@ class ProfileViewController: UIViewController {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.keyboardType = .emailAddress
-        textField.text = "engingulek0@gmail.com"
+        textField.autocapitalizationType = .none
         textField.font = .systemFont(ofSize: 20)
        
         return textField
     }()
     
     
-    private let passwordTextField: UITextField = {
+    private let currentPasswordTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.text = "1234567890"
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "Current Password",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
+        )
         textField.font = .systemFont(ofSize: 20)
         textField.isSecureTextEntry = true
         return textField
+    }()
+    
+    private let newPasswordTextField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "New Password",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
+        )
+        textField.font = .systemFont(ofSize: 20)
+        textField.isSecureTextEntry = true
+        return textField
+    }()
+    
+    
+    private var  saveButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Save", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
+        button.backgroundColor = UIColor(named: "allServiceSelected")
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = 25
+        return button
+    }()
+    
+    private var  logoutButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Log Out", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
+        button.backgroundColor = UIColor(named: "allServiceSelected")
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = 25
+        return button
     }()
   
   
@@ -103,6 +140,8 @@ class ProfileViewController: UIViewController {
         
         configureConstraints()
         toAccountAciton.addTarget(self, action: #selector(toAccount), for: .touchUpInside)
+        logoutButton.addTarget(self, action: #selector(logOutButtonAction), for: .touchUpInside)
+        saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
        
     }
     
@@ -110,15 +149,25 @@ class ProfileViewController: UIViewController {
         viewModel.viewDidLoad()
     }
     
+  
+    
     @objc private func saveButtonTapped(){
         let alert = UIAlertController(title: "Save", message: "Are you sure about the changes", preferredStyle: .alert)
         let yesAction = UIAlertAction(title: "Yes", style: .cancel) { _ in
-            //self.tabBarController?.selectedIndex = 0
+            self.viewModel.updateProfile(imageUrl: "",
+                                         name: self.nameTextField.text ?? "",
+                                         surname: self.surnameTextField.text ?? "", email:
+                                            self.emailTextField.text ?? "", currentPass:
+                                            self.currentPasswordTextField.text ?? "", newPass: self.newPasswordTextField.text ?? "")
         }
         let noAction = UIAlertAction(title: "No", style: .destructive)
         alert.addAction(yesAction)
         alert.addAction(noAction)
         self.present(alert, animated: true)
+    }
+    
+    @objc private func logOutButtonAction(){
+        viewModel.logout()
     }
     
     @objc private func toAccount(){
@@ -133,10 +182,12 @@ class ProfileViewController: UIViewController {
         view.addSubview(nameTextField)
         view.addSubview(surnameTextField)
         view.addSubview(emailTextField)
-        view.addSubview(passwordTextField)
+        view.addSubview(currentPasswordTextField)
+       view.addSubview(newPasswordTextField)
         view.addSubview(toAccountAciton)
+       view.addSubview(saveButton)
+       view.addSubview(logoutButton)
        
-        saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped))
        
         profileAvatarImageView.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(25)
@@ -185,13 +236,37 @@ class ProfileViewController: UIViewController {
         }
         
         
-        passwordTextField.snp.makeConstraints { make in
+        currentPasswordTextField.snp.makeConstraints { make in
             make.leading.equalTo(view.snp.leading).offset(20)
             make.top.equalTo(emailTextField.snp.bottom).offset(15)
             make.width.equalTo(view.frame.width - 40)
             make.centerX.equalTo(view.snp.centerX)
             make.height.equalTo(40)
         }
+       
+       newPasswordTextField.snp.makeConstraints { make in
+           
+               make.leading.equalTo(view.snp.leading).offset(20)
+               make.top.equalTo(currentPasswordTextField.snp.bottom).offset(15)
+               make.width.equalTo(view.frame.width - 40)
+               make.centerX.equalTo(view.snp.centerX)
+               make.height.equalTo(40)
+           
+       }
+       
+       saveButton.snp.makeConstraints { make in
+           make.top.equalTo(newPasswordTextField.safeAreaLayoutGuide.snp.bottom).offset(15)
+           make.centerX.equalTo(self.view.safeAreaLayoutGuide.snp.centerX)
+           make.width.equalTo(180)
+           make.height.equalTo(50)
+       }
+    
+       logoutButton.snp.makeConstraints { make in
+           make.top.equalTo(saveButton.safeAreaLayoutGuide.snp.bottom).offset(15)
+           make.centerX.equalTo(self.view.safeAreaLayoutGuide.snp.centerX)
+           make.width.equalTo(180)
+           make.height.equalTo(50)
+       }
         
         
         
@@ -199,7 +274,8 @@ class ProfileViewController: UIViewController {
         
         surnameTextField.addBorder(width)
         emailTextField.addBorder(width)
-        passwordTextField.addBorder(width)
+        currentPasswordTextField.addBorder(width)
+       newPasswordTextField.addBorder(width)
         
     }
 }
@@ -210,13 +286,18 @@ extension ProfileViewController : ProfileViewInterface{
     }
     
     func userInfoData(userInfo: [UserInfo]?,isHidden:Bool) {
-        [profileAvatarImageView,
-         selectProfilImageButton,
-         nameTextField,
-         surnameTextField,
-         emailTextField,
-         passwordTextField].forEach { $0.isHidden = isHidden }
+        [profileAvatarImageView,selectProfilImageButton,
+         nameTextField,surnameTextField, emailTextField,
+         currentPasswordTextField,newPasswordTextField,
+         saveButton,logoutButton].forEach { $0.isHidden = isHidden }
+        
         toAccountAciton.isHidden = !isHidden
         navigationItem.rightBarButtonItem?.isHidden = !isHidden
+        if let  info = userInfo {
+            nameTextField.text =  info[0].name
+            surnameTextField.text =  info[0].surname
+            emailTextField.text =  info[0].email
+            
+        }
     }
 }

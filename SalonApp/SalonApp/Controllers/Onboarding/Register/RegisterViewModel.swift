@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import UIKit.UIApplication
 
 protocol RegisterViewModelInterface {
     func viewDidLoad()
@@ -14,10 +14,12 @@ protocol RegisterViewModelInterface {
     func didTapLogin()
     func createAccount(name:String,surname:String,email:String,password:String)
 }
-
+private let appDelegate = UIApplication.shared.delegate as! AppDelegate
 final class RegisterViewModel {
     private weak var view : RegisterViewInterface?
     private let serviceManager : RegisterServiceProtocol
+    let context = appDelegate.persistentContainer.viewContext
+    
     init(view:RegisterViewInterface,serviceManager : RegisterServiceProtocol
          = RegisterService.shared
     ){
@@ -29,12 +31,25 @@ final class RegisterViewModel {
         let paramaters = ["name":name,"surname":surnama,"imageurl":"",
                           "email":email,"password":password]
         
+       
         
         serviceManager.registerUser(parameters: paramaters) { response in
             switch response {
             case .success(let result):
                 if result.success{
+                    if let user = result.data {
+                        let userSave =  UserInfo(context: self.context)
+                        userSave.id = Int16(user.id)
+                        userSave.name = user.name
+                        userSave.surname = user.surname
+                        userSave.email =  user.email
+                        userSave.imageurl = user.imageUrl
+                        appDelegate.saveContext()
+                    }
+                    self.view?.navigationPopViewController()
+                    self.view?.navigationPopViewController()
                     self.view?.tabbarSelectedIndex(at: 0)
+                 
                 }else{
                     self.view?.createError(isHidden: false, message: result.message)
                 }
@@ -62,7 +77,6 @@ extension RegisterViewModel: RegisterViewModelInterface {
         view?.pushViewControllerable(vc, identifier: "LoginViewControllerIdentifier")
     }
     
-    
     func createAccount(name: String, surname: String, email: String, password: String) {
         var isNameAlertHidden: Bool = true
         var nameAlertMes: String = ""
@@ -72,6 +86,8 @@ extension RegisterViewModel: RegisterViewModelInterface {
         var emailAlertMes: String = ""
         var isPasswordAlertHidden: Bool = true
         var passwordAlertMes: String = ""
+        
+        registerUser(name: name, surnama: surname, email: email, password: password)
         
         if name.count <= 3{
             isNameAlertHidden = false
@@ -89,7 +105,7 @@ extension RegisterViewModel: RegisterViewModelInterface {
             
         }
         
-       else if password.count <= 10 {
+       else if password.count < 10 {
             isPasswordAlertHidden = false
             passwordAlertMes = "Your password must be at least ten characters"
         }

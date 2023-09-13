@@ -185,6 +185,7 @@ final class RegisterViewController: UIViewController {
         view.addSubview(emailalertMessageLabel)
         view.addSubview(passwordalertMessageLabel)
         view.addSubview(errorCreateLabel)
+
         
         registerTitleLabel.snp.makeConstraints { make in
             make.centerX.equalTo(view.snp.centerX)

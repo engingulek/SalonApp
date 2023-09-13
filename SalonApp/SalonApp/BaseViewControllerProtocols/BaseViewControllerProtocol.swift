@@ -21,6 +21,7 @@ extension ViewAble where Self : UIViewController{
     }
 }
 
+
 protocol SeguePerformable {
     func pushViewControllerable(_ vc:UIViewController,identifier:String)
 }
@@ -45,6 +46,7 @@ extension TabbarSelected where Self : UIViewController {
 protocol NavigaitonBarAble {
     func prepareNavigationBarCollor(colorText:String)
     func navigationItemTitle(title:String)
+    func navigationPopViewController()
     //func popViewControllerAble()
 }
 
@@ -55,6 +57,11 @@ extension NavigaitonBarAble where Self : UIViewController{
     func navigationItemTitle(title:String){
         self.navigationItem.title = title
     }
+    
+    func navigationPopViewController(){
+        self.navigationController?.popViewController(animated: true)
+    }
+    
 }
 
 

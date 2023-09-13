@@ -22,8 +22,6 @@ protocol HomeViewModelInterface {
     
 }
 
-
-
 private let appDelegate = UIApplication.shared.delegate as! AppDelegate
 final class HomeViewModel  {
     private weak var view: HomeViewInterface?
@@ -31,6 +29,7 @@ final class HomeViewModel  {
     private var topArtistList : [TopArtist] = []
     private var bookMarkListArtist : [BookMarkListArtist] = []
     private var userInfo : [UserInfo] = []
+   
    private let context = appDelegate.persistentContainer.viewContext
     
     
@@ -39,9 +38,7 @@ final class HomeViewModel  {
         self.servisManager = servisManager
     }
 
-    
     func fetchUserInfo(){
-    
         do{
             userInfo = try context.fetch(UserInfo.fetchRequest())
         }catch{
@@ -52,11 +49,13 @@ final class HomeViewModel  {
             view?.headViewInfo(name: "Enter Sing In", imageUrl: "")
             print("Giriş yapımammış")
         }else{
-            let id = userInfo[0].id
-            print("Test \(id)")
+            if let name = userInfo[0].name, let surname = userInfo[0].surname {
+                let nameSurname = "\(name) \(surname)"
+                view?.headViewInfo(name: nameSurname, imageUrl: "")
+            }else{
+                view?.headViewInfo(name: "", imageUrl: "")
+            }
         }
-       
-      
     }
     
      func fetchTopArtists() {
@@ -140,6 +139,7 @@ extension HomeViewModel : HomeViewModelInterface{
             @MainActor in
             self.fetchTopArtists()
             self.fetchookMarkListArtist()
+            fetchUserInfo()
         }
         view?.prepareTableView()
         view?.prepareTabbarHidden(isHidden: false)
@@ -192,7 +192,7 @@ extension HomeViewModel : HomeViewModelInterface{
         self.fetchookMarkListArtist()
         let artistId = topArtistList[item].id
         let info = bookMarkListArtist.filter {
-            $0.artistId == artistId && $0.userId == 1
+            $0.artistId == artistId && $0.userId == Int(userInfo.first?.id ?? 0)
         }.first
         
         if bookMarkListArtist.contains(where: {$0.artistId == artistId}) {

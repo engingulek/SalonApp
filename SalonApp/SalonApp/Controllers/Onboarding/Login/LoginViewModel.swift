@@ -6,16 +6,19 @@
 //
 
 import Foundation
+import UIKit.UIApplication
 
 protocol LoginViewModelInterface {
     func viewDidLoad()
     func login(email:String,password:String)
 
 }
-
+private let appDelegate = UIApplication.shared.delegate as! AppDelegate
 final class LoginViewModel {
     private weak var view : LoginViewInterface?
     private let serviceManager : LoginServiceInterface
+   
+    let context = appDelegate.persistentContainer.viewContext
    
   
     init(view:LoginViewInterface,serviceManager : LoginServiceInterface = LoginService.shared){
@@ -34,6 +37,17 @@ final class LoginViewModel {
              
              
                 if success.success{
+                    if let user = success.data {
+                        let userSave =  UserInfo(context: self.context)
+                        userSave.id = Int16(user.id)
+                        userSave.name = user.name
+                        userSave.surname = user.surname
+                        userSave.email =  user.email
+                        userSave.imageurl = user.imageUrl
+                        appDelegate.saveContext()
+                    }
+                    self.view?.navigationPopViewController()
+                    self.view?.navigationPopViewController()
                     self.view?.tabbarSelectedIndex(at: 0)
                 }else{
                     self.view?.singError(isHidden: false, message: "Email or password is incorrect")
