@@ -17,4 +17,5 @@ struct BookMarkListArtist : Decodable {
     let bestService:String
     let locationcity:String
     let pay:Double
+    let number:String
 }

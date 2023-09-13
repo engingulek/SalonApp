@@ -38,7 +38,6 @@ class ResultArtistCollectionViewCell: UICollectionViewCell {
     
     private let ratingLabel : UILabel = {
         let label = UILabel()
-        label.text = "3.5"
         label.textColor = .lightGray
         label.font  = .systemFont(ofSize: 15)
         return label
@@ -46,7 +45,6 @@ class ResultArtistCollectionViewCell: UICollectionViewCell {
     
     private let artistNameLabel : UILabel = {
         let label = UILabel()
-        label.text = "Sara Terry"
         label.textColor = .black
         label.font  = .systemFont(ofSize: 20,weight: .bold)
         return label
@@ -54,7 +52,6 @@ class ResultArtistCollectionViewCell: UICollectionViewCell {
     
     private let baseServiceNameLabel : UILabel = {
         let label = UILabel()
-        label.text = "Facial Artist"
         label.font = .systemFont(ofSize: 15,weight: .semibold)
         label.textColor = .lightGray
         return label
@@ -70,7 +67,6 @@ class ResultArtistCollectionViewCell: UICollectionViewCell {
     
     private let locaitonLabel : UILabel = {
         let label = UILabel()
-        label.text = "Istanbul"
         label.textColor = .lightGray
         label.font  = .systemFont(ofSize: 15)
         return label
@@ -78,7 +74,6 @@ class ResultArtistCollectionViewCell: UICollectionViewCell {
     
     private let priceLabel : UILabel = {
         let label = UILabel()
-        label.text = "$40.00"
         label.textColor = .black
         label.font  = .systemFont(ofSize: 20,weight: .bold)
         return label
@@ -94,9 +89,7 @@ class ResultArtistCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         configureConstraints()
-       
     }
 
     required init?(coder: NSCoder) {
@@ -104,15 +97,13 @@ class ResultArtistCollectionViewCell: UICollectionViewCell {
     }
     
 
-    func configureData(resultArtist:TopArtist){
+    func configureData(resultArtist:Artist){
         artistCellImage.kf.setImage(with: URL(string: resultArtist.imageUrl))
         ratingLabel.text = "\(resultArtist.rating)"
         artistNameLabel.text = resultArtist.name
         baseServiceNameLabel.text = resultArtist.bestService
         locaitonLabel.text = resultArtist.locationcity
         priceLabel.text = "$\(resultArtist.pay)"
-      
-        
     }
    
     

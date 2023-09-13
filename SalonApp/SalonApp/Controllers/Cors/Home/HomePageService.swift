@@ -8,7 +8,8 @@
 import Foundation
 
 protocol HomePageServiceInterface {
-    func fetchTopArtists(completion:@escaping(Result<[TopArtist]?,Error> ) -> ())
+
+    func fetchTopArtists(completion:@escaping(Result<[Artist]?,Error> ) -> ())
     func fetchBookMarkList(userId: Int, completion: @escaping (Result<[BookMarkListArtist]?, Error>) -> ())
     func addArtistToBookMarkList(parameters:[String:Any],completion:@escaping(Result<MessageResult,Error>)->())
     func deleteArtistToBookMarkList(id:Int,completion:@escaping(Result<MessageResult,Error>)->())
@@ -17,10 +18,13 @@ protocol HomePageServiceInterface {
 
 
 final class HomePageService :  HomePageServiceInterface{
-   
     
     static let shared = HomePageService()
     
+    /// Fetch Book Mark List -- for icon type
+    /// - Parameters:
+    ///   - userId: User ID
+    ///   - completion: The bookmark list will be returned according to the user ID.
     func fetchBookMarkList(userId: Int, completion: @escaping (Result<[BookMarkListArtist]?, Error>) -> ()) {
         NetworkManager.shared.fetch(target: .bookMarkListArtist(userId), responseClass: DataResult<BookMarkListArtist>.self) { response in
             switch response {
@@ -35,8 +39,10 @@ final class HomePageService :  HomePageServiceInterface{
     }
     
     
-    func fetchTopArtists(completion: @escaping (Result<[TopArtist]?, Error>) -> ()) {
-        NetworkManager.shared.fetch(target: .topArtists, responseClass: DataResult<TopArtist>.self) { response in
+    /// Fetct all top artist
+    /// - Parameter completion: All the best artists will be invited
+    func fetchTopArtists(completion: @escaping (Result<[Artist]?, Error>) -> ()) {
+        NetworkManager.shared.fetch(target: .topArtists, responseClass: DataResult<Artist>.self) { response in
             switch response {
             case .success(let success):
                 let list  = success?.data
@@ -48,6 +54,10 @@ final class HomePageService :  HomePageServiceInterface{
         }
     }
     
+    /// Add Artist Book Mark List
+    /// - Parameters:
+    ///   - parameters: Artist and user data to be added to the bookmark list
+    ///   - completion: Success or failure response returned as a result of the addition process
     func addArtistToBookMarkList(parameters:[String:Any],completion:@escaping(Result<MessageResult,Error>)->()) {
         NetworkManager.shared.fetch(target: .addArtistToBookMarkList(parameters), responseClass: MessageResult.self) { response in
             switch  response {
@@ -62,6 +72,10 @@ final class HomePageService :  HomePageServiceInterface{
        
     }
     
+    /// Delete Artist To Book Mark List
+    /// - Parameters:
+    ///   - id: User Iid
+    ///   - completion: Success or failure response returned as a result of the delete operation
     func deleteArtistToBookMarkList(id: Int, completion: @escaping (Result<MessageResult, Error>) -> ()) {
         NetworkManager.shared.fetch(target: .deleteArtistFromBookMarkList(id), responseClass: MessageResult.self) { response in
             switch  response {
@@ -74,44 +88,4 @@ final class HomePageService :  HomePageServiceInterface{
             }
         }
     }
-    
-    
-   /* func fetchbookMarkListId(userId:Int,completion: @escaping (Result<[BookMarkList]?, Error>) -> ()) {
-        NetworkManager.shared.fetch(target: .bookMarkListId(userId),
-                                    responseClass: BookMarkList.self) { response in
-            switch response {
-            case .success(let success):
-                completion(.success(success))
-            case .failure(let failure):
-                completion(.failure(failure))
-            }
-            
-        }
-    }
-    
-    
-    
-    
-    func fetchAddArtistToBookMarkList(userId:Int,artistId:Int){
-        let params  = ["user_id" : userId, "artist_id" : artistId]
-        NetworkManager.shared.fetch(target: .addBookMarkList(params), responseClass: AddDataResult.self) { response in
-            switch response {
-            case .success(let success):
-                print(success![0])
-            case .failure(let failure):
-                print(failure.localizedDescription)
-            }
-        }
-    }
-    
-    func deleteArtistFromBookMarkList(id:Int){
-        NetworkManager.shared.fetch(target: .deleteArtistFromBookMarkList(id), responseClass: AddDataResult.self) { response in
-            switch response {
-            case .success(let success):
-                print(success![0])
-            case .failure(let failure):
-                print(failure.localizedDescription)
-            }
-        }
-    }*/
 }

@@ -29,7 +29,6 @@ class ArtistDetailView: UIView {
     
     private let ratingLabel : UILabel = {
         let label = UILabel()
-        label.text = "3.5"
         label.textColor = .lightGray
         label.font  = .systemFont(ofSize: 15)
         return label
@@ -37,7 +36,6 @@ class ArtistDetailView: UIView {
     
     private let artistNameLabel : UILabel = {
         let label = UILabel()
-        label.text = "Sara Terry"
         label.textColor = .black
         label.font  = .systemFont(ofSize: 20,weight: .bold)
         return label
@@ -45,7 +43,6 @@ class ArtistDetailView: UIView {
     
     private let baseServiceNameLabel : UILabel = {
         let label = UILabel()
-        label.text = "Facial Artist"
         label.font = .systemFont(ofSize: 15,weight: .semibold)
         label.textColor = .lightGray
         return label
@@ -69,7 +66,6 @@ class ArtistDetailView: UIView {
     
     private let priceLabel : UILabel = {
         let label = UILabel()
-        label.text = "$40.00"
         label.textColor = .black
         label.font  = .systemFont(ofSize: 20,weight: .bold)
         return label
@@ -80,6 +76,13 @@ class ArtistDetailView: UIView {
         label.text = "/Hour"
         label.textColor = .lightGray
         label.font  = .systemFont(ofSize: 10,weight: .semibold)
+        return label
+    }()
+    
+    private let numberLabel:UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.font  = .systemFont(ofSize: 18,weight: .semibold)
         return label
     }()
     
@@ -95,6 +98,7 @@ class ArtistDetailView: UIView {
         addSubview(locaitonLabel)
         addSubview(priceLabel)
         addSubview(priceType)
+        addSubview(numberLabel)
        
         configureConstraints()
       
@@ -110,6 +114,7 @@ class ArtistDetailView: UIView {
         baseServiceNameLabel.text = artistDetail.bestService
         locaitonLabel.text = artistDetail.locationcity
         priceLabel.text = "$\(artistDetail.pay)"
+        numberLabel.text = artistDetail.number
       
     }
     
@@ -122,8 +127,6 @@ class ArtistDetailView: UIView {
             make.width.equalTo(self.layer.frame.width / 2.5)
             make.height.equalTo(self.layer.frame.width / 2)
         }
-        
-      
         
         ratingImage.snp.makeConstraints { make in
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(30)
@@ -156,7 +159,6 @@ class ArtistDetailView: UIView {
             make.height.equalTo(18)
         }
         
-        
         locaitonLabel.snp.makeConstraints { make in
             make.top.equalTo(baseServiceNameLabel.snp.bottom).offset(5)
             make.leading.equalTo(locaitonImage.snp.trailing).offset(10)
@@ -169,6 +171,11 @@ class ArtistDetailView: UIView {
         priceType.snp.makeConstraints { make in
             make.bottom.equalTo(priceLabel.snp.bottom).offset(-5)
             make.leading.equalTo(priceLabel.snp.trailing).offset(1)
+        }
+        
+        numberLabel.snp.makeConstraints { make in
+            make.top.equalTo(priceType.snp.bottom).offset(10)
+            make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(15)
         }
 
     }

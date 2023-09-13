@@ -16,4 +16,5 @@ struct ArtistDetail : Decodable {
     let locationcity:String
     let pay:Double
     let about:String
+    let number:String
 }

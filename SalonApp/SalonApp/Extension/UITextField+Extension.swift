@@ -26,14 +26,15 @@ extension UITextField {
       
         self.leftViewMode = .always
     }
-}
-
-extension String {
-    func isValidEmail() -> Bool {
-        
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-
-        let emailPred = NSPredicate.init(format:"SELF MATCHES %@", emailRegEx)
-        return emailPred.evaluate(with: self)
+    
+    func addBorder(_ width : Double){
+        let height = self.frame.size.height - 1
+        let bottomLine = CALayer()
+        bottomLine.frame = CGRect(x: 0.0, y: height , width: width, height: 1)
+        bottomLine.backgroundColor = UIColor.black.cgColor
+        borderStyle = .none
+        layer.addSublayer(bottomLine)
     }
 }
+
+

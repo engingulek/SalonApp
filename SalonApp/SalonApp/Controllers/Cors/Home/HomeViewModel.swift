@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import UIKit
+import UIKit.UIApplication
 import CoreData
 
 
@@ -16,38 +16,38 @@ protocol HomeViewModelInterface {
     func viewWillDisappear()
     func textFieldDidChange(_ text:String)
     func didSelectRow(at indexPath:IndexPath)
-    func cellForRowAt(at indexPath:IndexPath) -> (topArtist:TopArtist,iconType:String)
+    func cellForRowAt(at indexPath:IndexPath) -> (artist:Artist,iconType:String)
     func numberOfRowsInSection() -> Int
     func bookMarkTapIcon(item:Int)
     
 }
 
 private let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
 final class HomeViewModel  {
+    private let context = appDelegate.persistentContainer.viewContext
+    
     private weak var view: HomeViewInterface?
     private let servisManager : HomePageServiceInterface
-    private var topArtistList : [TopArtist] = []
+    private var topArtistList : [Artist] = []
     private var bookMarkListArtist : [BookMarkListArtist] = []
     private var userInfo : [UserInfo] = []
-   
-   private let context = appDelegate.persistentContainer.viewContext
-    
     
     init(view: HomeViewInterface,servisManager: HomePageServiceInterface = HomePageService.shared) {
         self.view = view
         self.servisManager = servisManager
     }
-
+    
+    /// Retrieving currently active user information from core data
     func fetchUserInfo(){
         do{
             userInfo = try context.fetch(UserInfo.fetchRequest())
         }catch{
-            print("Veri okurken hata oluştu")
+            userInfo = []
         }
         
         if userInfo.isEmpty {
             view?.headViewInfo(name: "Enter Sing In", imageUrl: "")
-            print("Giriş yapımammış")
         }else{
             if let name = userInfo[0].name, let surname = userInfo[0].surname {
                 let nameSurname = "\(name) \(surname)"
@@ -119,6 +119,7 @@ final class HomeViewModel  {
 }
 
 extension HomeViewModel : HomeViewModelInterface{
+    
     func viewDidLoad() {
         view?.indicatoViewTopArtist(animate: true)
         Task {
@@ -150,31 +151,29 @@ extension HomeViewModel : HomeViewModelInterface{
       
     }
     
+    /// textFieldDidChange -- There are scripts required to switch to the search page.
+    /// - Parameter text: search text
     func textFieldDidChange(_ text: String) {
         guard text == text else {return}
         if text.count == 3 {
             let vc = SearchViewController()
             vc.searchText = text
-           // vc.getSearchText(searchText: text)
             view?.pushViewControllerable(vc, identifier: "SearchViewControllerIdentifier")
         }
     }
+
     
-   
-    
-   
-    
-    func cellForRowAt(at indexPath: IndexPath) -> (topArtist: TopArtist, iconType:String) {
-        var topArtist : TopArtist
+    func cellForRowAt(at indexPath: IndexPath) -> (artist: Artist, iconType:String) {
+        var artist : Artist
         var iconType : String
-        topArtist = topArtistList[indexPath.row]
+        artist = topArtistList[indexPath.row]
         iconType = ""
-        if bookMarkListArtist.contains(where: {$0.artistId == topArtist.id}){
+        if bookMarkListArtist.contains(where: {$0.artistId == artist.id}){
             iconType = "bookmark.fill"
         }else{
             iconType = "bookmark"
         }
-        return (topArtist,iconType)
+        return (artist,iconType)
     }
     
     func numberOfRowsInSection() -> Int {
@@ -201,7 +200,7 @@ extension HomeViewModel : HomeViewModelInterface{
                 self.deleteArtistToBookMarkList(id:id)
             }
             
-        }else{ self.addArtistToBookMarkList(userId:1,artistId:artistId) }
+        }else{ self.addArtistToBookMarkList(userId:Int(userInfo[0].id),artistId:artistId) }
     }
 }
 

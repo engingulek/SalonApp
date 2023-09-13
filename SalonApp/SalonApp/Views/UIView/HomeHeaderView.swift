@@ -14,7 +14,7 @@ class HomeHeaderView: UIView {
        imageView.clipsToBounds = true
        imageView.layer.masksToBounds = true
        imageView.layer.cornerRadius = 20
-        imageView.image = UIImage(named: "person")
+        imageView.image = UIImage(named: "woman")
        imageView.backgroundColor = .yellow
         imageView.contentMode = .scaleToFill
        return imageView

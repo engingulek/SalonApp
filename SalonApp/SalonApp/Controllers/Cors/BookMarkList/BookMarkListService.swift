@@ -14,6 +14,11 @@ protocol BookMarkListServiceInterface {
 
 final class BookMarkListService : BookMarkListServiceInterface  {
     static let shared = BookMarkListService()
+    
+    /// Fetch Book Mark List -- for icon type
+    /// - Parameters:
+    ///   - userId: User ID
+    ///   - completion: The bookmark list will be returned according to the user ID.
     func fetchBookMarkList(userId: Int, completion: @escaping (Result<[BookMarkListArtist]?, Error>) -> ()) {
         NetworkManager.shared.fetch(target: .bookMarkListArtist(userId), responseClass: DataResult<BookMarkListArtist>.self) { response in
             switch response {
@@ -26,9 +31,11 @@ final class BookMarkListService : BookMarkListServiceInterface  {
         }
         
     }
-    
-   
-    
+
+    /// Delete Artist To Book Mark List
+    /// - Parameters:
+    ///   - id: User Iid
+    ///   - completion: Success or failure response returned as a result of the delete operation
     func deleteArtistToBookMarkList(id: Int, completion: @escaping (Result<MessageResult, Error>) -> ()) {
         NetworkManager.shared.fetch(target: .deleteArtistFromBookMarkList(id), responseClass: MessageResult.self) { response in
             switch  response {
@@ -41,6 +48,4 @@ final class BookMarkListService : BookMarkListServiceInterface  {
             }
         }
     }
-    
-    
 }

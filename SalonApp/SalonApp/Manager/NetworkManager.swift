@@ -19,9 +19,14 @@ protocol NetworkManagerProtocol {
     func fetch<T:Decodable>(target:NetworkPath,responseClass:T.Type,completion:@escaping(Result<T?,Error>)->())
 }
 
-class NetworkManager : NetworkManagerProtocol {
+final class NetworkManager : NetworkManagerProtocol {
     static let shared = NetworkManager()
     
+    
+    /// Fetch Request
+    /// - Parameters:
+    ///   - target: Network Path
+    ///   - responseClass: The type of data that will be received in response to the request
     func fetch<T>(target: NetworkPath, responseClass: T.Type, completion: @escaping (Result<T?, Error>) -> ()) where T : Decodable {
         let method = Alamofire.HTTPMethod(rawValue: target.method.rawValue)
         let headers = Alamofire.HTTPHeaders(target.headers ?? [:])

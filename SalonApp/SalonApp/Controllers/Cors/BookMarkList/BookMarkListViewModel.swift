@@ -18,13 +18,12 @@ protocol BookMarkListViewModelInterface {
 
 private let appDelegate = UIApplication.shared.delegate as! AppDelegate
 final class BookMarkListViewModel {
+    private let context = appDelegate.persistentContainer.viewContext
+    
     private weak var view : BookMarkViewInterface?
     private let serviceManager : BookMarkListServiceInterface
     private var bookMarkList : [BookMarkListArtist] = []
     private var userInfo : [UserInfo] = []
-    private let context = appDelegate.persistentContainer.viewContext
-    
-  
     
     init(view: BookMarkViewInterface, serviceManager: BookMarkListServiceInterface = BookMarkListService.shared) {
         self.view = view
@@ -46,20 +45,20 @@ final class BookMarkListViewModel {
             view?.emptyBookMarkList(message: "Please log in from profile", isHidden: true)
             self.view?.indicator(animate: false)
         }else{
-            serviceManager.fetchBookMarkList(userId: Int(userInfo[0].id)) { response in
+            serviceManager.fetchBookMarkList(userId: Int(userInfo[0].id)) {[weak self] response in
                 switch response {
                 case .success(let list):
-                    self.bookMarkList = list ?? []
-                    if self.bookMarkList.isEmpty {
-                        self.view?.emptyBookMarkList(message: "Bookmark List is Empty", isHidden:true)
+                    self?.bookMarkList = list ?? []
+                    if ((self?.bookMarkList.isEmpty) != nil) {
+                        self?.view?.emptyBookMarkList(message: "Bookmark List is Empty", isHidden:true)
                     }else{
-                        self.view?.emptyBookMarkList(message: "", isHidden:false)
+                        self?.view?.emptyBookMarkList(message: "", isHidden:false)
                     }
-                    self.view?.reloadDataTableView()
+                    self?.view?.reloadDataTableView()
                 case .failure(let failure):
-                    print(failure.localizedDescription)
+                    self?.view?.emptyBookMarkList(message: failure.localizedDescription, isHidden: true)
                 }
-                self.view?.indicator(animate: false)
+                self?.view?.indicator(animate: false)
             }
         }
       
@@ -68,12 +67,12 @@ final class BookMarkListViewModel {
     func deleteArtistFromBookMarkList(id:Int) {
         Task {
             @MainActor in
-            serviceManager.deleteArtistToBookMarkList(id: id) { response in
+            serviceManager.deleteArtistToBookMarkList(id: id) { [weak self] response in
                 switch response {
                 case .success:
-                    self.view?.reloadDataTableView()
+                    self?.view?.reloadDataTableView()
                 case .failure(let failure):
-                    print(failure.localizedDescription)
+                    self?.view?.emptyBookMarkList(message: failure.localizedDescription, isHidden: true)
                 }
             }
         }
@@ -87,9 +86,7 @@ extension BookMarkListViewModel : BookMarkListViewModelInterface {
         view?.indicator(animate: true)
         Task {
             @MainActor in
-    
             self.fetchBookMarkList()
-           
         }
         view?.setBackgroundColor("backColor")
         view?.navigationItemTitle(title: "Book Mark List")
@@ -128,6 +125,4 @@ extension BookMarkListViewModel : BookMarkListViewModelInterface {
         self.deleteArtistFromBookMarkList(id: id)
         self.fetchBookMarkList()
     }
-    
-    
 }

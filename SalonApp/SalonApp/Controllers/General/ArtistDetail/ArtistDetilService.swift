@@ -15,10 +15,9 @@ protocol ArtistDetailServiceInterfece {
 
 final class ArtistDetailService : ArtistDetailServiceInterfece {
  
-    
-   
-    
     static let shared = ArtistDetailService()
+    
+    // Fetcg Artist Detail
     func fetchArtistDetail(artistId:Int,completion: @escaping (Result<[ArtistDetail]?, Error>) -> ()) {
         NetworkManager.shared.fetch(target: .artistDetail(artistId), responseClass: DataResult<ArtistDetail>.self) { response in
             switch response {
@@ -31,7 +30,7 @@ final class ArtistDetailService : ArtistDetailServiceInterfece {
         }
     }
     
-    
+    // Fetch Artist Commnet
     func fetchArtistComment(artisId: Int, completion: @escaping (Result<[Comment]?, Error>) -> ()) {
         NetworkManager.shared.fetch(target: .artistComments(artisId), responseClass: DataResult<Comment>.self) { response in
             switch response {

@@ -22,7 +22,6 @@ final class ArtistDetailViewModel{
     private var selectionString : String = "About"
     private var selectedTab : Int = 0
     var artistDetail : ArtistDetail? = nil
-   
     var artistComment : [Comment] = []
    
     
@@ -69,10 +68,8 @@ extension ArtistDetailViewModel : ArtistDetailViewModelInterface {
         Task {
             @MainActor in
             self.fetchArtistDetail(artistId:artistId)
-           
         }
        
-        
         view?.prepareTableView()
         view?.prepareTabbarHidden(isHidden: true)
         view?.prepareNavigationBarCollor(colorText: "black")

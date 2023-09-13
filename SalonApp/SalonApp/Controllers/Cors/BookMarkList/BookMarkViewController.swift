@@ -95,14 +95,14 @@ extension BookMarkViewController : UITableViewDelegate,UITableViewDataSource {
             }
             
             let item = viewModel.cellForRowAt(at: indexPath)
-            let artist = TopArtist(id: item.artist.artistId,
+            let artist = Artist(id: item.artist.artistId,
                                    imageUrl: item.artist.imageUrl,
                                    rating: item.artist.rating,
                                    name: item.artist.name,
                                    bestService: item.artist.bestService,
                                    locationcity: item.artist.locationcity,
                                    pay: item.artist.pay)
-            cell.configureData(topArtist: artist, iconType: item.iconType)
+            cell.configureData(artist: artist, iconType: item.iconType)
             cell.indexPathRow = indexPath.row
             cell.cellDelegate = self
             cell.selectionStyle = .none

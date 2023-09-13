@@ -13,10 +13,12 @@ protocol ProfileServiceInterdace {
 
 
 final class ProfileService : ProfileServiceInterdace {
-    
-    
     static let shared = ProfileService()
     
+    /// Update User
+    /// - Parameters:
+    ///   - parameters: Update user info
+    ///   - completion: user information or error message returned as a result of the operation
     func updateProfile(parameters: [String : Any], completion: @escaping (Result<SingInResult, Error>) -> (())) {
         NetworkManager.shared.fetch(target: .userUpdate(parameters), responseClass: SingInResult.self) { response in
             switch response {
@@ -27,7 +29,5 @@ final class ProfileService : ProfileServiceInterdace {
                 completion(.failure(failure))
             }
         }
-        
-        
     }
 }

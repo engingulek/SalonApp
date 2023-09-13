@@ -29,16 +29,16 @@ final class HomeViewController: UIViewController {
         indicator.hidesWhenStopped = true
         return indicator
     }()
+    
     private let searchTextFeield : UITextField = {
         let textField = UITextField()
         textField.attributedPlaceholder = NSAttributedString(
-            string: "Find your best Salon",
+            string: "Find your best Artist",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
         )
         textField.backgroundColor = .white
         textField.layer.cornerRadius = 20
         textField.textAlignment = .center
- 
         return textField
     }()
     
@@ -58,24 +58,20 @@ final class HomeViewController: UIViewController {
         return tableView
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.viewDidLoad()
         configureConstraints()
         searchTextFeield.addTarget(self, action: #selector(textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         viewModel.viewWillDisappear()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         viewModel.viewWillAppear()
-        
     }
     
     @objc private func textFieldDidChange(_ textField: UITextField) {
@@ -84,7 +80,6 @@ final class HomeViewController: UIViewController {
     }
     
     private func configureConstraints() {
-        view.backgroundColor = UIColor(named: "backColor")
         view.addSubview(headerView)
         view.addSubview(searchTextFeield)
         view.addSubview(topArtistLabel)
@@ -127,13 +122,10 @@ extension HomeViewController : HomeViewInterface {
         headerView.configureData(name: name, imageUrl: "")
     }
     
-  
-
     func prepareTableView() {
         artistTableView.delegate = self
         artistTableView.dataSource = self
         artistTableView.reloadData()
-       
     }
     
     func prepareTextFieldController(text:String) {
@@ -160,8 +152,6 @@ extension HomeViewController : HomeViewInterface {
             self.indicatorTopArtist.isHidden = !animate
                }
     }
-    
-    
 }
 
 extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
@@ -176,7 +166,7 @@ extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
                 return UITableViewCell()
             }
            let item =  viewModel.cellForRowAt(at: indexPath)
-            cell.configureData(topArtist: item.topArtist,iconType: item.iconType)
+            cell.configureData(artist: item.artist,iconType: item.iconType)
             cell.cellDelegate = self
             cell.indexPathRow = indexPath.row
             cell.selectionStyle = .none
@@ -187,9 +177,7 @@ extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         viewModel.didSelectRow(at: indexPath)
-        
     }
 }
 

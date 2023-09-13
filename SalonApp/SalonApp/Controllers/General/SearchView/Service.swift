@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AllService : Decodable {
+struct Service : Decodable {
     let id:Int
     let name:String
 }

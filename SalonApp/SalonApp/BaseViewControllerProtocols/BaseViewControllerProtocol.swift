@@ -47,7 +47,6 @@ protocol NavigaitonBarAble {
     func prepareNavigationBarCollor(colorText:String)
     func navigationItemTitle(title:String)
     func navigationPopViewController()
-    //func popViewControllerAble()
 }
 
 extension NavigaitonBarAble where Self : UIViewController{

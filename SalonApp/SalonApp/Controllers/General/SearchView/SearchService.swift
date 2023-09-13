@@ -8,10 +8,10 @@
 import Foundation
 
 protocol SearchServiceInterface {
-    func fetchAllService(completion:@escaping(Result<[AllService]?,Error> ) -> ())
-    func fetchSearchArtist(searchText:String,completion:@escaping(Result<[TopArtist]?,Error> ) -> ())
-    func fetchSearchArtistFilterService(searchText:String,serviceId:Int,completion:@escaping(Result<[TopArtist]?,Error> ) -> ())
-    func fetchSearchArtistSort(sortType:SortType,searchText: String, completion: @escaping (Result<[TopArtist]?, Error>) -> ())
+    func fetchAllService(completion:@escaping(Result<[Service]?,Error> ) -> ())
+    func fetchSearchArtist(searchText:String,completion:@escaping(Result<[Artist]?,Error> ) -> ())
+    func fetchSearchArtistFilterService(searchText:String,serviceId:Int,completion:@escaping(Result<[Artist]?,Error> ) -> ())
+    func fetchSearchArtistSort(sortType:SortType,searchText: String, completion: @escaping (Result<[Artist]?, Error>) -> ())
 
     
 }
@@ -21,8 +21,10 @@ final class SearchService : SearchServiceInterface {
     
         
     static let shared = SearchService()
-    func fetchAllService(completion: @escaping (Result<[AllService]?, Error>) -> ()) {
-        NetworkManager.shared.fetch(target: .allServices, responseClass: DataResult<AllService>.self) { response in
+    
+    //MARK: Fetch All Service
+    func fetchAllService(completion: @escaping (Result<[Service]?, Error>) -> ()) {
+        NetworkManager.shared.fetch(target: .allServices, responseClass: DataResult<Service>.self) { response in
             switch response {
             case .success(let success):
                 let list  = success?.data
@@ -34,8 +36,9 @@ final class SearchService : SearchServiceInterface {
         
     }
     
-    func fetchSearchArtist(searchText: String, completion: @escaping (Result<[TopArtist]?, Error>) -> ()) {
-        NetworkManager.shared.fetch(target: .searchArtist(searchText), responseClass: DataResult<TopArtist>.self) { response in
+    //MARK: Artist search will take place
+    func fetchSearchArtist(searchText: String, completion: @escaping (Result<[Artist]?, Error>) -> ()) {
+        NetworkManager.shared.fetch(target: .searchArtist(searchText), responseClass: DataResult<Artist>.self) { response in
             switch response {
             case .success(let success):
                 let list  = success?.data
@@ -45,10 +48,11 @@ final class SearchService : SearchServiceInterface {
             
         }
     }
-    
-    func fetchSearchArtistFilterService(searchText: String,serviceId: Int, completion: @escaping (Result<[TopArtist]?, Error>) -> ()) {
+    //MARK: Fetch Search Artist Filter Service
+    // Artist search will be carried out with the service.
+    func fetchSearchArtistFilterService(searchText: String,serviceId: Int, completion: @escaping (Result<[Artist]?, Error>) -> ()) {
         NetworkManager.shared.fetch(target: .searhArtistFilter(searchText, serviceId),
-                                    responseClass: DataResult<TopArtist>.self) { response in
+                                    responseClass: DataResult<Artist>.self) { response in
             switch response {
             case .success(let success):
                 let list  = success?.data
@@ -59,11 +63,12 @@ final class SearchService : SearchServiceInterface {
         }
         
     }
-    
-    func fetchSearchArtistSort(sortType:SortType,searchText: String, completion: @escaping (Result<[TopArtist]?, Error>) -> ()) {
+    //MARK: fetch Search Artist Sort
+    /// Artist glazing will take place
+    func fetchSearchArtistSort(sortType:SortType,searchText: String, completion: @escaping (Result<[Artist]?, Error>) -> ()) {
         print(sortType.toServiceType())
         print("Serice \(searchText)")
-        NetworkManager.shared.fetch(target: .searhArtistSort(sortType.toServiceType(), searchText), responseClass: DataResult<TopArtist>.self) { response in
+        NetworkManager.shared.fetch(target: .searhArtistSort(sortType.toServiceType(), searchText), responseClass: DataResult<Artist>.self) { response in
             switch response {
             case .success(let success):
                 let list  = success?.data

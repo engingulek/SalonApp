@@ -10,21 +10,29 @@ import SnapKit
 import Kingfisher
 
 protocol ProfileViewInterface : AnyObject,ViewAble,SeguePerformable,NavigaitonBarAble,TabbarSelected{
+    func indicatoView(animate:Bool)
     func prepareTabbarHidden(isHidden:Bool)
     func userInfoData(userInfo : [UserInfo]?,isHidden:Bool)
 }
 
 
-class ProfileViewController: UIViewController {
-    
+final class ProfileViewController: UIViewController {
     private lazy var viewModel = ProfileViewModel(view:self)
-  
+    
+    private let indicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.style = .large
+        indicator.color = .black
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
+    
     private let profileAvatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 20
-         imageView.image = UIImage(named: "person")
+         imageView.image = UIImage(named: "woman")
          imageView.contentMode = .scaleToFill
         return imageView
     }()
@@ -34,7 +42,6 @@ class ProfileViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Select Image", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        //button.tintColor = .white
         button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
         button.backgroundColor = UIColor(named: "allServiceSelected")
         button.layer.masksToBounds = true
@@ -58,7 +65,6 @@ class ProfileViewController: UIViewController {
     
     private let nameTextField: UITextField = {
         let textField = UITextField()
-       
         textField.font = .systemFont(ofSize: 20)
         return textField
     }()
@@ -67,7 +73,6 @@ class ProfileViewController: UIViewController {
     private let surnameTextField: UITextField = {
         let textField = UITextField()
         textField.font = .systemFont(ofSize: 20)
-       
         return textField
     }()
     
@@ -78,7 +83,6 @@ class ProfileViewController: UIViewController {
         textField.keyboardType = .emailAddress
         textField.autocapitalizationType = .none
         textField.font = .systemFont(ofSize: 20)
-       
         return textField
     }()
     
@@ -137,7 +141,6 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.viewDidLoad()
-        
         configureConstraints()
         toAccountAciton.addTarget(self, action: #selector(toAccount), for: .touchUpInside)
         logoutButton.addTarget(self, action: #selector(logOutButtonAction), for: .touchUpInside)
@@ -187,6 +190,7 @@ class ProfileViewController: UIViewController {
         view.addSubview(toAccountAciton)
        view.addSubview(saveButton)
        view.addSubview(logoutButton)
+       view.addSubview(indicator)
        
        
         profileAvatarImageView.snp.makeConstraints { make in
@@ -267,6 +271,11 @@ class ProfileViewController: UIViewController {
            make.width.equalTo(180)
            make.height.equalTo(50)
        }
+       
+       indicator.snp.makeConstraints { make in
+           make.centerX.equalTo(self.view.safeAreaLayoutGuide.snp.centerX)
+           make.centerY.equalTo(self.view.safeAreaLayoutGuide.snp.centerY)
+       }
         
         
         
@@ -281,6 +290,8 @@ class ProfileViewController: UIViewController {
 }
 
 extension ProfileViewController : ProfileViewInterface{
+   
+    
     func prepareTabbarHidden(isHidden: Bool) {
         tabBarController?.tabBar.isHidden = isHidden
     }
@@ -299,5 +310,13 @@ extension ProfileViewController : ProfileViewInterface{
             emailTextField.text =  info[0].email
             
         }
+    }
+    
+    func indicatoView(animate: Bool) {
+        DispatchQueue.main.async { [weak self] in
+                   guard let self = self else { return }
+                   animate ? self.indicator.startAnimating() : self.indicator.stopAnimating()
+            self.indicator.isHidden = !animate
+               }
     }
 }

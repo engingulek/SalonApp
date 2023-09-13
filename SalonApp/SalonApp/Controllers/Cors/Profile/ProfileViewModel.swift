@@ -52,28 +52,28 @@ final class ProfileViewModel : ProfileViewModelInterface {
             }
         }catch{
             view?.userInfoData(userInfo: nil, isHidden: true)
-            print("Veri okurken hata oluştu")
         }
     }
     
     private func updateUser(id:Int,imageUrl:String,name:String,surname:String,email:String,currentPass:String,newPass:String){
         let params:[String:Any] = ["id":id,"name":name,"surname":surname,"email":email,"password":currentPass,"newPassword":newPass]
+        view?.indicatoView(animate: true)
         serviceManager?.updateProfile(parameters: params, completion: { result in
             switch result {
-            case .success(let success):
-                print(success.data)
-            case .failure(let failure):
-                print(failure.localizedDescription)
+            case .success:
+                self.view?.indicatoView(animate: false)
+            case .failure: break
             }
+            self.view?.indicatoView(animate: false)
         })
-
-        
     }
     
 
     func updateProfile(imageUrl:String,name:String,surname:String,email:String,currentPass:String,newPass:String) {
-        print("\(userInfo[0].id)")
-        updateUser(id: Int(userInfo[0].id), imageUrl: imageUrl, name: name, surname: surname, email: email, currentPass: currentPass, newPass: newPass)
+        updateUser(id: Int(userInfo[0].id), imageUrl: imageUrl,
+                   name: name, surname: surname,
+                   email: email, currentPass: currentPass,
+                   newPass: newPass)
     }
     
     func logout() {
@@ -82,8 +82,5 @@ final class ProfileViewModel : ProfileViewModelInterface {
         appDelegate.saveContext()
         self.view?.tabbarSelectedIndex(at: 0)
     }
-    
-    
-    
     
 }

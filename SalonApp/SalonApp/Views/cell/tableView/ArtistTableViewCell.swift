@@ -139,13 +139,13 @@ class ArtistTableViewCell: UITableViewCell {
        delegate.selectBookmarkIcon(indexPathRow: indexPathRow!)
     }
     
-    func configureData(topArtist:TopArtist,iconType:String){
-        artistCellImage.kf.setImage(with: URL(string: topArtist.imageUrl))
-        ratingLabel.text = "\(topArtist.rating)"
-        artistNameLabel.text = topArtist.name
-        baseServiceNameLabel.text = topArtist.bestService
-        locaitonLabel.text = topArtist.locationcity
-        priceLabel.text = "$\(topArtist.pay)"
+    func configureData(artist:Artist,iconType:String){
+        artistCellImage.kf.setImage(with: URL(string: artist.imageUrl))
+        ratingLabel.text = "\(artist.rating)"
+        artistNameLabel.text = artist.name
+        baseServiceNameLabel.text = artist.bestService
+        locaitonLabel.text = artist.locationcity
+        priceLabel.text = "$\(artist.pay)"
         icon.setImage(UIImage(systemName: iconType), for: .normal)
        
         

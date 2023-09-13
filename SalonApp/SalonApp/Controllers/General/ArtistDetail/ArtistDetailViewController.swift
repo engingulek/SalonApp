@@ -147,8 +147,6 @@ class ArtistDetailViewController: UIViewController {
 
 extension ArtistDetailViewController : ArtistDetailViewInterface {
 
-
-
     func prepareTableView() {
         commentTableView.delegate = self
         commentTableView.dataSource = self
@@ -185,7 +183,6 @@ extension ArtistDetailViewController : ArtistDetailViewInterface {
     
     func indicatorView(animate: Bool) {
         DispatchQueue.main.async { [weak self] in
-
                    guard let self = self else { return }
                    animate ? self.indicator.startAnimating() : self.indicator.stopAnimating()
                    self.indicator.isHidden = !animate

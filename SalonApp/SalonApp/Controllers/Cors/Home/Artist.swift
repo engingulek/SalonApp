@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TopArtist:Decodable {
+struct Artist:Decodable {
     let id: Int
     let imageUrl:String
     let rating : Double
