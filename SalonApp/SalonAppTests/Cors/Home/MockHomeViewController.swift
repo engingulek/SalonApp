@@ -6,19 +6,11 @@
 //
 
 @testable import SalonApp
-import UIKit
+import UIKit.UIViewController
 
 final class MockHomeViewController : HomeViewInterface {
     
-    var invokedIndicatorViewTopService = false
-    var invokedIndicatorViewTopServiceCount = 0
-    var invokedIndicatorViewTopServiceList = [(animate:Bool,Void)]()
-    func indicatorViewTopService(animate: Bool) {
-         invokedIndicatorViewTopService = true
-         invokedIndicatorViewTopServiceCount += 1
-        invokedIndicatorViewTopServiceList.append((animate:animate,()))
-    }
-    
+  
     var invokedIndicatorViewTopArtist = false
     var invokedIndicatorViewTopArtistCount = 0
     var invokedIndicatorViewTopArtistList = [(animate:Bool,Void)]()
@@ -28,14 +20,13 @@ final class MockHomeViewController : HomeViewInterface {
        invokedIndicatorViewTopArtistList.append((animate:animate,()))
     }
     
+    
     var invokedSetBackroundColor = false
     var involedBackColor:String! = nil
     func setBackgroundColor(_ color: String) {
         invokedSetBackroundColor = true
        involedBackColor = color
     }
-    
-   
     
    
     var invokedPushViewController = false
@@ -72,7 +63,6 @@ final class MockHomeViewController : HomeViewInterface {
     
     var invokedSearchTextField = false
     var invokedSearchTextFieldCount = 0
-   // var invokedSearchTextField : (identifier: String,Void)?
     var invokedSearchTextFieldList = [(text:String,Void)]()
     
     func prepareTextFieldController(text: String) {
@@ -91,11 +81,15 @@ final class MockHomeViewController : HomeViewInterface {
          invokedReloadTableViewData = true
          invokedReloadDataTableViewCount += 1
     }
+ 
+    var invokedHeadViewInfo =  false
+    var invokedHeadViewInfoCount = 0
+    var invokedHeadViewInfoData = [(name:String,imageUrl:String)]()
     
-    func prepareNavigationBarCollor(colorText: String) { }
-    
-    
-    
-    
+    func headViewInfo(name: String, imageUrl: String) {
+        invokedHeadViewInfo = true
+        invokedHeadViewInfoCount += 1
+        invokedHeadViewInfoData.append((name:name,imageUrl:imageUrl))
+    }
     
 }

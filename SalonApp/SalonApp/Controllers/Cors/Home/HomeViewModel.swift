@@ -22,38 +22,38 @@ protocol HomeViewModelInterface {
     
 }
 
-private let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
 
 final class HomeViewModel  {
-    private let context = appDelegate.persistentContainer.viewContext
+   
     
     private weak var view: HomeViewInterface?
     private let servisManager : HomePageServiceInterface
     private var topArtistList : [Artist] = []
     private var bookMarkListArtist : [BookMarkListArtist] = []
-    private var userInfo : [UserInfo] = []
+    private var userInfo : [User] = []
     
     init(view: HomeViewInterface,servisManager: HomePageServiceInterface = HomePageService.shared) {
         self.view = view
         self.servisManager = servisManager
     }
+
     
     /// Retrieving currently active user information from core data
     func fetchUserInfo(){
-        do{
-            userInfo = try context.fetch(UserInfo.fetchRequest())
-        }catch{
-            userInfo = []
-        }
-        
-        if userInfo.isEmpty {
-            view?.headViewInfo(name: "Enter Sing In", imageUrl: "")
-        }else{
-            if let name = userInfo[0].name, let surname = userInfo[0].surname {
-                let nameSurname = "\(name) \(surname)"
-                view?.headViewInfo(name: nameSurname, imageUrl: "")
-            }else{
-                view?.headViewInfo(name: "", imageUrl: "")
+        servisManager.fetchUserInfo { response in
+            switch response {
+            case .success(let info):
+                if info.isEmpty {
+                    self.view?.headViewInfo(name: "Enter Sing In", imageUrl: "")
+                }else{
+                    self.userInfo = info
+                    let name = info[0].name
+                    let surname = info[0].surname
+                    self.view?.headViewInfo(name: "\(String(describing: name)) \(String(describing:surname ))", imageUrl: "")
+                }
+            case .failure:
+                self.view?.headViewInfo(name: "Enter Sing In", imageUrl: "")
             }
         }
     }
@@ -148,7 +148,6 @@ extension HomeViewModel : HomeViewModelInterface{
     
     func viewWillDisappear() {
         view?.prepareTextFieldController(text: "")
-      
     }
     
     /// textFieldDidChange -- There are scripts required to switch to the search page.

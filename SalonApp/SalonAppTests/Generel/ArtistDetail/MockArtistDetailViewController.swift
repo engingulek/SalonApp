@@ -9,9 +9,7 @@ import Foundation
 @testable import SalonApp
 import UIKit.UIViewController
 final class MockArtistDetailViewController : ArtistDetailViewInterface{
-    func navigationItemTitle(title: String) {
-        
-    }
+   
     
     var invokedSetBackroundColor = false
     
@@ -84,12 +82,21 @@ final class MockArtistDetailViewController : ArtistDetailViewInterface{
     var invokedReloadDataTableViewCount = 0
     
     func reloadDataTableView() {
-        
          invokedReloadTableViewData = true
          invokedReloadDataTableViewCount += 1
     }
-      func getArtistDetail() {}
-    func popViewControllerAble() {}
+    
+    var invokedItemTitle = false
+    var invokedItemTitleData : String = ""
+    func navigationItemTitle(title: String) {
+        invokedItemTitle = true
+        invokedItemTitleData = title
+    }
+    
+    
+    func navigationPopViewController() {}
+    func getArtistDetail() {}
+    
     
     
     

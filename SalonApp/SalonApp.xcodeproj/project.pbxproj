@@ -392,9 +392,9 @@
 		7DA9933C2A6AC0C30053B022 /* SalonAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				7DB780EF2AA8D4DA00A81572 /* Search */,
-				7D63F4352A9D200A00A7799B /* Home */,
-				7D63F4362A9D201700A7799B /* ArtistDetail */,
+				7DF1D54A2AB3613700E205B8 /* Cors */,
+				7DF1D5492AB3612300E205B8 /* Generel */,
+				7DF1D5462AB3610000E205B8 /* Onboarding */,
 				7DA9933D2A6AC0C30053B022 /* SalonAppTests.swift */,
 			);
 			path = SalonAppTests;
@@ -477,6 +477,62 @@
 				7DC1B3AA2AABD1D9008C3912 /* BookMarkListArtist.swift */,
 			);
 			path = BookMarkList;
+			sourceTree = "<group>";
+		};
+		7DF1D5442AB360E700E205B8 /* Profil */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Profil;
+			sourceTree = "<group>";
+		};
+		7DF1D5452AB360F000E205B8 /* BookMarkList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BookMarkList;
+			sourceTree = "<group>";
+		};
+		7DF1D5462AB3610000E205B8 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				7DF1D5482AB3611300E205B8 /* Login */,
+				7DF1D5472AB3610B00E205B8 /* Register */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		7DF1D5472AB3610B00E205B8 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		7DF1D5482AB3611300E205B8 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		7DF1D5492AB3612300E205B8 /* Generel */ = {
+			isa = PBXGroup;
+			children = (
+				7DB780EF2AA8D4DA00A81572 /* Search */,
+				7D63F4362A9D201700A7799B /* ArtistDetail */,
+			);
+			path = Generel;
+			sourceTree = "<group>";
+		};
+		7DF1D54A2AB3613700E205B8 /* Cors */ = {
+			isa = PBXGroup;
+			children = (
+				7DF1D5452AB360F000E205B8 /* BookMarkList */,
+				7DF1D5442AB360E700E205B8 /* Profil */,
+				7D63F4352A9D200A00A7799B /* Home */,
+			);
+			path = Cors;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -127,6 +127,7 @@ extension SearchViewModel : SearchViewModelInterface  {
         view?.prepareColllectionView()
         view?.setBackgroundColor("backColor")
         view?.prepareNavigationBarCollor(colorText: "black")
+        view?.navigationItemTitle(title: "Search")
     }
     
     func searchAction(searchText: String) {

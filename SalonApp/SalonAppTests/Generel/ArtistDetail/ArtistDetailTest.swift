@@ -36,12 +36,17 @@ final class ArtistDetailTest: XCTestCase {
         XCTAssertFalse(serviceManager.invokedFetchArtistDetail)
         XCTAssertFalse(view.invokedPrepareTableView)
        
-        
         viewModel.viewDidLoad(artistId: 0)
         
         XCTAssertEqual(serviceManager.invokedFetchArtistDetailCount, 1)
         XCTAssertEqual(view.involedPrepareTableViewCount, 1)
        
+    }
+    
+    func test_navigationItemTitl_ReturnArtistDetail(){
+        XCTAssertFalse(view.invokedItemTitle)
+        viewModel.viewDidLoad(artistId: 1)
+        XCTAssertEqual(view.invokedItemTitleData, "Artist Detail")
     }
     
     func test_viewDidLoad_invokedPrepareTabbbarHidden(){

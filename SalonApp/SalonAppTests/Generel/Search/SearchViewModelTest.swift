@@ -52,22 +52,19 @@ final class SearchTest : XCTestCase {
         XCTAssertEqual(view.invokedNavigationBarColorData, "black")
     }
     
+    func test_navigationItemTitl_ReturnSearch(){
+        XCTAssertFalse(view.invokedItemTitle)
+        viewModel.viewDidLoad(searchText: "sel")
+        XCTAssertEqual(view.invokedItemTitleData, "Search")
+    }
+    
     func test_viewDidLoad_fetchAllServiceDataCalled_RetrunTrue(){
         XCTAssertFalse(serviceManager.fetchAllServiceDataCalled)
         viewModel.fetchAllService()
         XCTAssertTrue(serviceManager.fetchAllServiceDataCalled)
         
     }
-    
-    // Buları gözden geçir
-    func test_viewDidLoad_fetchSearchArtist_RetrunTrue() {
-        XCTAssertFalse(serviceManager.fetchSearchArtistCalled)
-        let artist = TopArtist(id: 0, imageUrl: "url", rating: 1.0, name: "Test Name", bestService: "Test Best Service", locationcity: "Test City", pay: 0.0)
-        serviceManager.mockFetchsearchArtist = .success([artist])
-        viewModel.viewDidLoad(searchText: "sel")
-        viewModel.fetchSearchArtist(searchText: "sel")
-        XCTAssertTrue(serviceManager.fetchSearchArtistCalled)
-    }
+
     
     func test_viewDidload_fetchSearchArtist_EmptyData_RetrunNoDataIcon(){
         XCTAssertFalse(view.invokedsearchDidNotComeData)

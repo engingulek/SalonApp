@@ -10,8 +10,6 @@ import UIKit
 
 final class MockSearchViewController : SearchViewInterface {
     
-    
-    
     var invokedPrepareCollectionView = false
     var invokedPrepareCollectionViewCount = 0
     func prepareColllectionView() {
@@ -72,6 +70,7 @@ final class MockSearchViewController : SearchViewInterface {
     var invokedsearchDidNotComeDataMessage : String!
     var invokedsearchDidNotComeDataIcon : String!
     
+    
     func searchDidNotComeData(message: String, icon: String) {
         invokedsearchDidNotComeData = true
         invokedsearchDidNotComeDataCount += 1
@@ -88,7 +87,18 @@ final class MockSearchViewController : SearchViewInterface {
          invokedonErrorSearchIcon  = icon
     }
     
-    func popViewControllerAble() {}
+    var invokedItemTitle = false
+    var invokedItemTitleData : String = ""
+    func navigationItemTitle(title: String) {
+        invokedItemTitle = true
+        invokedItemTitleData = title
+    }
+    
+    func navigationPopViewController() {
+        
+    }
+    
+   
     
     
 }

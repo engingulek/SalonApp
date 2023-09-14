@@ -72,20 +72,42 @@ final class HomeViewModelTest : XCTestCase {
   
     
     func test_fetchTopAritst_IndicatorViewAnimateStop_ReturnFalse(){
-        let artist = TopArtist(id: 0, imageUrl: "url", rating: 1.0, name: "Test Name", bestService: "Test Best Service", locationcity: "Test City", pay: 0.0)
+        let artist = Artist(id: 0, imageUrl: "url", rating: 1.0, name: "Test Name", bestService: "Test Best Service", locationcity: "Test City", pay: 0.0)
+      
+        
         serviceManager.mockFetchTopArtist = .success([artist])
         viewModel.fetchTopArtists()
         XCTAssertEqual(view.invokedIndicatorViewTopArtistList.map(\.animate), [false])
         
     }
     
+    func test_fetchUserInfo_headViewInfo_didNotUser_ReturnEnterSingIn(){
+        XCTAssertTrue(view.invokedHeadViewInfoData.isEmpty)
+        
+        serviceManager.mockFetchUserInfo = .success([])
+        viewModel.fetchUserInfo()
+        
+        
+        let name = view.invokedHeadViewInfoData.map(\.name)
+        XCTAssertEqual(name, ["Enter Sing In"])
+    }
     
+    func test_fetchUserInfo_headViewInfo_DidUser_ReturnUsserNameSurname(){
+        XCTAssertTrue(view.invokedHeadViewInfoData.isEmpty)
+        let user = User(id: 1, name: "Name", surname: "Surname", email: "email", imageUrl: "imageurl")
+        
+        serviceManager.mockFetchUserInfo = .success([user])
+        viewModel.fetchUserInfo()
+        
+        let nameSurname = view.invokedHeadViewInfoData.map(\.name)
+        XCTAssertEqual(nameSurname, ["Name Surname"])
+    }
     
-    
+
     func test_didSelectRow_toArtistDetailViewController_pushViewController(){
         // given
         XCTAssertTrue(view.invokedPushViewControllerList.isEmpty)
-        let artist = TopArtist(id: 0, imageUrl: "url", rating: 1.0, name: "Test Name", bestService: "Test Best Service", locationcity: "Test City", pay: 0.0)
+        let artist = Artist(id: 0, imageUrl: "url", rating: 1.0, name: "Test Name", bestService: "Test Best Service", locationcity: "Test City", pay: 0.0)
         serviceManager.mockFetchTopArtist = .success([artist])
 
         //when
