@@ -76,13 +76,15 @@ final class HomeViewModel  {
     func fetchookMarkListArtist(){
         Task {
             @MainActor in
-            servisManager.fetchBookMarkList(userId: Int(userInfo[0].id)) { response in
-                switch response {
-                case .success(let list):
-                    self.bookMarkListArtist = list ?? []
-                    self.view?.reloadDataTableView()
-                case .failure(let failure):
-                    print(failure.localizedDescription)
+            if !userInfo.isEmpty {
+                servisManager.fetchBookMarkList(userId: Int(userInfo[0].id )) { response in
+                    switch response {
+                    case .success(let list):
+                        self.bookMarkListArtist = list ?? []
+                        self.view?.reloadDataTableView()
+                    case .failure(let failure):
+                        print(failure.localizedDescription)
+                    }
                 }
             }
         }
@@ -124,12 +126,11 @@ extension HomeViewModel : HomeViewModelInterface{
     
     func viewDidLoad() {
         view?.indicatoViewTopArtist(animate: true)
-        Task {
-            @MainActor in
-            self.fetchTopArtists()
-            self.fetchookMarkListArtist()
-            fetchUserInfo()
-        }
+        fetchUserInfo()
+        self.fetchTopArtists()
+        self.fetchookMarkListArtist()
+        fetchUserInfo()
+        
         
         view?.setBackgroundColor("backColor")
         view?.prepareTableView()
