@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 class ArtistDetailView: UIView {
     private let artistCellImage : UIImageView = {
         let imageView = UIImageView()
@@ -110,6 +111,7 @@ class ArtistDetailView: UIView {
         baseServiceNameLabel.text = artistDetail.bestService
         locaitonLabel.text = artistDetail.locationcity
         priceLabel.text = "$\(artistDetail.pay)"
+        artistCellImage.kf.setImage(with: URL(string: artistDetail.imageUrl))
       
     }
     
