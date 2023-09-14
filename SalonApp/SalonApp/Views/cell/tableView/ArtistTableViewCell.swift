@@ -33,17 +33,15 @@ class ArtistTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.image =  UIImage(systemName: "star.fill")
         imageView.tintColor = UIColor.orange
-        
         return imageView
     }()
     
-    let bookmarkIcon : UIImageView = {
-        let imageView = UIImageView()
-        imageView.image =  UIImage(systemName: "bookmark")
-        imageView.tintColor = UIColor.orange
-
-        imageView.isUserInteractionEnabled = true
-        return imageView
+    let icon : UIButton = {
+        
+        let button =  UIButton()
+        button .isUserInteractionEnabled = true
+        button.tintColor = .orange
+        return button
     }()
     
     private let ratingLabel : UILabel = {
@@ -113,12 +111,14 @@ class ArtistTableViewCell: UITableViewCell {
         contentView.addSubview(locaitonLabel)
         contentView.addSubview(priceLabel)
         contentView.addSubview(priceType)
-        contentView.addSubview(bookmarkIcon)
+        contentView.addSubview(icon)
         self.contentView.backgroundColor = .white
         self.contentView.layer.cornerRadius = 10
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tapBookmarkIcon(_:)))
         
-        self.bookmarkIcon.addGestureRecognizer(tap)
+        icon.addTarget(self, action: #selector(tapBookmarkIcon), for: .touchUpInside)
+      
+        
+       
      
 
         configureConstraints()
@@ -134,18 +134,20 @@ class ArtistTableViewCell: UITableViewCell {
           self.contentView.frame = self.contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 10, bottom: bottomSpace, right: 10))
      }
     
-   @objc func tapBookmarkIcon(_ sender: UITapGestureRecognizer){
+   @objc func tapBookmarkIcon(){
        guard let delegate = cellDelegate else {return}
        delegate.selectBookmarkIcon(indexPathRow: indexPathRow!)
     }
     
-    func configureData(topArtist:TopArtist){
-        artistCellImage.kf.setImage(with: URL(string: topArtist.imageUrl))
-        ratingLabel.text = "\(topArtist.rating)"
-        artistNameLabel.text = topArtist.name
-        baseServiceNameLabel.text = topArtist.bestService
-        locaitonLabel.text = topArtist.locationcity
-        priceLabel.text = "$\(topArtist.pay)"
+    func configureData(artist:Artist,iconType:String){
+        artistCellImage.kf.setImage(with: URL(string: artist.imageUrl))
+        ratingLabel.text = "\(artist.rating)"
+        artistNameLabel.text = artist.name
+        baseServiceNameLabel.text = artist.bestService
+        locaitonLabel.text = artist.locationcity
+        priceLabel.text = "$\(artist.pay)"
+        icon.setImage(UIImage(systemName: iconType), for: .normal)
+       
         
     }
     
@@ -159,7 +161,7 @@ class ArtistTableViewCell: UITableViewCell {
             make.height.equalTo(self.contentView.layer.frame.width / 2)
         }
         
-        bookmarkIcon.snp.makeConstraints { make in
+        icon.snp.makeConstraints { make in
             make.top.equalTo(self.contentView.safeAreaLayoutGuide.snp.top).offset(10)
             make.trailing.equalTo(self.contentView.safeAreaLayoutGuide.snp.trailing).offset(-15)
             make.width.equalTo(18)
