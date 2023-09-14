@@ -25,7 +25,7 @@ final class MockHomeViewController : HomeViewInterface {
     var involedBackColor:String! = nil
     func setBackgroundColor(_ color: String) {
         invokedSetBackroundColor = true
-       involedBackColor = color
+        involedBackColor = color
     }
     
    

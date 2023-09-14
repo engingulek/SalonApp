@@ -13,13 +13,13 @@ protocol HomePageServiceInterface {
     func fetchBookMarkList(userId: Int, completion: @escaping (Result<[BookMarkListArtist]?, Error>) -> ())
     func addArtistToBookMarkList(parameters:[String:Any],completion:@escaping(Result<MessageResult,Error>)->())
     func deleteArtistToBookMarkList(id:Int,completion:@escaping(Result<MessageResult,Error>)->())
-    func fetchUserInfo(completion:@escaping(Result<[User],Error>)->())
+    //func fetchUserInfo(completion:@escaping(Result<[User],Error>)->())
 
 }
 
-private let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
 final class HomePageService :  HomePageServiceInterface{
-    private let context = appDelegate.persistentContainer.viewContext
+    
     static let shared = HomePageService()
     
     /// Fetch Book Mark List -- for icon type
@@ -89,24 +89,4 @@ final class HomePageService :  HomePageServiceInterface{
             }
         }
     }
-    
-    
-    func fetchUserInfo(completion: @escaping (Result<[User], Error>) -> ()) {
-        var userInfo : [UserInfo] = []
-        do{
-            if userInfo.isEmpty {
-                completion(.success([]))
-            }else{
-                userInfo = try context.fetch(UserInfo.fetchRequest())
-                let user = User(id: Int(userInfo[0].id ), name: userInfo[0].name ?? "", surname: userInfo[0].surname ?? "", email: userInfo[0].email ?? "", imageUrl: userInfo[0].imageurl ?? "")
-                completion(.success([user]))
-            }
-           
-        }catch{
-            completion(.failure(error))
-        }
-        
-        
-    }
-    
 }
