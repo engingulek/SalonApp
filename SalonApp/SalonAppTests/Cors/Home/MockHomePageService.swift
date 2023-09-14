@@ -11,20 +11,9 @@ import Foundation
 final class MockHomePageService : HomePageServiceInterface {
     
     
-    
-    var mockFetchUserInfo : Result<[User],Error>?
     var mockFetchTopArtist : Result<[Artist]?, Error>?
     var mockFetchBookMarkList : Result<[BookMarkListArtist]?,Error>?
     var mockMessageResult : Result<MessageResult, Error>?
-    
-
-    func fetchUserInfo(completion: @escaping (Result<[SalonApp.User], Error>) -> ()) {
-        if let result = mockFetchUserInfo {
-            completion(result)
-        }
-    }
-    
-  
     
     func fetchTopArtists(completion: @escaping (Result<[SalonApp.Artist]?, Error>) -> ())  {
         if let result = mockFetchTopArtist {

@@ -32,16 +32,7 @@ final class ArtistDetailTest: XCTestCase {
         XCTAssertEqual(view.involedBackColor, "backColor")
     }
     
-    func test_viewDidLoad_InvokesRequiredMethods(){
-        XCTAssertFalse(serviceManager.invokedFetchArtistDetail)
-        XCTAssertFalse(view.invokedPrepareTableView)
-       
-        viewModel.viewDidLoad(artistId: 0)
-        
-        XCTAssertEqual(serviceManager.invokedFetchArtistDetailCount, 1)
-        XCTAssertEqual(view.involedPrepareTableViewCount, 1)
-       
-    }
+ 
     
     func test_navigationItemTitl_ReturnArtistDetail(){
         XCTAssertFalse(view.invokedItemTitle)

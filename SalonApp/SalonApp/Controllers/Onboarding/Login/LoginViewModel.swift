@@ -30,12 +30,8 @@ final class LoginViewModel {
         let parameters = ["email" : email,"password":password]
         print(parameters)
         serviceManager.loginUser(parameters:parameters) { response in
-            print("hata 5")
             switch response {
-                 
             case .success(let success):
-             
-             
                 if success.success{
                     if let user = success.data {
                         let userSave =  UserInfo(context: self.context)
@@ -49,6 +45,8 @@ final class LoginViewModel {
                     self.view?.navigationPopViewController()
                     self.view?.navigationPopViewController()
                     self.view?.tabbarSelectedIndex(at: 0)
+                    
+                    self.view?.singError(isHidden: true, message: "")
                 }else{
                     self.view?.singError(isHidden: false, message: "Email or password is incorrect")
                  

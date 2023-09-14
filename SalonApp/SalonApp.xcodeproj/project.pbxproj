@@ -75,6 +75,9 @@
 		7DF1D54C2AB36E3800E205B8 /* MockBookMarkListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1D54B2AB36E3800E205B8 /* MockBookMarkListViewController.swift */; };
 		7DF1D54E2AB3726B00E205B8 /* MockBookMarkListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1D54D2AB3726B00E205B8 /* MockBookMarkListService.swift */; };
 		7DF1D5502AB3748900E205B8 /* BookMarkListViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1D54F2AB3748900E205B8 /* BookMarkListViewModelTest.swift */; };
+		7DF1D5522AB3837600E205B8 /* MockLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1D5512AB3837600E205B8 /* MockLoginViewController.swift */; };
+		7DF1D5542AB385F400E205B8 /* MockLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1D5532AB385F400E205B8 /* MockLoginService.swift */; };
+		7DF1D5562AB3868700E205B8 /* LoginViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF1D5552AB3868700E205B8 /* LoginViewModelTest.swift */; };
 		7DFCB5FF2A6E82DA00109CB5 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DFCB5FE2A6E82DA00109CB5 /* CommentTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -165,6 +168,9 @@
 		7DF1D54B2AB36E3800E205B8 /* MockBookMarkListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBookMarkListViewController.swift; sourceTree = "<group>"; };
 		7DF1D54D2AB3726B00E205B8 /* MockBookMarkListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBookMarkListService.swift; sourceTree = "<group>"; };
 		7DF1D54F2AB3748900E205B8 /* BookMarkListViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookMarkListViewModelTest.swift; sourceTree = "<group>"; };
+		7DF1D5512AB3837600E205B8 /* MockLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLoginViewController.swift; sourceTree = "<group>"; };
+		7DF1D5532AB385F400E205B8 /* MockLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLoginService.swift; sourceTree = "<group>"; };
+		7DF1D5552AB3868700E205B8 /* LoginViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTest.swift; sourceTree = "<group>"; };
 		7DFCB5FE2A6E82DA00109CB5 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -398,9 +404,9 @@
 		7DA9933C2A6AC0C30053B022 /* SalonAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				7DF1D5462AB3610000E205B8 /* Onboarding */,
 				7DF1D54A2AB3613700E205B8 /* Cors */,
 				7DF1D5492AB3612300E205B8 /* Generel */,
-				7DF1D5462AB3610000E205B8 /* Onboarding */,
 				7DA9933D2A6AC0C30053B022 /* SalonAppTests.swift */,
 			);
 			path = SalonAppTests;
@@ -485,13 +491,6 @@
 			path = BookMarkList;
 			sourceTree = "<group>";
 		};
-		7DF1D5442AB360E700E205B8 /* Profil */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Profil;
-			sourceTree = "<group>";
-		};
 		7DF1D5452AB360F000E205B8 /* BookMarkList */ = {
 			isa = PBXGroup;
 			children = (
@@ -506,21 +505,16 @@
 			isa = PBXGroup;
 			children = (
 				7DF1D5482AB3611300E205B8 /* Login */,
-				7DF1D5472AB3610B00E205B8 /* Register */,
 			);
 			path = Onboarding;
-			sourceTree = "<group>";
-		};
-		7DF1D5472AB3610B00E205B8 /* Register */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Register;
 			sourceTree = "<group>";
 		};
 		7DF1D5482AB3611300E205B8 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				7DF1D5512AB3837600E205B8 /* MockLoginViewController.swift */,
+				7DF1D5532AB385F400E205B8 /* MockLoginService.swift */,
+				7DF1D5552AB3868700E205B8 /* LoginViewModelTest.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -537,9 +531,8 @@
 		7DF1D54A2AB3613700E205B8 /* Cors */ = {
 			isa = PBXGroup;
 			children = (
-				7DF1D5452AB360F000E205B8 /* BookMarkList */,
-				7DF1D5442AB360E700E205B8 /* Profil */,
 				7D63F4352A9D200A00A7799B /* Home */,
+				7DF1D5452AB360F000E205B8 /* BookMarkList */,
 			);
 			path = Cors;
 			sourceTree = "<group>";
@@ -741,11 +734,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DB780F52AA8E03700A81572 /* SearchViewModelTest.swift in Sources */,
+				7DF1D5542AB385F400E205B8 /* MockLoginService.swift in Sources */,
 				7D63F43C2A9D257200A7799B /* MockArtistDetailViewController.swift in Sources */,
+				7DF1D5522AB3837600E205B8 /* MockLoginViewController.swift in Sources */,
 				7D1A10552A937B5500A48C48 /* MockHomeViewController.swift in Sources */,
 				7D63F4382A9D203F00A7799B /* ArtistDetailTest.swift in Sources */,
 				7DF1D5502AB3748900E205B8 /* BookMarkListViewModelTest.swift in Sources */,
 				7DB780F12AA8D4F700A81572 /* MockSearchService.swift in Sources */,
+				7DF1D5562AB3868700E205B8 /* LoginViewModelTest.swift in Sources */,
 				7DF1D54E2AB3726B00E205B8 /* MockBookMarkListService.swift in Sources */,
 				7DB780F32AA8D5D000A81572 /* MockSearchViewController.swift in Sources */,
 				7D1A10572A93849200A48C48 /* MockHomePageService.swift in Sources */,

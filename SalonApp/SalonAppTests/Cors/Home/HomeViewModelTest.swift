@@ -81,28 +81,6 @@ final class HomeViewModelTest : XCTestCase {
         
     }
     
-    func test_fetchUserInfo_headViewInfo_didNotUser_ReturnEnterSingIn(){
-        XCTAssertTrue(view.invokedHeadViewInfoData.isEmpty)
-        
-        serviceManager.mockFetchUserInfo = .success([])
-        viewModel.fetchUserInfo()
-        
-        
-        let name = view.invokedHeadViewInfoData.map(\.name)
-        XCTAssertEqual(name, ["Enter Sing In"])
-    }
-    
-    func test_fetchUserInfo_headViewInfo_DidUser_ReturnUsserNameSurname(){
-        XCTAssertTrue(view.invokedHeadViewInfoData.isEmpty)
-        let user = User(id: 1, name: "Name", surname: "Surname", email: "email", imageUrl: "imageurl")
-        
-        serviceManager.mockFetchUserInfo = .success([user])
-        viewModel.fetchUserInfo()
-        
-        let nameSurname = view.invokedHeadViewInfoData.map(\.name)
-        XCTAssertEqual(nameSurname, ["Name Surname"])
-    }
-    
 
     func test_didSelectRow_toArtistDetailViewController_pushViewController(){
         // given

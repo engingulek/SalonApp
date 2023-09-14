@@ -66,9 +66,8 @@ final class BookMarkListViewModelTest: XCTestCase {
         
         let message =  view.invokedEmptyBookMarkListData.map(\.message)
         let isHidden = view.invokedEmptyBookMarkListData.map(\.isHidden)
-        print(message)
-        
-       
+        XCTAssertEqual(message, ["Bookmark List is Empty"])
+        XCTAssertEqual(isHidden, [true])
     }
     
     func test_didSelectItem_toArtistDetailViewController_pushViewController(){
