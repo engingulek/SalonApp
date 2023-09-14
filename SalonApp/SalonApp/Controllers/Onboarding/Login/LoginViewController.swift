@@ -183,9 +183,6 @@ extension LoginViewController : LoginViewInterface {
         emailalertMessageLabel.text = emailMes
         passwordalertMessageLabel.text = pasmessage
         
-        /*passwordTextField.layer.borderColor = UIColor(named: passcolor)?.cgColor
-        emailTextField.layer.borderColor = UIColor(named: emailColor)?.cgColor*/
-        
     }
     
 

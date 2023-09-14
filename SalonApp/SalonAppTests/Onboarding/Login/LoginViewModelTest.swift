@@ -71,6 +71,10 @@ final class LoginViewModelTest: XCTestCase {
         
         let isHidden = view.invokedsingErrorData.map(\.isHidden)
         let message = view.invokedsingErrorData.map(\.message)
+        
+        XCTAssertEqual(isHidden,[true])
+        XCTAssertEqual(message, [""])
+        
     
        
     }

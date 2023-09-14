@@ -13,8 +13,6 @@ protocol HomePageServiceInterface {
     func fetchBookMarkList(userId: Int, completion: @escaping (Result<[BookMarkListArtist]?, Error>) -> ())
     func addArtistToBookMarkList(parameters:[String:Any],completion:@escaping(Result<MessageResult,Error>)->())
     func deleteArtistToBookMarkList(id:Int,completion:@escaping(Result<MessageResult,Error>)->())
-    //func fetchUserInfo(completion:@escaping(Result<[User],Error>)->())
-
 }
 
 

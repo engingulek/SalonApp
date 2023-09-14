@@ -18,12 +18,10 @@ extension UITextField {
     }
     
     func texrFielLogin() {
-    
         self.autocapitalizationType = .none
         self.layer.borderColor = UIColor.black.cgColor
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 5
-      
         self.leftViewMode = .always
     }
     

@@ -76,7 +76,7 @@ final class HomeViewModel  {
     func fetchookMarkListArtist(){
         Task {
             @MainActor in
-            servisManager.fetchBookMarkList(userId: 1) { response in
+            servisManager.fetchBookMarkList(userId: Int(userInfo[0].id)) { response in
                 switch response {
                 case .success(let list):
                     self.bookMarkListArtist = list ?? []

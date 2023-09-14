@@ -63,9 +63,6 @@ final class LoginViewModel {
 
 extension LoginViewModel  : LoginViewModelInterface {
     
- 
-   
-    
     func viewDidLoad() {
         view?.setBackgroundColor("backColor")
         view?.prepareNavigationBarCollor(colorText: "black")
